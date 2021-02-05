@@ -1,5 +1,3 @@
-# react-swipeable-list
-
 <h1 align="center">react-swipeable-list</h1>
 <h4 align="center">A react control to render list with swipeable items.</h4>
 <p align="center">
@@ -15,10 +13,6 @@ JAko przykład ios z full swipem destructive !!!
 </p>
 
 <hr />
-
-[![Actions Status](https://github.com/marekrozmus/react-swipeable-list/workflows/Node%20CI/badge.svg)](https://github.com/marekrozmus/react-swipeable-list/actions)
-[![codecov](https://codecov.io/gh/marekrozmus/react-swipeable-list/branch/master/graph/badge.svg)](https://codecov.io/gh/marekrozmus/react-swipeable-list)
-![GitHub Release Date](https://img.shields.io/github/release-date/marekrozmus/react-swipeable-list)
 
 ## React Swipeable List component
 
