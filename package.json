@@ -1,0 +1,96 @@
+{
+  "name": "react-swipeable-list",
+  "description": "Swipeable list component for React",
+  "version": "0.0.1",
+  "author": {
+    "name": "Marek Rozmus",
+    "url": "https://github.com/marekrozmus/react-swipeable-list/graphs/contributors"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marekrozmus/react-swipeable-list"
+  },
+  "license": "MIT",
+  "keywords": [
+    "swipe",
+    "swipeable",
+    "list",
+    "react",
+    "component",
+    "customizable",
+    "mobile",
+    "ios",
+    "android",
+    "touchscreen"
+  ],
+  "main": "dist/react-swipeable-list.cjs.js",
+  "module": "dist/react-swipeable-list.esm.js",
+  "browser": "dist/react-swipeable-list.umd.js",
+  "peerDependencies": {
+    "prop-types": "^15.7.2",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  },
+  "devDependencies": {
+    "@babel/core": "7.11.6",
+    "@babel/plugin-proposal-class-properties": "7.10.4",
+    "@babel/plugin-transform-modules-commonjs": "7.10.4",
+    "@babel/preset-env": "7.11.5",
+    "@babel/preset-react": "7.10.4",
+    "@rollup/plugin-commonjs": "15.0.0",
+    "@rollup/plugin-node-resolve": "9.0.0",
+    "@testing-library/jest-dom": "5.11.4",
+    "@testing-library/react": "11.0.2",
+    "autoprefixer": "9.8.6",
+    "babel-eslint": "10.1.0",
+    "eslint": "7.8.1",
+    "eslint-config-prettier": "6.11.0",
+    "eslint-plugin-prettier": "3.1.4",
+    "eslint-plugin-react": "7.20.6",
+    "eslint-plugin-react-hooks": "4.1.0",
+    "husky": "4.2.5",
+    "identity-obj-proxy": "3.0.0",
+    "jest": "26.4.2",
+    "lint-staged": "10.3.0",
+    "prettier": "2.1.1",
+    "prop-types": "15.7.2",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "rollup": "2.26.10",
+    "rollup-plugin-babel": "4.4.0",
+    "rollup-plugin-copy": "3.3.0",
+    "rollup-plugin-local-resolve": "1.0.7",
+    "rollup-plugin-peer-deps-external": "2.2.3",
+    "rollup-plugin-postcss": "3.1.8",
+    "stylelint": "13.7.0",
+    "stylelint-config-standard": "20.0.0"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "lint": "eslint --ext .js --max-warnings=0 --cache ./",
+    "prepare": "npm run build",
+    "stylelint": "stylelint src/**/*.css examples/**/*.css --cache",
+    "prettier": "prettier src/**/*.js examples/**/*.js --check",
+    "test": "jest --no-cache"
+  },
+  "types": "dist/module.d.ts",
+  "files": [
+    "dist"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --write",
+      "eslint --fix",
+      "jest --bail --findRelatedTests"
+    ]
+  },
+  "dependencies": {
+    "clsx": "^1.1.1"
+  }
+}

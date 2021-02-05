@@ -1,0 +1,149 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.page-content__title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 16px;
+  margin-bottom: 0;
+}
+
+.page-content__subtitle {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0;
+  padding: 4px;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 0;
+  text-align: center;
+  margin-top: auto;
+}
+
+.footer__link,
+.footer__link:visited {
+  color: #0275d8;
+  text-decoration: none;
+}
+
+.footer__link:hover {
+  color: #0275d8;
+  text-decoration: underline;
+}
+
+.application {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.page-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  min-height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.page__action--title {
+  padding: 4px 0;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.page__action--value {
+  font-size: 12px;
+  padding-bottom: 4px;
+}
+
+.page__select {
+  height: 32px;
+  padding: 4px;
+  margin: 8px 16px;
+  font-size: 16px;
+  align-self: stretch;
+}
+
+.page__select:focus {
+  outline: none;
+}
+
+.page__button {
+  height: 32px;
+  padding: 4px 8px;
+  margin: 8px 16px;
+  font-size: 16px;
+}
+
+.page__summary {
+  padding: 16px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media screen and (min-device-width: 1200px) {
+  /* The device with borders */
+  .smartphone {
+    position: relative;
+    width: 360px;
+    height: 640px;
+    margin: auto;
+    border: 16px black solid;
+    border-top-width: 60px;
+    border-bottom-width: 60px;
+    border-radius: 36px;
+  }
+
+  /* The horizontal line on the top of the device */
+  .smartphone::before {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 5px;
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #333;
+    border-radius: 10px;
+  }
+
+  /* The circle on the bottom of the device */
+  .smartphone::after {
+    content: '';
+    display: block;
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    left: 50%;
+    bottom: -65px;
+    transform: translate(-50%, -50%);
+    background: #333;
+    border-radius: 50%;
+  }
+
+  /* The screen (or content) of the device */
+  .smartphone__content {
+    width: 360px;
+    height: 640px;
+    background: white;
+  }
+
+  .smartphone__footer {
+    padding: 56px 0;
+    margin-top: unset;
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "name": "react-swipeable-list-example",
+  "description": "Swipeable list component for React - usage example",
+  "version": "0.0.1",
+  "author": {
+    "name": "Marek Rozmus",
+    "url": "https://github.com/marekrozmus/react-swipeable-list/graphs/contributors"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marekrozmus/react-swipeable-list"
+  },
+  "homepage": "https://marekrozmus.github.io/react-swipeable-list/",
+  "license": "MIT",
+  "keywords": [
+    "swipe",
+    "swipeable",
+    "list",
+    "react",
+    "component",
+    "customizable",
+    "mobile",
+    "ios",
+    "android",
+    "touchscreen",
+    "example"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "predeploy": "webpack --mode production",
+    "start": "webpack-dev-server",
+    "start:dev": "webpack-dev-server --config webpack.config.dev.js",
+    "deploy": "gh-pages -d dist"
+  },
+  "devDependencies": {
+    "@babel/core": "7.11.6",
+    "@babel/plugin-proposal-class-properties": "7.10.4",
+    "@babel/preset-env": "7.11.5",
+    "@babel/preset-react": "7.10.4",
+    "autoprefixer": "9.8.6",
+    "babel-eslint": "10.1.0",
+    "babel-loader": "8.1.0",
+    "css-loader": "4.2.2",
+    "eslint": "7.8.1",
+    "eslint-config-prettier": "6.11.0",
+    "eslint-plugin-prettier": "3.1.4",
+    "eslint-plugin-react": "7.20.6",
+    "eslint-plugin-react-hooks": "4.1.0",
+    "file-loader": "^6.2.0",
+    "gh-pages": "3.1.0",
+    "html-webpack-plugin": "4.4.1",
+    "postcss-loader": "3.0.0",
+    "prettier": "2.1.1",
+    "style-loader": "1.2.1",
+    "stylelint": "13.7.0",
+    "stylelint-config-standard": "20.0.0",
+    "url-loader": "4.1.0",
+    "webpack": "4.44.1",
+    "webpack-cli": "3.3.12",
+    "webpack-dev-server": "3.11.0"
+  },
+  "dependencies": {
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "react-transition-group": "4.4.1",
+    "styled-components": "^5.2.1",
+    "uuid": "8.3.0"
+  }
+}

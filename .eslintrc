@@ -1,0 +1,30 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true,
+    "jest": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:prettier/recommended",
+    "plugin:react/recommended"
+  ],
+  "parser": "babel-eslint",
+  "plugins": ["react-hooks"],
+  "settings": {
+    "react": {
+      "version": "16.8"
+    }
+  },
+  "ignorePatterns": ["module.d.ts"],
+  "rules": {
+    "no-undef": "error",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "error",
+    "react/jsx-sort-props": [
+      "error",
+      { "callbacksLast": true, "shorthandFirst": true }
+    ]
+  }
+}

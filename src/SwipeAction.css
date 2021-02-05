@@ -1,0 +1,31 @@
+.swipe-action {
+  display: flex;
+  width: 100%;
+  align-items: stretch;
+}
+
+.swipe-action > * {
+  flex: 1;
+}
+
+.swipe-action__leading > * {
+  justify-content: flex-start;
+}
+
+.swipe-action__trailing > * {
+  justify-content: flex-end;
+}
+
+.swipe-action__leading--full-swipe-rest,
+.swipe-action__trailing--full-swipe-rest {
+  width: 0;
+  transition: width 0.2s;
+}
+
+.swipe-action__leading--full-swipe-main > * {
+  justify-content: flex-end;
+}
+
+.swipe-action__trailing--full-swipe-main > * {
+  justify-content: flex-start;
+}

@@ -1,0 +1,66 @@
+.swipeable-list-item {
+  position: relative;
+  transition: max-height 0.5s ease-in-out;
+  max-height: 1000px;
+  transform-origin: top;
+  overflow: hidden;
+  width: 100%;
+}
+
+.swipeable-list-item--remove {
+  max-height: 0;
+  transition: max-height 0.35s ease-out;
+}
+
+.swipeable-list-item__content {
+  width: 100%;
+  align-items: center;
+  box-sizing: border-box;
+  height: 100%;
+  display: flex;
+}
+
+.swipeable-list-item__content--return {
+  transition: transform 0.5s ease-in-out;
+}
+
+.swipeable-list-item__content--remove {
+  transition: transform 0.5s ease-in-out;
+}
+
+.swipeable-list-item__leading-actions {
+  position: absolute;
+  display: flex;
+  width: 0px;
+  overflow-x: hidden;
+  height: 100%;
+}
+
+.swipeable-list-item__leading-actions--return {
+  transition: width 0.5s ease-in-out;
+}
+
+.swipeable-list-item__leading-actions > * {
+  overflow-x: hidden;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.swipeable-list-item__trailing-actions {
+  display: flex;
+  width: 0px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  justify-content: flex-end;
+  overflow-x: hidden;
+  height: 100%;
+}
+
+.swipeable-list-item__trailing-actions--return {
+  transition: width 0.5s ease-in-out;
+}
+
+.swipeable-list-item__trailing-actions > * {
+  overflow-x: hidden;
+}
