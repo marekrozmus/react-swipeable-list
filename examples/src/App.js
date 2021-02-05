@@ -32,7 +32,7 @@ const App = () => {
   const [triggeredItemAction, setTriggeredItemAction] = React.useState('None');
 
   const [selectedExample, setSelectedExample] = React.useState(
-    Example.SIZE_TO_CONTENT
+    Example.IOS1ACTION
   );
 
   const setStatus = (id, status) => {
