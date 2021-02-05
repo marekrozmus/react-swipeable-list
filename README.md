@@ -96,6 +96,8 @@ Time in miliseconds after which swipe action should be called for `destructive` 
 
 Type: `object` (optional, deafult: `undefined`)
 
+Additional styles for list tag.
+
 ### type
 
 Type: `ListType (ANDROID | IOS)` (optional, deafult: `ANDROID`)
@@ -202,7 +204,9 @@ ANIMATION!!!
 
 ### onClick
 
-Type: `function` (optional??)
+Type: `function` (required)
+
+Callback function that should be call after swipe action is triggered.
 
 ### Tag
 
