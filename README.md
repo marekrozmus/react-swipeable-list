@@ -1,10 +1,8 @@
 <h1 align="center">react-swipeable-list</h1>
 <h4 align="center">A react control to render list with swipeable items.</h4>
 <p align="center">
-  <img src="docs/example.gif"></img>
+  <img src="docs/main.gif"></img>
 </p>
-
-JAko przykład ios z full swipem destructive !!!
 
 <p align="center">
   <a href="#demo">Demo</a> •
@@ -80,11 +78,11 @@ Type: `boolean` (optional, default: `false`)
 Changes behaviour of `IOS` list type.
 When `true` and swipe is done beyond `threshold` and released the action is triggered.
 
-!!! ANIMATION !!!
+<img src="docs/ios_fullswipe_on.gif"></img>
 
 When set to `false` actions are only opened and they need to be clicked to trigger action.
 
-!!! ANIMATION !!!
+<img src="docs/ios_fullswipe_off.gif"></img>
 
 ### destructiveCallbackDelay
 
@@ -106,11 +104,11 @@ Changes behavior of swipeable items.
 
 #### `ANDROID`
 
-!!! ANIMATION !!!
+<img src="docs/android.gif"></img>
 
 #### `IOS`
 
-!!! ANIMATION !!! dla full swipe i bez
+<img src="docs/main.gif"></img>
 
 ### Tag
 
@@ -199,8 +197,6 @@ It can be set for the whole list or for every item. See `threshold` for `Swipeab
 Type: `boolean` (optional, default: `false`)
 
 If set to `true` then remove animation is played and callback is called after `destructiveCallbackDelay`.
-
-ANIMATION!!!
 
 ### onClick
 
