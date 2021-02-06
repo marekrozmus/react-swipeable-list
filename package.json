@@ -43,6 +43,7 @@
     "@testing-library/react": "11.0.2",
     "autoprefixer": "9.8.6",
     "babel-eslint": "10.1.0",
+    "clsx": "^1.1.1",
     "eslint": "7.8.1",
     "eslint-config-prettier": "6.11.0",
     "eslint-plugin-prettier": "3.1.4",
@@ -74,7 +75,6 @@
     "prettier": "prettier src/**/*.js examples/**/*.js --check",
     "test": "jest --no-cache"
   },
-  "types": "dist/module.d.ts",
   "files": [
     "dist"
   ],
@@ -89,8 +89,5 @@
       "eslint --fix",
       "jest --bail --findRelatedTests"
     ]
-  },
-  "dependencies": {
-    "clsx": "^1.1.1"
   }
 }
