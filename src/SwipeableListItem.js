@@ -653,6 +653,7 @@ class SwipeableListItem extends PureComponent {
           )}
         <div
           className="swipeable-list-item__content"
+          data-testid="content"
           ref={this.bindListElement}
         >
           {children}
