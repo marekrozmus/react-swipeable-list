@@ -20,6 +20,8 @@ A react component to render list with swipeable items. Items can have one or mor
 
 Check [working example page](https://marekrozmus.github.io/react-swipeable-list/)
 
+[![Edit react-swipeable-list](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/marekrozmus/react-swipeable-list/tree/main/examples)
+
 ## Installation
 
 ```bash
