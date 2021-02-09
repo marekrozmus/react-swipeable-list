@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import PropTypes from 'prop-types';
 
 import { Type as ListType } from './SwipeableList';
 import { ItemContext } from './SwipeableListItem';
@@ -65,6 +66,16 @@ const SwipeAction = ({
       {children}
     </Tag>
   );
+};
+
+SwipeAction.propTypes = {
+  children: PropTypes.node,
+  destructive: PropTypes.bool,
+  main: PropTypes.bool,
+  leading: PropTypes.bool,
+  onClick: PropTypes.func,
+  trailing: PropTypes.bool,
+  Tag: PropTypes.string,
 };
 
 export default SwipeAction;

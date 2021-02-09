@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './SwipeableList.css';
 
@@ -32,5 +33,17 @@ const SwipeableList = ({
     )}
   </Tag>
 );
+
+SwipeableList.propTypes = {
+  children: PropTypes.node,
+  fullSwipe: PropTypes.bool,
+  destructiveCallbackDelay: PropTypes.number,
+  style: PropTypes.object,
+  type: PropTypes.oneOf(Object.values(Type)),
+  Tag: PropTypes.string,
+  scrollStartThreshold: PropTypes.number,
+  swipeStartThreshold: PropTypes.number,
+  threshold: PropTypes.number,
+};
 
 export default SwipeableList;

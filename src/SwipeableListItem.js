@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 
 import { Type as ListType } from './SwipeableList';
 import './SwipeableListItem.css';
@@ -644,7 +645,7 @@ class SwipeableListItem extends PureComponent {
     const { children, leadingActions, trailingActions } = this.props;
 
     return (
-      <div ref={this.bindWrapperElement} className="swipeable-list-item">
+      <div className="swipeable-list-item" ref={this.bindWrapperElement}>
         {leadingActions &&
           this.renderActions(
             leadingActions,
@@ -668,5 +669,21 @@ class SwipeableListItem extends PureComponent {
     );
   }
 }
+
+SwipeableListItem.propTypes = {
+  children: PropTypes.node,
+  fullSwipe: PropTypes.bool,
+  listType: PropTypes.oneOf(Object.values(ListType)),
+  onSwipeEnd: PropTypes.func,
+  onSwipeStart: PropTypes.func,
+  scrollStartThreshold: PropTypes.number,
+  swipeStartThreshold: PropTypes.number,
+  blockSwipe: PropTypes.bool,
+  threshold: PropTypes.number,
+  onSwipeProgress: PropTypes.func,
+  destructiveCallbackDelay: PropTypes.number,
+  leadingActions: PropTypes.node,
+  trailingActions: PropTypes.node,
+};
 
 export default SwipeableListItem;
