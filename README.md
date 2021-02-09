@@ -12,6 +12,9 @@
 
 <hr />
 
+[![codecov](https://codecov.io/gh/marekrozmus/react-swipeable-list/branch/main/graph/badge.svg?token=8P4356I2J0)](https://codecov.io/gh/marekrozmus/react-swipeable-list)
+![GitHub Release Date](https://img.shields.io/github/release-date/marekrozmus/react-swipeable-list)
+
 ## React Swipeable List component
 
 A react component to render list with swipeable items. Items can have one or more actions on left (leading) and right (trailing) swipe and different behaviour depending on props.
