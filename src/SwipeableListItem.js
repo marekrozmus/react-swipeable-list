@@ -363,6 +363,11 @@ class SwipeableListItem extends PureComponent {
   handleDragEnd = () => {
     if (this.isSwiping()) {
       const { leadingFullSwipe, trailingFullSwipe, triggerAction } = this.state;
+      const { onSwipeEnd } = this.props;
+
+      if (onSwipeEnd) {
+        onSwipeEnd();
+      }
 
       if (triggerAction) {
         if (leadingFullSwipe) {
@@ -389,10 +394,6 @@ class SwipeableListItem extends PureComponent {
       } else {
         this.resetState();
         this.playReturnAnimation();
-      }
-
-      if (this.props.onSwipeEnd) {
-        this.props.onSwipeEnd();
       }
     }
   };
@@ -537,32 +538,6 @@ class SwipeableListItem extends PureComponent {
       }
     }
 
-    if (fullSwipe) {
-      const {
-        listElement: { offsetWidth },
-      } = this;
-
-      const threshold = offsetWidth * fullSwipeThreshold;
-
-      if (this.left < -threshold) {
-        this.setState({
-          leadingFullSwipe: false,
-          trailingFullSwipe: true,
-          triggerAction: true,
-        });
-      } else if (this.left > threshold) {
-        this.setState({
-          leadingFullSwipe: true,
-          trailingFullSwipe: false,
-          triggerAction: true,
-        });
-      } else {
-        this.setState({
-          triggerAction: false,
-        });
-      }
-    }
-
     if (this.leadingActionsElement) {
       this.leadingActionsElement.style.width = `${
         this.left < 0 ? 0 : this.left
@@ -576,6 +551,32 @@ class SwipeableListItem extends PureComponent {
     }
 
     if (this.listElement) {
+      if (fullSwipe) {
+        const {
+          listElement: { offsetWidth },
+        } = this;
+
+        const threshold = offsetWidth * fullSwipeThreshold;
+
+        if (this.left < -threshold) {
+          this.setState({
+            leadingFullSwipe: false,
+            trailingFullSwipe: true,
+            triggerAction: true,
+          });
+        } else if (this.left > threshold) {
+          this.setState({
+            leadingFullSwipe: true,
+            trailingFullSwipe: false,
+            triggerAction: true,
+          });
+        } else {
+          this.setState({
+            triggerAction: false,
+          });
+        }
+      }
+
       this.listElement.style.transform = `translateX(${this.left}px)`;
 
       if (this.props.onSwipeProgress) {
@@ -623,7 +624,11 @@ class SwipeableListItem extends PureComponent {
     } = this;
 
     return (
-      <div className={`swipeable-list-item__${type}-actions`} ref={binder}>
+      <div
+        className={`swipeable-list-item__${type}-actions`}
+        data-testid={`${type}-actions`}
+        ref={binder}
+      >
         <ItemContext.Provider
           value={{
             destructiveCallbackDelay,
@@ -671,18 +676,18 @@ class SwipeableListItem extends PureComponent {
 }
 
 SwipeableListItem.propTypes = {
+  blockSwipe: PropTypes.bool,
   children: PropTypes.node,
+  destructiveCallbackDelay: PropTypes.number,
   fullSwipe: PropTypes.bool,
+  leadingActions: PropTypes.node,
   listType: PropTypes.oneOf(Object.values(ListType)),
   onSwipeEnd: PropTypes.func,
+  onSwipeProgress: PropTypes.func,
   onSwipeStart: PropTypes.func,
   scrollStartThreshold: PropTypes.number,
   swipeStartThreshold: PropTypes.number,
-  blockSwipe: PropTypes.bool,
   threshold: PropTypes.number,
-  onSwipeProgress: PropTypes.func,
-  destructiveCallbackDelay: PropTypes.number,
-  leadingActions: PropTypes.node,
   trailingActions: PropTypes.node,
 };
 

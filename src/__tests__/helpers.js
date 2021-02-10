@@ -1,4 +1,13 @@
-import { fireEvent } from '@testing-library/react';
+import React from 'react';
+import { render, cleanup, fireEvent } from '@testing-library/react';
+
+import {
+  LeadingActions,
+  SwipeableListItem,
+  SwipeAction,
+  TrailingActions,
+  Type as ListType,
+} from '../index';
 
 export const DELTA = 20;
 
@@ -74,38 +83,120 @@ export const makeTouchGesture = (container, directions) => {
   return point;
 };
 
-export const swipeLeftMouse = container => {
-  fireEvent.mouseDown(container, { clientX: 250, clientY: 20 });
-  fireEvent.mouseMove(container, { clientX: 100, clientY: 20 });
-  fireEvent.mouseUp(container, { clientX: 100, clientY: 20 });
+export const swipeLeftMouse = (container, by) => {
+  const startPoint = { clientX: 250, clientY: 20 };
+  const endPoint = { ...startPoint, clientX: startPoint.clientX - by };
+
+  fireEvent.mouseDown(container, startPoint);
+  fireEvent.mouseMove(container, endPoint);
+  fireEvent.mouseUp(container, endPoint);
 };
 
-export const swipeRightMouse = container => {
-  fireEvent.mouseDown(container, { clientX: 250, clientY: 20 });
-  fireEvent.mouseMove(container, { clientX: 350, clientY: 20 });
-  fireEvent.mouseUp(container, { clientX: 350, clientY: 20 });
+export const swipeRightMouse = (container, by = 100) => {
+  const startPoint = { clientX: 250, clientY: 20 };
+  const endPoint = { ...startPoint, clientX: startPoint.clientX + by };
+
+  fireEvent.mouseDown(container, startPoint);
+  fireEvent.mouseMove(container, endPoint);
+  fireEvent.mouseUp(container, endPoint);
 };
 
-export const swipeLeftTouch = container => {
+export const swipeLeftTouch = (container, by = 100) => {
+  const startPoint = { clientX: 250, clientY: 20 };
+  const endPoint = { ...startPoint, clientX: startPoint.clientX - by };
+
   fireEvent.touchStart(container, {
-    targetTouches: [{ clientX: 250, clientY: 20 }],
+    targetTouches: [startPoint],
   });
   fireEvent.touchMove(container, {
-    targetTouches: [{ clientX: 100, clientY: 20 }],
+    targetTouches: [endPoint],
   });
   fireEvent.touchEnd(container, {
-    targetTouches: [{ clientX: 100, clientY: 20 }],
+    targetTouches: [endPoint],
   });
 };
 
-export const swipeRightTouch = container => {
+export const swipeRightTouch = (container, by = 100) => {
+  const startPoint = { clientX: 250, clientY: 20 };
+  const endPoint = { ...startPoint, clientX: startPoint.clientX + by };
+
   fireEvent.touchStart(container, {
-    targetTouches: [{ clientX: 250, clientY: 20 }],
+    targetTouches: [startPoint],
   });
   fireEvent.touchMove(container, {
-    targetTouches: [{ clientX: 350, clientY: 20 }],
+    targetTouches: [endPoint],
   });
   fireEvent.touchEnd(container, {
-    targetTouches: [{ clientX: 350, clientY: 20 }],
+    targetTouches: [endPoint],
   });
 };
+
+const RealDate = Date.now;
+
+export const beforeEachTest = () => {
+  jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => cb());
+
+  let tick = 0;
+
+  global.Date.now = jest.fn(() => {
+    tick += 1000;
+    return RealDate() + tick;
+  });
+};
+
+export const afterEachTest = () => {
+  cleanup();
+
+  window.requestAnimationFrame.mockRestore();
+
+  global.Date.now = RealDate;
+};
+
+const DEFAULT_THRESHOLD = 0.5;
+const DEFAULT_LIST_ITEM_WIDTH = 360;
+
+export const setListItemWidth = (item, width = DEFAULT_LIST_ITEM_WIDTH) => {
+  jest.spyOn(item, 'offsetWidth', 'get').mockImplementation(() => width);
+};
+
+export const toThreshold = ({
+  distance = DEFAULT_LIST_ITEM_WIDTH,
+  threshold = DEFAULT_THRESHOLD,
+} = {}) => threshold * distance;
+
+export const beyondThreshold = ({
+  distance = DEFAULT_LIST_ITEM_WIDTH,
+  threshold = DEFAULT_THRESHOLD,
+} = {}) => toThreshold({ threshold, distance }) + 1;
+
+export const renderAndroidType = ({
+  blockSwipe = false,
+  fullSwipe = true,
+  leadingActionCallback,
+  onSwipeStartCallback,
+  onSwipeEndCallback,
+  trailingActionCallback,
+  threshold = DEFAULT_THRESHOLD,
+}) =>
+  render(
+    <SwipeableListItem
+      blockSwipe={blockSwipe}
+      fullSwipe={fullSwipe}
+      leadingActions={
+        <LeadingActions>
+          <SwipeAction onClick={leadingActionCallback}>Test</SwipeAction>
+        </LeadingActions>
+      }
+      listType={ListType.ANDROID}
+      threshold={threshold}
+      trailingActions={
+        <TrailingActions>
+          <SwipeAction onClick={trailingActionCallback}>Test</SwipeAction>
+        </TrailingActions>
+      }
+      onSwipeEnd={onSwipeEndCallback}
+      onSwipeStart={onSwipeStartCallback}
+    >
+      <span>Item content</span>
+    </SwipeableListItem>
+  );

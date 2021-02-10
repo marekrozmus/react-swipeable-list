@@ -1,8 +1,14 @@
 import '@testing-library/jest-dom/extend-expect';
 import React from 'react';
-import { render, cleanup, fireEvent } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 
-import SwipeableListItem, { ActionAnimations } from '../SwipeableListItem';
+import {
+  LeadingActions,
+  SwipeableListItem,
+  SwipeAction,
+  TrailingActions,
+} from '../index';
+
 import {
   swipeRightMouse,
   swipeRightTouch,
@@ -10,10 +16,26 @@ import {
   swipeLeftTouch,
 } from './helpers';
 
-afterEach(cleanup);
+import {
+  ActionAnimations,
+  beforeEachTest,
+  afterEachTest,
+  renderAndroidType,
+  setListItemWidth,
+  toThreshold,
+  beyondThreshold,
+} from './helpers';
 
-describe.skip('SwipeableListItem', () => {
-  test('item rendering without any swipe content', () => {
+beforeEach(() => beforeEachTest());
+
+afterEach(() => {
+  afterEachTest();
+
+  jest.restoreAllMocks();
+});
+
+describe('SwipeableListItem - content', () => {
+  test('item rendering without swipe actions', () => {
     const { getByText, queryByTestId } = render(
       <SwipeableListItem>
         <span>Item content</span>
@@ -21,125 +43,208 @@ describe.skip('SwipeableListItem', () => {
     );
 
     expect(getByText('Item content')).toBeInTheDocument();
-    expect(queryByTestId('swipe-left-content')).not.toBeInTheDocument();
-    expect(queryByTestId('swipe-right-content')).not.toBeInTheDocument();
+    expect(queryByTestId('leading-actions')).not.toBeInTheDocument();
+    expect(queryByTestId('trailing-actions')).not.toBeInTheDocument();
   });
 
-  test('item rendering with left swipe content only', () => {
-    const { queryByTestId, getByText } = render(
+  test('item rendering with leading swipe action', () => {
+    const { getByText, queryByTestId } = render(
       <SwipeableListItem
-        swipeLeft={{
-          content: <span>Left swipe content</span>,
-          action: jest.fn(),
-        }}
+        leadingActions={
+          <LeadingActions>
+            <SwipeAction onClick={jest.fn()}>Action content</SwipeAction>
+          </LeadingActions>
+        }
       >
         <span>Item content</span>
       </SwipeableListItem>
     );
 
     expect(getByText('Item content')).toBeInTheDocument();
-    expect(queryByTestId('swipe-left-content')).toBeInTheDocument();
-    expect(queryByTestId('swipe-right-content')).not.toBeInTheDocument();
-    expect(getByText('Left swipe content')).toBeInTheDocument();
+    expect(queryByTestId('leading-actions')).toBeInTheDocument();
+    expect(queryByTestId('trailing-actions')).not.toBeInTheDocument();
+    expect(getByText('Action content')).toBeInTheDocument();
   });
 
-  test('item rendering with right swipe content only', () => {
-    const { queryByTestId, getByText } = render(
+  test('item rendering with trailing swipe action', () => {
+    const { getByText, queryByTestId } = render(
       <SwipeableListItem
-        swipeRight={{
-          content: <span>Right swipe content</span>,
-          action: jest.fn(),
-        }}
+        trailingActions={
+          <TrailingActions>
+            <SwipeAction onClick={jest.fn()}>Action content</SwipeAction>
+          </TrailingActions>
+        }
       >
         <span>Item content</span>
       </SwipeableListItem>
     );
 
     expect(getByText('Item content')).toBeInTheDocument();
-    expect(queryByTestId('swipe-right-content')).toBeInTheDocument();
-    expect(queryByTestId('swipe-left-content')).not.toBeInTheDocument();
-    expect(getByText('Right swipe content')).toBeInTheDocument();
+    expect(queryByTestId('leading-actions')).not.toBeInTheDocument();
+    expect(queryByTestId('trailing-actions')).toBeInTheDocument();
+    expect(getByText('Action content')).toBeInTheDocument();
   });
 
-  test('item rendering with left and right swipe content', () => {
-    const { queryByTestId, getByText } = render(
+  test('item rendering with leading and trailing swipe action', () => {
+    const { getByText, queryByTestId } = render(
       <SwipeableListItem
-        swipeLeft={{
-          content: <span>Left swipe content</span>,
-          action: jest.fn(),
-        }}
-        swipeRight={{
-          content: <span>Right swipe content</span>,
-          action: jest.fn(),
-        }}
+        leadingActions={
+          <LeadingActions>
+            <SwipeAction onClick={jest.fn()}>
+              Leading action content
+            </SwipeAction>
+          </LeadingActions>
+        }
+        trailingActions={
+          <TrailingActions>
+            <SwipeAction onClick={jest.fn()}>
+              Trailing action content
+            </SwipeAction>
+          </TrailingActions>
+        }
       >
         <span>Item content</span>
       </SwipeableListItem>
     );
 
     expect(getByText('Item content')).toBeInTheDocument();
-    expect(queryByTestId('swipe-right-content')).toBeInTheDocument();
-    expect(queryByTestId('swipe-left-content')).toBeInTheDocument();
-    expect(getByText('Right swipe content')).toBeInTheDocument();
-    expect(getByText('Left swipe content')).toBeInTheDocument();
+    expect(queryByTestId('leading-actions')).toBeInTheDocument();
+    expect(queryByTestId('trailing-actions')).toBeInTheDocument();
+    expect(getByText('Leading action content')).toBeInTheDocument();
+    expect(getByText('Trailing action content')).toBeInTheDocument();
+  });
+});
+
+describe('SwipeableListItem (type ANDROID) - behaviour ', () => {
+  test('leading swipe action triggering', () => {
+    const leadingActionCallback = jest.fn();
+    const trailingActionCallback = jest.fn();
+
+    const { getByTestId } = renderAndroidType({
+      leadingActionCallback,
+      trailingActionCallback,
+    });
+
+    const listItem = getByTestId('content');
+    setListItemWidth(listItem);
+
+    swipeRightMouse(listItem, toThreshold());
+    swipeRightTouch(listItem, toThreshold());
+    expect(leadingActionCallback).toHaveBeenCalledTimes(0);
+    expect(trailingActionCallback).toHaveBeenCalledTimes(0);
+
+    swipeRightMouse(listItem, beyondThreshold());
+    swipeRightTouch(listItem, beyondThreshold());
+
+    expect(leadingActionCallback).toHaveBeenCalledTimes(2);
+    expect(trailingActionCallback).toHaveBeenCalledTimes(0);
   });
 
-  test('left swipe action triggering', () => {
-    const callbackLeft = jest.fn();
-    const callbackRight = jest.fn();
+  test('trailing swipe action triggering', () => {
+    const leadingActionCallback = jest.fn();
+    const trailingActionCallback = jest.fn();
 
-    const { getByTestId } = render(
-      <SwipeableListItem
-        swipeLeft={{
-          content: <span>Left swipe content</span>,
-          action: callbackLeft,
-        }}
-        swipeRight={{
-          content: <span>Right swipe content</span>,
-          action: callbackRight,
-        }}
-      >
-        <span>Item content</span>
-      </SwipeableListItem>
-    );
+    const { getByTestId } = renderAndroidType({
+      leadingActionCallback,
+      trailingActionCallback,
+    });
 
-    const contentContainer = getByTestId('content');
+    const listItem = getByTestId('content');
+    setListItemWidth(listItem);
 
-    swipeLeftMouse(contentContainer);
-    swipeLeftTouch(contentContainer);
+    swipeLeftMouse(listItem, toThreshold());
+    swipeLeftTouch(listItem, toThreshold());
+    expect(leadingActionCallback).toHaveBeenCalledTimes(0);
+    expect(trailingActionCallback).toHaveBeenCalledTimes(0);
 
-    expect(callbackLeft).toHaveBeenCalledTimes(2);
-    expect(callbackRight).toHaveBeenCalledTimes(0);
+    swipeLeftMouse(listItem, beyondThreshold());
+    swipeLeftTouch(listItem, beyondThreshold());
+
+    expect(leadingActionCallback).toHaveBeenCalledTimes(0);
+    expect(trailingActionCallback).toHaveBeenCalledTimes(2);
   });
 
-  test('right swipe action triggering', () => {
-    const callbackLeft = jest.fn();
-    const callbackRight = jest.fn();
+  test('swipe actions triggering if block swipe prop is set to true', () => {
+    const leadingActionCallback = jest.fn();
+    const trailingActionCallback = jest.fn();
 
-    const { getByTestId } = render(
-      <SwipeableListItem
-        swipeLeft={{
-          content: <span>Left swipe content</span>,
-          action: callbackLeft,
-        }}
-        swipeRight={{
-          content: <span>Right swipe content</span>,
-          action: callbackRight,
-        }}
-      >
-        <span>Item content</span>
-      </SwipeableListItem>
-    );
+    const { getByTestId } = renderAndroidType({
+      blockSwipe: true,
+      leadingActionCallback,
+      trailingActionCallback,
+    });
 
-    const contentContainer = getByTestId('content');
+    const listItem = getByTestId('content');
+    setListItemWidth(listItem);
 
-    swipeRightMouse(contentContainer);
-    swipeRightTouch(contentContainer);
+    swipeLeftMouse(listItem, beyondThreshold());
+    swipeLeftTouch(listItem, beyondThreshold());
+    swipeRightMouse(listItem, beyondThreshold());
+    swipeRightTouch(listItem, beyondThreshold());
 
-    expect(callbackLeft).toHaveBeenCalledTimes(0);
-    expect(callbackRight).toHaveBeenCalledTimes(2);
+    expect(leadingActionCallback).toHaveBeenCalledTimes(0);
+    expect(trailingActionCallback).toHaveBeenCalledTimes(0);
   });
 
+  test('start and end swipe callbacks triggered when swiping', () => {
+    const onSwipeStartCallback = jest.fn();
+    const onSwipeEndCallback = jest.fn();
+
+    const leadingActionCallback = jest.fn();
+    const trailingActionCallback = jest.fn();
+
+    const { getByTestId } = renderAndroidType({
+      leadingActionCallback,
+      trailingActionCallback,
+      onSwipeStartCallback,
+      onSwipeEndCallback,
+    });
+
+    const listItem = getByTestId('content');
+    setListItemWidth(listItem);
+
+    swipeLeftMouse(listItem, toThreshold());
+    swipeLeftTouch(listItem, toThreshold());
+    swipeRightMouse(listItem, toThreshold());
+    swipeRightTouch(listItem, toThreshold());
+    swipeLeftMouse(listItem, beyondThreshold());
+    swipeLeftTouch(listItem, beyondThreshold());
+    swipeRightMouse(listItem, beyondThreshold());
+    swipeRightTouch(listItem, beyondThreshold());
+
+    expect(onSwipeStartCallback).toHaveBeenCalledTimes(8);
+    expect(onSwipeEndCallback).toHaveBeenCalledTimes(8);
+  });
+
+  test('start and end swipe callbacks not triggered if block swipe prop is set to true', () => {
+    const onSwipeStartCallback = jest.fn();
+    const onSwipeEndCallback = jest.fn();
+
+    const leadingActionCallback = jest.fn();
+    const trailingActionCallback = jest.fn();
+
+    const { getByTestId } = renderAndroidType({
+      blockSwipe: true,
+      leadingActionCallback,
+      trailingActionCallback,
+      onSwipeStartCallback,
+      onSwipeEndCallback,
+    });
+
+    const listItem = getByTestId('content');
+    setListItemWidth(listItem);
+
+    swipeLeftMouse(listItem, beyondThreshold());
+    swipeLeftTouch(listItem, beyondThreshold());
+    swipeRightMouse(listItem, beyondThreshold());
+    swipeRightTouch(listItem, beyondThreshold());
+
+    expect(onSwipeStartCallback).toHaveBeenCalledTimes(0);
+    expect(onSwipeEndCallback).toHaveBeenCalledTimes(0);
+  });
+});
+
+describe.skip('SwipeableListItem', () => {
   test('swipe actions blocking on click (mouse/touch down/up)', () => {
     const callbackLeft = jest.fn();
 
@@ -213,72 +318,12 @@ describe.skip('SwipeableListItem', () => {
     expect(callbackRight).toHaveBeenCalledTimes(2);
   });
 
-  test('swipe actions triggering if block swipe prop is set', () => {
-    const callbackLeft = jest.fn();
-    const callbackRight = jest.fn();
-
-    const { getByTestId } = render(
-      <SwipeableListItem
-        blockSwipe
-        swipeLeft={{
-          content: <span>Left swipe content</span>,
-          action: callbackLeft,
-        }}
-        swipeRight={{
-          content: <span>Right swipe content</span>,
-          action: callbackRight,
-        }}
-      >
-        <span>Item content</span>
-      </SwipeableListItem>
-    );
-
-    const contentContainer = getByTestId('content');
-
-    swipeLeftMouse(contentContainer);
-    swipeLeftTouch(contentContainer);
-    swipeRightMouse(contentContainer);
-    swipeRightTouch(contentContainer);
-
-    expect(callbackLeft).toHaveBeenCalledTimes(0);
-    expect(callbackRight).toHaveBeenCalledTimes(0);
-  });
-
   test('start and end callbacks not triggered if swipe content not defined', () => {
     const callbackSwipeStart = jest.fn();
     const callbackSwipeEnd = jest.fn();
 
     const { getByTestId } = render(
       <SwipeableListItem
-        onSwipeEnd={callbackSwipeEnd}
-        onSwipeStart={callbackSwipeStart}
-      >
-        <span>Item content</span>
-      </SwipeableListItem>
-    );
-
-    const contentContainer = getByTestId('content');
-    swipeLeftMouse(contentContainer);
-    swipeLeftTouch(contentContainer);
-    swipeRightMouse(contentContainer);
-    swipeRightTouch(contentContainer);
-
-    expect(callbackSwipeStart).toHaveBeenCalledTimes(0);
-    expect(callbackSwipeEnd).toHaveBeenCalledTimes(0);
-  });
-
-  test('start and end callbacks not triggered if blockSwipe is set', () => {
-    const callbackSwipeStart = jest.fn();
-    const callbackSwipeEnd = jest.fn();
-    const callbackLeft = jest.fn();
-
-    const { getByTestId } = render(
-      <SwipeableListItem
-        blockSwipe
-        swipeLeft={{
-          content: <span>Left swipe content</span>,
-          action: callbackLeft,
-        }}
         onSwipeEnd={callbackSwipeEnd}
         onSwipeStart={callbackSwipeStart}
       >

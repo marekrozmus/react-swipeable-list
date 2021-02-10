@@ -69,11 +69,11 @@ const SwipeAction = ({
 };
 
 SwipeAction.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
   destructive: PropTypes.bool,
   main: PropTypes.bool,
   leading: PropTypes.bool,
-  onClick: PropTypes.func,
+  onClick: PropTypes.func.isRequired,
   trailing: PropTypes.bool,
   Tag: PropTypes.string,
 };

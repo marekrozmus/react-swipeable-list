@@ -55,6 +55,7 @@ describe('SwipeableList', () => {
     expect(getByText('Item content 2')).toBeInTheDocument();
     expect(container.firstChild).toHaveClass('swipeable-list');
   });
+
   test('blocking swipe on scroll', () => {
     const callbackLeading = jest.fn();
     const callbackTrailing = jest.fn();
@@ -132,12 +133,13 @@ describe('SwipeableList', () => {
     makeTouchGesture(listItem, [Direction.West]);
     expect(callbackTrailing).toHaveBeenCalledTimes(2);
   });
+
   test('swipe start threshold', () => {
     const callbackLeading = jest.fn();
     const callbackTrailing = jest.fn();
 
     const { queryAllByTestId } = render(
-      <SwipeableList type={ListType.ANDROID} swipeStartThreshold={DELTA + 1}>
+      <SwipeableList swipeStartThreshold={DELTA + 1} type={ListType.ANDROID}>
         <SwipeableListItem
           leadingActions={
             <LeadingActions>
@@ -169,12 +171,13 @@ describe('SwipeableList', () => {
     makeTouchGesture(listItem, [Direction.West]);
     expect(callbackTrailing).toHaveBeenCalledTimes(0);
   });
+
   test('blocking scroll on swipe', () => {
     const callbackLeading = jest.fn();
     const callbackTrailing = jest.fn();
 
     const { queryAllByTestId } = render(
-      <SwipeableList type={ListType.ANDROID} scrollStartThreshold={DELTA + 1}>
+      <SwipeableList scrollStartThreshold={DELTA + 1} type={ListType.ANDROID}>
         <SwipeableListItem
           leadingActions={
             <LeadingActions>
