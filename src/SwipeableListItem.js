@@ -273,6 +273,11 @@ class SwipeableListItem extends PureComponent {
     if (leadingActionsElement) {
       leadingActionsElement.className =
         'swipeable-list-item__leading-actions swipeable-list-item__leading-actions--return';
+
+      if (this.leadingActionsOpened && isIosType) {
+        leadingActionsElement.className += ' test-actions-opened';
+      }
+
       leadingActionsElement.style.width = `${
         to === 0 || !isIosType
           ? 0
@@ -285,6 +290,11 @@ class SwipeableListItem extends PureComponent {
     if (trailingActionsElement) {
       trailingActionsElement.className =
         'swipeable-list-item__trailing-actions swipeable-list-item__trailing-actions--return';
+
+      if (this.trailingActionsOpened && isIosType) {
+        trailingActionsElement.className += ' test-actions-opened';
+      }
+
       trailingActionsElement.style.width = `${
         to === 0 || !isIosType
           ? 0
@@ -297,6 +307,7 @@ class SwipeableListItem extends PureComponent {
     if (to === 0) {
       this.leadingActionsOpened = false;
       this.trailingActionsOpened = false;
+      this.resetState();
     }
   };
 

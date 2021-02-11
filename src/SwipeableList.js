@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import './SwipeableList.css';
 
 export const Type = {
+  ANDROID: Symbol('ANDROID'),
   IOS: Symbol('IOS'),
   MS: Symbol('MS'),
-  ANDROID: Symbol('ANDROID'),
 };
 
 const SwipeableList = ({

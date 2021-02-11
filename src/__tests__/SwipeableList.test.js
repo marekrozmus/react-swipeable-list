@@ -16,6 +16,7 @@ import {
   Direction,
   makeMouseGesture,
   makeTouchGesture,
+  beyondThreshold,
 } from './helpers';
 
 const RealDate = Date.now;
@@ -84,53 +85,157 @@ describe('SwipeableList', () => {
     );
 
     const listItem = queryAllByTestId('content')[0];
-    makeMouseGesture(listItem, [Direction.North]);
-    makeMouseGesture(listItem, [Direction.NorthEast]);
-    makeMouseGesture(listItem, [Direction.NorthWest]);
-    makeMouseGesture(listItem, [Direction.South]);
-    makeMouseGesture(listItem, [Direction.SouthEast]);
-    makeMouseGesture(listItem, [Direction.SouthWest]);
-    makeMouseGesture(listItem, [Direction.North, Direction.East]);
-    makeMouseGesture(listItem, [Direction.North, Direction.West]);
-    makeMouseGesture(listItem, [Direction.NorthEast, Direction.East]);
-    makeMouseGesture(listItem, [Direction.NorthEast, Direction.West]);
-    makeMouseGesture(listItem, [Direction.NorthWest, Direction.East]);
-    makeMouseGesture(listItem, [Direction.NorthWest, Direction.West]);
-    makeMouseGesture(listItem, [Direction.South, Direction.East]);
-    makeMouseGesture(listItem, [Direction.South, Direction.West]);
-    makeMouseGesture(listItem, [Direction.SouthEast, Direction.East]);
-    makeMouseGesture(listItem, [Direction.SouthEast, Direction.West]);
-    makeMouseGesture(listItem, [Direction.SouthWest, Direction.East]);
-    makeMouseGesture(listItem, [Direction.SouthWest, Direction.West]);
+    makeMouseGesture(listItem, [
+      { direction: Direction.North, distance: beyondThreshold() },
+    ]);
+    makeMouseGesture(listItem, [
+      { direction: Direction.NorthEast, distance: beyondThreshold() },
+    ]);
+    makeMouseGesture(listItem, [
+      { direction: Direction.NorthWest, distance: beyondThreshold() },
+    ]);
+    makeMouseGesture(listItem, [
+      { direction: Direction.South, distance: beyondThreshold() },
+    ]);
+    makeMouseGesture(listItem, [
+      { direction: Direction.SouthEast, distance: beyondThreshold() },
+    ]);
+    makeMouseGesture(listItem, [
+      { direction: Direction.SouthWest, distance: beyondThreshold() },
+    ]);
+    makeMouseGesture(listItem, [
+      { direction: Direction.North, distance: DELTA },
+      { direction: Direction.East, distance: beyondThreshold() },
+    ]);
+    makeMouseGesture(listItem, [
+      { direction: Direction.North, distance: DELTA },
+      { direction: Direction.West, distance: beyondThreshold() },
+    ]);
+    makeMouseGesture(listItem, [
+      { direction: Direction.NorthEast, distance: DELTA },
+      { direction: Direction.East, distance: beyondThreshold() },
+    ]);
+    makeMouseGesture(listItem, [
+      { direction: Direction.NorthEast, distance: DELTA },
+      { direction: Direction.West, distance: beyondThreshold() },
+    ]);
+    makeMouseGesture(listItem, [
+      { direction: Direction.NorthWest, distance: DELTA },
+      { direction: Direction.East, distance: beyondThreshold() },
+    ]);
+    makeMouseGesture(listItem, [
+      { direction: Direction.NorthWest, distance: DELTA },
+      { direction: Direction.West, distance: beyondThreshold() },
+    ]);
+    makeMouseGesture(listItem, [
+      { direction: Direction.South, distance: DELTA },
+      { direction: Direction.East, distance: beyondThreshold() },
+    ]);
+    makeMouseGesture(listItem, [
+      { direction: Direction.South, distance: DELTA },
+      { direction: Direction.West, distance: beyondThreshold() },
+    ]);
+    makeMouseGesture(listItem, [
+      { direction: Direction.SouthEast, distance: DELTA },
+      { direction: Direction.East, distance: beyondThreshold() },
+    ]);
+    makeMouseGesture(listItem, [
+      { direction: Direction.SouthEast, distance: DELTA },
+      { direction: Direction.West, distance: beyondThreshold() },
+    ]);
+    makeMouseGesture(listItem, [
+      { direction: Direction.SouthWest, distance: DELTA },
+      { direction: Direction.East, distance: beyondThreshold() },
+    ]);
+    makeMouseGesture(listItem, [
+      { direction: Direction.SouthWest, distance: DELTA },
+      { direction: Direction.West, distance: beyondThreshold() },
+    ]);
     expect(callbackLeading).toHaveBeenCalledTimes(0);
     expect(callbackTrailing).toHaveBeenCalledTimes(0);
-    makeTouchGesture(listItem, [Direction.North]);
-    makeTouchGesture(listItem, [Direction.NorthEast]);
-    makeTouchGesture(listItem, [Direction.NorthWest]);
-    makeTouchGesture(listItem, [Direction.South]);
-    makeTouchGesture(listItem, [Direction.SouthEast]);
-    makeTouchGesture(listItem, [Direction.SouthWest]);
-    makeTouchGesture(listItem, [Direction.North, Direction.East]);
-    makeTouchGesture(listItem, [Direction.North, Direction.West]);
-    makeTouchGesture(listItem, [Direction.NorthEast, Direction.East]);
-    makeTouchGesture(listItem, [Direction.NorthEast, Direction.West]);
-    makeTouchGesture(listItem, [Direction.NorthWest, Direction.East]);
-    makeTouchGesture(listItem, [Direction.NorthWest, Direction.West]);
-    makeTouchGesture(listItem, [Direction.South, Direction.East]);
-    makeTouchGesture(listItem, [Direction.South, Direction.West]);
-    makeTouchGesture(listItem, [Direction.SouthEast, Direction.East]);
-    makeTouchGesture(listItem, [Direction.SouthEast, Direction.West]);
-    makeTouchGesture(listItem, [Direction.SouthWest, Direction.East]);
-    makeTouchGesture(listItem, [Direction.SouthWest, Direction.West]);
+    makeTouchGesture(listItem, [
+      { direction: Direction.North, distance: beyondThreshold() },
+    ]);
+    makeTouchGesture(listItem, [
+      { direction: Direction.NorthEast, distance: beyondThreshold() },
+    ]);
+    makeTouchGesture(listItem, [
+      { direction: Direction.NorthWest, distance: beyondThreshold() },
+    ]);
+    makeTouchGesture(listItem, [
+      { direction: Direction.South, distance: beyondThreshold() },
+    ]);
+    makeTouchGesture(listItem, [
+      { direction: Direction.SouthEast, distance: beyondThreshold() },
+    ]);
+    makeTouchGesture(listItem, [
+      { direction: Direction.SouthWest, distance: beyondThreshold() },
+    ]);
+    makeTouchGesture(listItem, [
+      { direction: Direction.North, distance: DELTA },
+      { direction: Direction.East, distance: beyondThreshold() },
+    ]);
+    makeTouchGesture(listItem, [
+      { direction: Direction.North, distance: DELTA },
+      { direction: Direction.West, distance: beyondThreshold() },
+    ]);
+    makeTouchGesture(listItem, [
+      { direction: Direction.NorthEast, distance: DELTA },
+      { direction: Direction.East, distance: beyondThreshold() },
+    ]);
+    makeTouchGesture(listItem, [
+      { direction: Direction.NorthEast, distance: DELTA },
+      { direction: Direction.West, distance: beyondThreshold() },
+    ]);
+    makeTouchGesture(listItem, [
+      { direction: Direction.NorthWest, distance: DELTA },
+      { direction: Direction.East, distance: beyondThreshold() },
+    ]);
+    makeTouchGesture(listItem, [
+      { direction: Direction.NorthWest, distance: DELTA },
+      { direction: Direction.West, distance: beyondThreshold() },
+    ]);
+    makeTouchGesture(listItem, [
+      { direction: Direction.South, distance: DELTA },
+      { direction: Direction.East, distance: beyondThreshold() },
+    ]);
+    makeTouchGesture(listItem, [
+      { direction: Direction.South, distance: DELTA },
+      { direction: Direction.West, distance: beyondThreshold() },
+    ]);
+    makeTouchGesture(listItem, [
+      { direction: Direction.SouthEast, distance: DELTA },
+      { direction: Direction.East, distance: beyondThreshold() },
+    ]);
+    makeTouchGesture(listItem, [
+      { direction: Direction.SouthEast, distance: DELTA },
+      { direction: Direction.West, distance: beyondThreshold() },
+    ]);
+    makeTouchGesture(listItem, [
+      { direction: Direction.SouthWest, distance: DELTA },
+      { direction: Direction.East, distance: beyondThreshold() },
+    ]);
+    makeTouchGesture(listItem, [
+      { direction: Direction.SouthWest, distance: DELTA },
+      { direction: Direction.West, distance: beyondThreshold() },
+    ]);
     expect(callbackLeading).toHaveBeenCalledTimes(0);
     expect(callbackTrailing).toHaveBeenCalledTimes(0);
-    makeMouseGesture(listItem, [Direction.East]);
+    makeMouseGesture(listItem, [
+      { direction: Direction.East, distance: beyondThreshold() },
+    ]);
     expect(callbackLeading).toHaveBeenCalledTimes(1);
-    makeTouchGesture(listItem, [Direction.East]);
+    makeTouchGesture(listItem, [
+      { direction: Direction.East, distance: beyondThreshold() },
+    ]);
     expect(callbackLeading).toHaveBeenCalledTimes(2);
-    makeMouseGesture(listItem, [Direction.West]);
+    makeMouseGesture(listItem, [
+      { direction: Direction.West, distance: beyondThreshold() },
+    ]);
     expect(callbackTrailing).toHaveBeenCalledTimes(1);
-    makeTouchGesture(listItem, [Direction.West]);
+    makeTouchGesture(listItem, [
+      { direction: Direction.West, distance: beyondThreshold() },
+    ]);
     expect(callbackTrailing).toHaveBeenCalledTimes(2);
   });
 
@@ -162,13 +267,21 @@ describe('SwipeableList', () => {
     );
 
     const listItem = queryAllByTestId('content')[0];
-    makeMouseGesture(listItem, [Direction.East]);
+    makeMouseGesture(listItem, [
+      { direction: Direction.East, distance: DELTA },
+    ]);
     expect(callbackLeading).toHaveBeenCalledTimes(0);
-    makeMouseGesture(listItem, [Direction.West]);
+    makeMouseGesture(listItem, [
+      { direction: Direction.West, distance: DELTA },
+    ]);
     expect(callbackTrailing).toHaveBeenCalledTimes(0);
-    makeTouchGesture(listItem, [Direction.East]);
+    makeTouchGesture(listItem, [
+      { direction: Direction.East, distance: DELTA },
+    ]);
     expect(callbackLeading).toHaveBeenCalledTimes(0);
-    makeTouchGesture(listItem, [Direction.West]);
+    makeTouchGesture(listItem, [
+      { direction: Direction.West, distance: DELTA },
+    ]);
     expect(callbackTrailing).toHaveBeenCalledTimes(0);
   });
 
@@ -201,56 +314,59 @@ describe('SwipeableList', () => {
 
     const listItem = queryAllByTestId('content')[0];
     makeMouseGesture(listItem, [
-      Direction.North,
-      Direction.East,
-      Direction.East,
-      Direction.East,
+      { direction: Direction.North, distance: DELTA },
+      { direction: Direction.East, distance: DELTA },
+      { direction: Direction.East, distance: DELTA },
+      { direction: Direction.East, distance: beyondThreshold() },
     ]);
     makeMouseGesture(listItem, [
-      Direction.South,
-      Direction.East,
-      Direction.East,
-      Direction.East,
-    ]);
-    makeMouseGesture(listItem, [
-      Direction.North,
-      Direction.West,
-      Direction.West,
-      Direction.West,
-    ]);
-    makeMouseGesture(listItem, [
-      Direction.South,
-      Direction.West,
-      Direction.West,
-      Direction.West,
+      { direction: Direction.South, distance: DELTA },
+      { direction: Direction.East, distance: DELTA },
+      { direction: Direction.East, distance: DELTA },
+      { direction: Direction.East, distance: beyondThreshold() },
     ]);
     expect(callbackLeading).toHaveBeenCalledTimes(2);
+
+    makeMouseGesture(listItem, [
+      { direction: Direction.North, distance: DELTA },
+      { direction: Direction.West, distance: DELTA },
+      { direction: Direction.West, distance: DELTA },
+      { direction: Direction.West, distance: beyondThreshold() },
+    ]);
+    makeMouseGesture(listItem, [
+      { direction: Direction.South, distance: DELTA },
+      { direction: Direction.West, distance: DELTA },
+      { direction: Direction.West, distance: DELTA },
+      { direction: Direction.West, distance: beyondThreshold() },
+    ]);
     expect(callbackTrailing).toHaveBeenCalledTimes(2);
+
     makeTouchGesture(listItem, [
-      Direction.North,
-      Direction.East,
-      Direction.East,
-      Direction.East,
+      { direction: Direction.North, distance: DELTA },
+      { direction: Direction.East, distance: DELTA },
+      { direction: Direction.East, distance: DELTA },
+      { direction: Direction.East, distance: beyondThreshold() },
     ]);
     makeTouchGesture(listItem, [
-      Direction.South,
-      Direction.East,
-      Direction.East,
-      Direction.East,
-    ]);
-    makeTouchGesture(listItem, [
-      Direction.North,
-      Direction.West,
-      Direction.West,
-      Direction.West,
-    ]);
-    makeTouchGesture(listItem, [
-      Direction.South,
-      Direction.West,
-      Direction.West,
-      Direction.West,
+      { direction: Direction.South, distance: DELTA },
+      { direction: Direction.East, distance: DELTA },
+      { direction: Direction.East, distance: DELTA },
+      { direction: Direction.East, distance: beyondThreshold() },
     ]);
     expect(callbackLeading).toHaveBeenCalledTimes(4);
+
+    makeTouchGesture(listItem, [
+      { direction: Direction.North, distance: DELTA },
+      { direction: Direction.West, distance: DELTA },
+      { direction: Direction.West, distance: DELTA },
+      { direction: Direction.West, distance: beyondThreshold() },
+    ]);
+    makeTouchGesture(listItem, [
+      { direction: Direction.South, distance: DELTA },
+      { direction: Direction.West, distance: DELTA },
+      { direction: Direction.West, distance: DELTA },
+      { direction: Direction.West, distance: beyondThreshold() },
+    ]);
     expect(callbackTrailing).toHaveBeenCalledTimes(4);
   });
 });

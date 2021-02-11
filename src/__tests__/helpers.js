@@ -9,6 +9,27 @@ import {
   Type as ListType,
 } from '../index';
 
+const TEST_ACTIONS_WIDTH = 123;
+const TEST_LIST_ITEM_WIDTH = 360;
+
+Object.defineProperties(window.HTMLElement.prototype, {
+  offsetWidth: {
+    get: function () {
+      const attribute = this.attributes.getNamedItem('data-testid');
+
+      switch (attribute.value) {
+        case 'leading-actions':
+        case 'trailing-actions':
+          return TEST_ACTIONS_WIDTH;
+        case 'content':
+          return TEST_LIST_ITEM_WIDTH;
+      }
+
+      return 0;
+    },
+  },
+});
+
 export const DELTA = 20;
 
 export const Direction = {
@@ -24,26 +45,42 @@ export const Direction = {
 
 const startPoint = () => ({ clientX: 50, clientY: 25 });
 
-const movePoint = (point, direction) => {
+const movePoint = (point, direction, delta = DELTA) => {
   const { clientX, clientY } = point;
 
   switch (direction) {
     case Direction.North:
-      return { clientX, clientY: clientY - DELTA };
+      return { clientX, clientY: clientY - delta };
     case Direction.West:
-      return { clientX: clientX - DELTA, clientY };
+      return { clientX: clientX - delta, clientY };
     case Direction.South:
-      return { clientX, clientY: clientY + DELTA };
+      return { clientX, clientY: clientY + delta };
     case Direction.East:
-      return { clientX: clientX + DELTA, clientY };
+      return { clientX: clientX + delta, clientY };
     case Direction.NorthWest:
-      return movePoint(movePoint(point, Direction.North), Direction.West);
+      return movePoint(
+        movePoint(point, Direction.North, delta),
+        Direction.West,
+        delta
+      );
     case Direction.NorthEast:
-      return movePoint(movePoint(point, Direction.North), Direction.East);
+      return movePoint(
+        movePoint(point, Direction.North, delta),
+        Direction.East,
+        delta
+      );
     case Direction.SouthWest:
-      return movePoint(movePoint(point, Direction.South), Direction.West);
+      return movePoint(
+        movePoint(point, Direction.South, delta),
+        Direction.West,
+        delta
+      );
     case Direction.SouthEast:
-      return movePoint(movePoint(point, Direction.South), Direction.East);
+      return movePoint(
+        movePoint(point, Direction.South, delta),
+        Direction.East,
+        delta
+      );
   }
 };
 
@@ -53,7 +90,9 @@ export const makeMouseGesture = (container, directions) => {
   fireEvent.mouseDown(container, point);
 
   for (let i = 0; i < directions.length; i++) {
-    point = movePoint(point, directions[i]);
+    const { direction, distance } = directions[i];
+
+    point = movePoint(point, direction, distance);
     fireEvent.mouseMove(container, point);
   }
 
@@ -70,7 +109,9 @@ export const makeTouchGesture = (container, directions) => {
   });
 
   for (let i = 0; i < directions.length; i++) {
-    point = movePoint(point, directions[i]);
+    const { direction, distance } = directions[i];
+
+    point = movePoint(point, direction, distance);
     fireEvent.touchMove(container, {
       targetTouches: [point],
     });
@@ -153,21 +194,19 @@ export const afterEachTest = () => {
 };
 
 const DEFAULT_THRESHOLD = 0.5;
-const DEFAULT_LIST_ITEM_WIDTH = 360;
-
-export const setListItemWidth = (item, width = DEFAULT_LIST_ITEM_WIDTH) => {
-  jest.spyOn(item, 'offsetWidth', 'get').mockImplementation(() => width);
-};
 
 export const toThreshold = ({
-  distance = DEFAULT_LIST_ITEM_WIDTH,
+  distance = TEST_LIST_ITEM_WIDTH,
   threshold = DEFAULT_THRESHOLD,
 } = {}) => threshold * distance;
 
 export const beyondThreshold = ({
-  distance = DEFAULT_LIST_ITEM_WIDTH,
+  distance = TEST_LIST_ITEM_WIDTH,
   threshold = DEFAULT_THRESHOLD,
 } = {}) => toThreshold({ threshold, distance }) + 1;
+
+export const toOpenActionsThresold = () => TEST_ACTIONS_WIDTH;
+export const beyondOpenActionsThreshold = () => TEST_ACTIONS_WIDTH + 1;
 
 export const renderAndroidType = ({
   blockSwipe = false,
@@ -204,3 +243,51 @@ export const renderAndroidType = ({
       <span>Item content</span>
     </SwipeableListItem>
   );
+
+export const renderIosOneActionType = ({
+  blockSwipe = false,
+  fullSwipe = true,
+  leadingActionCallback = jest.fn(),
+  onSwipeStartCallback,
+  onSwipeEndCallback,
+  onSwipeProgressCallback,
+  swipeStartThreshold,
+  trailingActionCallback = jest.fn(),
+  threshold = DEFAULT_THRESHOLD,
+} = {}) =>
+  render(
+    <SwipeableListItem
+      blockSwipe={blockSwipe}
+      fullSwipe={fullSwipe}
+      leadingActions={
+        <LeadingActions>
+          <SwipeAction onClick={leadingActionCallback}>Test</SwipeAction>
+        </LeadingActions>
+      }
+      listType={ListType.IOS}
+      swipeStartThreshold={swipeStartThreshold}
+      threshold={threshold}
+      trailingActions={
+        <TrailingActions>
+          <SwipeAction onClick={trailingActionCallback}>Test</SwipeAction>
+        </TrailingActions>
+      }
+      onSwipeEnd={onSwipeEndCallback}
+      onSwipeProgress={onSwipeProgressCallback}
+      onSwipeStart={onSwipeStartCallback}
+    >
+      <span>Item content</span>
+    </SwipeableListItem>
+  );
+
+export const closeLeadingActions = (listItem, leadingActions) => {
+  if (leadingActions.className.includes('test-actions-opened')) {
+    swipeLeftMouse(listItem, TEST_ACTIONS_WIDTH); // close actions
+  }
+};
+
+export const closeTrailingActions = (listItem, trailingActions) => {
+  if (trailingActions.className.includes('test-actions-opened')) {
+    swipeRightMouse(listItem, TEST_ACTIONS_WIDTH); // close actions
+  }
+};
