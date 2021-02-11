@@ -1,5 +1,5 @@
 import path from 'path';
-import babel from 'rollup-plugin-babel';
+import { babel } from '@rollup/plugin-babel';
 import postcss from 'rollup-plugin-postcss';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import autoprefixer from 'autoprefixer';
@@ -20,33 +20,33 @@ const config = {
       globals: {
         react: 'React',
         'react-dom': 'ReactDOM',
-        'prop-types': 'PropTypes'
-      }
+        'prop-types': 'PropTypes',
+      },
     },
     {
       file: pkg.main,
-      format: 'cjs'
+      format: 'cjs',
     },
     {
       file: pkg.module,
-      format: 'es'
-    }
+      format: 'es',
+    },
   ],
   external: ['react', 'react-dom', 'prop-types'],
   plugins: [
     peerDepsExternal(),
     postcss({
       plugins: [autoprefixer],
-      extract: path.resolve('dist/styles.css')
+      extract: path.resolve('dist/styles.css'),
     }),
-    babel({ exclude: 'node_modules/**' }),
+    babel({ babelHelpers: 'bundled', exclude: 'node_modules/**' }),
     localResolve(),
     resolve(),
     commonjs(),
     copy({
-      targets: [{ src: 'src/module.d.ts', dest: 'dist' }]
-    })
-  ]
+      targets: [{ src: 'src/module.d.ts', dest: 'dist' }],
+    }),
+  ],
 };
 
 export default config;
