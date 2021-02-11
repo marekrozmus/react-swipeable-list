@@ -175,6 +175,8 @@ export const renderAndroidType = ({
   leadingActionCallback,
   onSwipeStartCallback,
   onSwipeEndCallback,
+  onSwipeProgressCallback,
+  swipeStartThreshold,
   trailingActionCallback,
   threshold = DEFAULT_THRESHOLD,
 }) =>
@@ -188,6 +190,7 @@ export const renderAndroidType = ({
         </LeadingActions>
       }
       listType={ListType.ANDROID}
+      swipeStartThreshold={swipeStartThreshold}
       threshold={threshold}
       trailingActions={
         <TrailingActions>
@@ -195,6 +198,7 @@ export const renderAndroidType = ({
         </TrailingActions>
       }
       onSwipeEnd={onSwipeEndCallback}
+      onSwipeProgress={onSwipeProgressCallback}
       onSwipeStart={onSwipeStartCallback}
     >
       <span>Item content</span>
