@@ -27,6 +27,7 @@ import {
   closeTrailingActions,
   toOpenActionsThresold,
   beyondOpenActionsThreshold,
+  renderIosTwoActionsType,
 } from './helpers';
 
 beforeEach(() => beforeEachTest());
@@ -292,6 +293,43 @@ describe('SwipeableListItem (type ANDROID) - behaviour ', () => {
 
     expect(onSwipeProgressCallback).toHaveBeenCalledTimes(8);
   });
+
+  test('triggering destructive full swipe action after specified time', () => {
+    jest.useFakeTimers();
+
+    const leadingActionCallback = jest.fn();
+    const trailingActionCallback = jest.fn();
+
+    const { getByTestId } = renderAndroidType({
+      leadingActionCallback,
+      trailingActionCallback,
+      trailingDestructive: true,
+      destructiveCallbackDelay: 1000,
+    });
+
+    const listItem = getByTestId('content');
+
+    swipeLeftMouse(listItem, toThreshold());
+    swipeLeftTouch(listItem, toThreshold());
+    expect(leadingActionCallback).toHaveBeenCalledTimes(0);
+    expect(trailingActionCallback).toHaveBeenCalledTimes(0);
+
+    swipeLeftMouse(listItem, beyondThreshold());
+    swipeLeftTouch(listItem, beyondThreshold());
+
+    setTimeout(() => {
+      expect(leadingActionCallback).toHaveBeenCalledTimes(0);
+      expect(trailingActionCallback).toHaveBeenCalledTimes(0);
+    }, 500);
+
+    setTimeout(() => {
+      expect(leadingActionCallback).toHaveBeenCalledTimes(0);
+      expect(trailingActionCallback).toHaveBeenCalledTimes(2);
+    }, 1000);
+
+    jest.runOnlyPendingTimers();
+    jest.useRealTimers();
+  });
 });
 
 describe('SwipeableListItem (type IOS) - behaviour', () => {
@@ -511,291 +549,72 @@ describe('SwipeableListItem (type IOS) - behaviour', () => {
     expect(trailingActionCallback).toHaveBeenCalledTimes(1);
     expect(listItem).toHaveClass('swipeable-list-item__content--return');
   });
-});
 
-describe.skip('SwipeableListItem', () => {
-  test('swipe actions blocking on click (mouse/touch down/up)', () => {
-    const callbackLeft = jest.fn();
+  test('leading swipe action triggering with full swipe (two leading actions)', () => {
+    const leadingActionCallback1 = jest.fn();
+    const leadingActionCallback2 = jest.fn();
+    const trailingActionCallback1 = jest.fn();
+    const trailingActionCallback2 = jest.fn();
 
-    const { getByTestId } = render(
-      <SwipeableListItem
-        swipeLeft={{
-          content: <span>Left swipe content</span>,
-          action: callbackLeft,
-        }}
-      >
-        <span>Item content</span>
-      </SwipeableListItem>
-    );
+    const { getByTestId } = renderIosTwoActionsType({
+      leadingActionCallbacks: [leadingActionCallback1, leadingActionCallback2],
+      trailingActionCallback: [
+        trailingActionCallback1,
+        trailingActionCallback2,
+      ],
+    });
 
-    const contentContainer = getByTestId('content');
+    const listItem = getByTestId('content');
+    const leadingActions = getByTestId('leading-actions');
 
-    fireEvent.mouseDown(contentContainer, { clientX: 250, clientY: 20 });
-    fireEvent.mouseUp(contentContainer, { clientX: 100, clientY: 20 });
-    fireEvent.mouseMove(contentContainer, { clientX: 100, clientY: 20 });
-    fireEvent.mouseDown(contentContainer, { clientX: 100, clientY: 20 });
-    fireEvent.mouseUp(contentContainer, { clientX: 100, clientY: 20 });
+    swipeRightMouse(listItem, toThreshold());
+    closeLeadingActions(listItem, leadingActions);
+    swipeRightTouch(listItem, toThreshold());
+    expect(leadingActionCallback1).toHaveBeenCalledTimes(0);
+    expect(leadingActionCallback2).toHaveBeenCalledTimes(0);
+    expect(trailingActionCallback1).toHaveBeenCalledTimes(0);
+    expect(trailingActionCallback2).toHaveBeenCalledTimes(0);
 
-    expect(callbackLeft).toHaveBeenCalledTimes(0);
+    swipeRightMouse(listItem, beyondThreshold());
+    closeLeadingActions(listItem, leadingActions);
+    swipeRightTouch(listItem, beyondThreshold());
+    expect(leadingActionCallback1).toHaveBeenCalledTimes(2);
+    expect(leadingActionCallback2).toHaveBeenCalledTimes(0);
+    expect(trailingActionCallback1).toHaveBeenCalledTimes(0);
+    expect(trailingActionCallback2).toHaveBeenCalledTimes(0);
   });
 
-  test('left swipe action triggering if no right swipe defined', () => {
-    const callbackLeft = jest.fn();
+  test('trailing swipe action triggering with full swipe (two trailing actions)', () => {
+    const leadingActionCallback1 = jest.fn();
+    const leadingActionCallback2 = jest.fn();
+    const trailingActionCallback1 = jest.fn();
+    const trailingActionCallback2 = jest.fn();
 
-    const { getByTestId } = render(
-      <SwipeableListItem
-        swipeLeft={{
-          content: <span>Left swipe content</span>,
-          action: callbackLeft,
-        }}
-      >
-        <span>Item content</span>
-      </SwipeableListItem>
-    );
+    const { getByTestId } = renderIosTwoActionsType({
+      leadingActionCallbacks: [leadingActionCallback1, leadingActionCallback2],
+      trailingActionCallbacks: [
+        trailingActionCallback1,
+        trailingActionCallback2,
+      ],
+    });
 
-    const contentContainer = getByTestId('content');
+    const listItem = getByTestId('content');
+    const trailingActions = getByTestId('trailing-actions');
 
-    swipeLeftMouse(contentContainer);
-    swipeLeftTouch(contentContainer);
-    swipeRightMouse(contentContainer);
-    swipeRightTouch(contentContainer);
+    swipeLeftMouse(listItem, toThreshold());
+    closeTrailingActions(listItem, trailingActions);
+    swipeLeftTouch(listItem, toThreshold());
+    expect(leadingActionCallback1).toHaveBeenCalledTimes(0);
+    expect(leadingActionCallback2).toHaveBeenCalledTimes(0);
+    expect(trailingActionCallback1).toHaveBeenCalledTimes(0);
+    expect(trailingActionCallback2).toHaveBeenCalledTimes(0);
 
-    expect(callbackLeft).toHaveBeenCalledTimes(2);
+    swipeLeftMouse(listItem, beyondThreshold());
+    closeTrailingActions(listItem, trailingActions);
+    swipeLeftTouch(listItem, beyondThreshold());
+    expect(leadingActionCallback1).toHaveBeenCalledTimes(0);
+    expect(leadingActionCallback2).toHaveBeenCalledTimes(0);
+    expect(trailingActionCallback1).toHaveBeenCalledTimes(0);
+    expect(trailingActionCallback2).toHaveBeenCalledTimes(2);
   });
-
-  test('right swipe action triggering if no left swipe defined', () => {
-    const callbackRight = jest.fn();
-
-    const { getByTestId } = render(
-      <SwipeableListItem
-        swipeRight={{
-          content: <span>Right swipe content</span>,
-          action: callbackRight,
-        }}
-      >
-        <span>Item content</span>
-      </SwipeableListItem>
-    );
-
-    const contentContainer = getByTestId('content');
-
-    swipeLeftMouse(contentContainer);
-    swipeLeftTouch(contentContainer);
-    swipeRightMouse(contentContainer);
-    swipeRightTouch(contentContainer);
-
-    expect(callbackRight).toHaveBeenCalledTimes(2);
-  });
-
-  test('start and end callbacks not triggered if swipe content not defined', () => {
-    const callbackSwipeStart = jest.fn();
-    const callbackSwipeEnd = jest.fn();
-
-    const { getByTestId } = render(
-      <SwipeableListItem
-        onSwipeEnd={callbackSwipeEnd}
-        onSwipeStart={callbackSwipeStart}
-      >
-        <span>Item content</span>
-      </SwipeableListItem>
-    );
-
-    const contentContainer = getByTestId('content');
-    swipeLeftMouse(contentContainer);
-    swipeLeftTouch(contentContainer);
-    swipeRightMouse(contentContainer);
-    swipeRightTouch(contentContainer);
-
-    expect(callbackSwipeStart).toHaveBeenCalledTimes(0);
-    expect(callbackSwipeEnd).toHaveBeenCalledTimes(0);
-  });
-
-  test('start and end callbacks triggered if swipe content is defined', () => {
-    const callbackSwipeStart = jest.fn();
-    const callbackSwipeEnd = jest.fn();
-    const callbackLeft = jest.fn();
-    const callbackRight = jest.fn();
-
-    const { getByTestId } = render(
-      <SwipeableListItem
-        swipeLeft={{
-          content: <span>Left swipe content</span>,
-          action: callbackLeft,
-        }}
-        swipeRight={{
-          content: <span>Right swipe content</span>,
-          action: callbackRight,
-        }}
-        onSwipeEnd={callbackSwipeEnd}
-        onSwipeStart={callbackSwipeStart}
-      >
-        <span>Item content</span>
-      </SwipeableListItem>
-    );
-
-    const contentContainer = getByTestId('content');
-    swipeLeftMouse(contentContainer);
-    swipeLeftTouch(contentContainer);
-    swipeRightMouse(contentContainer);
-    swipeRightTouch(contentContainer);
-
-    expect(callbackSwipeStart).toHaveBeenCalledTimes(4);
-    expect(callbackSwipeEnd).toHaveBeenCalledTimes(4);
-  });
-
-  // test('if remove animation is applied', () => {
-  //   const callbackLeft = jest.fn();
-  //   const callbackRight = jest.fn();
-
-  //   const { getByTestId } = render(
-  //     <SwipeableListItem
-  //       swipeLeft={{
-  //         content: <span>Left swipe content</span>,
-  //         actionAnimation: ActionAnimations.REMOVE,
-  //         action: callbackLeft,
-  //       }}
-  //       swipeRight={{
-  //         content: <span>Right swipe content</span>,
-  //         actionAnimation: ActionAnimations.REMOVE,
-  //         action: callbackRight,
-  //       }}
-  //     >
-  //       <span>Item content</span>
-  //     </SwipeableListItem>
-  //   );
-
-  //   const contentContainer = getByTestId('content');
-
-  //   swipeLeftMouse(contentContainer);
-  //   expect(contentContainer).toHaveClass(
-  //     'swipeable-list-item__content--remove'
-  //   );
-
-  //   swipeLeftTouch(contentContainer);
-  //   expect(contentContainer).toHaveClass(
-  //     'swipeable-list-item__content--remove'
-  //   );
-
-  //   swipeRightMouse(contentContainer);
-  //   expect(contentContainer).toHaveClass(
-  //     'swipeable-list-item__content--remove'
-  //   );
-
-  //   swipeRightTouch(contentContainer);
-  //   expect(contentContainer).toHaveClass(
-  //     'swipeable-list-item__content--remove'
-  //   );
-
-  //   expect(callbackLeft).toBeCalledTimes(2);
-  //   expect(callbackRight).toBeCalledTimes(2);
-  // });
-
-  // test('if return animation is applied', () => {
-  //   const callbackLeft = jest.fn();
-  //   const callbackRight = jest.fn();
-
-  //   const { getByTestId } = render(
-  //     <SwipeableListItem
-  //       swipeLeft={{
-  //         content: <span>Left swipe content</span>,
-  //         actionAnimation: ActionAnimations.RETURN,
-  //         action: callbackLeft,
-  //       }}
-  //       swipeRight={{
-  //         content: <span>Right swipe content</span>,
-  //         action: callbackRight,
-  //       }}
-  //     >
-  //       <span>Item content</span>
-  //     </SwipeableListItem>
-  //   );
-
-  //   const contentContainer = getByTestId('content');
-
-  //   swipeLeftMouse(contentContainer);
-  //   expect(contentContainer).toHaveClass(
-  //     'swipeable-list-item__content--return'
-  //   );
-
-  //   swipeLeftTouch(contentContainer);
-  //   expect(contentContainer).toHaveClass(
-  //     'swipeable-list-item__content--return'
-  //   );
-
-  //   swipeRightMouse(contentContainer);
-  //   expect(contentContainer).toHaveClass(
-  //     'swipeable-list-item__content--return'
-  //   );
-
-  //   swipeRightTouch(contentContainer);
-  //   expect(contentContainer).toHaveClass(
-  //     'swipeable-list-item__content--return'
-  //   );
-
-  //   expect(callbackLeft).toBeCalledTimes(2);
-  //   expect(callbackRight).toBeCalledTimes(2);
-  // });
-
-  // test('if none animation is applied', () => {
-  //   const callbackLeft = jest.fn();
-  //   const callbackRight = jest.fn();
-
-  //   const { getByTestId } = render(
-  //     <SwipeableListItem
-  //       swipeLeft={{
-  //         content: <span>Left swipe content</span>,
-  //         actionAnimation: ActionAnimations.NONE,
-  //         action: callbackLeft,
-  //       }}
-  //       swipeRight={{
-  //         content: <span>Right swipe content</span>,
-  //         actionAnimation: ActionAnimations.NONE,
-  //         action: callbackRight,
-  //       }}
-  //     >
-  //       <span>Item content</span>
-  //     </SwipeableListItem>
-  //   );
-
-  //   const contentContainer = getByTestId('content');
-
-  //   swipeLeftMouse(contentContainer);
-  //   expect(contentContainer).toHaveClass('swipeable-list-item__content');
-  //   expect(contentContainer).not.toHaveClass(
-  //     'swipeable-list-item__content--return'
-  //   );
-  //   expect(contentContainer).not.toHaveClass(
-  //     'swipeable-list-item__content--remove'
-  //   );
-
-  //   swipeLeftTouch(contentContainer);
-  //   expect(contentContainer).toHaveClass('swipeable-list-item__content');
-  //   expect(contentContainer).not.toHaveClass(
-  //     'swipeable-list-item__content--return'
-  //   );
-  //   expect(contentContainer).not.toHaveClass(
-  //     'swipeable-list-item__content--remove'
-  //   );
-
-  //   swipeRightMouse(contentContainer);
-  //   expect(contentContainer).toHaveClass('swipeable-list-item__content');
-  //   expect(contentContainer).not.toHaveClass(
-  //     'swipeable-list-item__content--return'
-  //   );
-  //   expect(contentContainer).not.toHaveClass(
-  //     'swipeable-list-item__content--remove'
-  //   );
-
-  //   swipeRightTouch(contentContainer);
-  //   expect(contentContainer).toHaveClass('swipeable-list-item__content');
-  //   expect(contentContainer).not.toHaveClass(
-  //     'swipeable-list-item__content--return'
-  //   );
-  //   expect(contentContainer).not.toHaveClass(
-  //     'swipeable-list-item__content--remove'
-  //   );
-
-  //   expect(callbackLeft).toBeCalledTimes(2);
-  //   expect(callbackRight).toBeCalledTimes(2);
-  // });
 });

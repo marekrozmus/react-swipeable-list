@@ -210,6 +210,7 @@ export const beyondOpenActionsThreshold = () => TEST_ACTIONS_WIDTH + 1;
 
 export const renderAndroidType = ({
   blockSwipe = false,
+  destructiveCallbackDelay = 1000,
   fullSwipe = true,
   leadingActionCallback,
   onSwipeStartCallback,
@@ -218,10 +219,12 @@ export const renderAndroidType = ({
   swipeStartThreshold,
   trailingActionCallback,
   threshold = DEFAULT_THRESHOLD,
+  trailingDestructive = false,
 }) =>
   render(
     <SwipeableListItem
       blockSwipe={blockSwipe}
+      destructiveCallbackDelay={destructiveCallbackDelay}
       fullSwipe={fullSwipe}
       leadingActions={
         <LeadingActions>
@@ -233,7 +236,12 @@ export const renderAndroidType = ({
       threshold={threshold}
       trailingActions={
         <TrailingActions>
-          <SwipeAction onClick={trailingActionCallback}>Test</SwipeAction>
+          <SwipeAction
+            destructive={trailingDestructive}
+            onClick={trailingActionCallback}
+          >
+            Test
+          </SwipeAction>
         </TrailingActions>
       }
       onSwipeEnd={onSwipeEndCallback}
@@ -270,6 +278,44 @@ export const renderIosOneActionType = ({
       trailingActions={
         <TrailingActions>
           <SwipeAction onClick={trailingActionCallback}>Test</SwipeAction>
+        </TrailingActions>
+      }
+      onSwipeEnd={onSwipeEndCallback}
+      onSwipeProgress={onSwipeProgressCallback}
+      onSwipeStart={onSwipeStartCallback}
+    >
+      <span>Item content</span>
+    </SwipeableListItem>
+  );
+
+export const renderIosTwoActionsType = ({
+  blockSwipe = false,
+  fullSwipe = true,
+  leadingActionCallbacks = [jest.fn(), jest.fn()],
+  onSwipeStartCallback,
+  onSwipeEndCallback,
+  onSwipeProgressCallback,
+  swipeStartThreshold,
+  trailingActionCallbacks = [jest.fn(), jest.fn()],
+  threshold = DEFAULT_THRESHOLD,
+} = {}) =>
+  render(
+    <SwipeableListItem
+      blockSwipe={blockSwipe}
+      fullSwipe={fullSwipe}
+      leadingActions={
+        <LeadingActions>
+          <SwipeAction onClick={leadingActionCallbacks[0]}>Test 1</SwipeAction>
+          <SwipeAction onClick={leadingActionCallbacks[1]}>Test 2</SwipeAction>
+        </LeadingActions>
+      }
+      listType={ListType.IOS}
+      swipeStartThreshold={swipeStartThreshold}
+      threshold={threshold}
+      trailingActions={
+        <TrailingActions>
+          <SwipeAction onClick={trailingActionCallbacks[0]}>Test 1</SwipeAction>
+          <SwipeAction onClick={trailingActionCallbacks[1]}>Test 2</SwipeAction>
         </TrailingActions>
       }
       onSwipeEnd={onSwipeEndCallback}
