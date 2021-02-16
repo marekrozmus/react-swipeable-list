@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup, fireEvent } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 
 import {
   LeadingActions,
@@ -186,8 +186,6 @@ export const beforeEachTest = () => {
 };
 
 export const afterEachTest = () => {
-  cleanup();
-
   window.requestAnimationFrame.mockRestore();
 
   global.Date.now = RealDate;

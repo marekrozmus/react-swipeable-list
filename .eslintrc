@@ -8,10 +8,12 @@
   "extends": [
     "eslint:recommended",
     "plugin:prettier/recommended",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "plugin:testing-library/recommended",
+    "plugin:testing-library/react"
   ],
   "parser": "@babel/eslint-parser",
-  "plugins": ["react-hooks"],
+  "plugins": ["react-hooks", "testing-library"],
   "settings": {
     "react": {
       "version": "16.8"
