@@ -24,6 +24,8 @@ const SwipeAction = ({
     setLeadingFullSwipeAction,
     setTrailingFullSwipeAction,
     trailingFullSwipe,
+    scaleLeading,
+    scaleTrailing,
   } = React.useContext(ItemContext);
 
   const onHandleClick = React.useCallback(() => {
@@ -60,6 +62,8 @@ const SwipeAction = ({
           trailing && trailingFullSwipe && !main && listType === ListType.IOS,
         'swipe-action__trailing--full-swipe-main':
           trailing && trailingFullSwipe && main && listType === ListType.IOS,
+        'swipe-action__grayed':
+          listType === ListType.MS && !(scaleLeading || scaleTrailing),
       })}
       onClick={onHandleClick}
     >

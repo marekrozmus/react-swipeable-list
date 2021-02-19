@@ -3,6 +3,7 @@ import React from 'react';
 import IosWithOneActionExample from './ios/WithOneAction';
 import IosWithTwoActionsExample from './ios/WithTwoActions';
 import AndroidExample from './android/WithOneAction';
+import MsExample from './ms/WithOneAction';
 import SizeToContentExample from './size-to-content/SizeToContentExample';
 import { people as data } from './data';
 
@@ -10,6 +11,7 @@ const Example = {
   IOS1ACTION: 'IOS1ACTION',
   IOS2ACTIONS: 'IOS2ACTIONS',
   ANDROID: 'ANDROID',
+  MS: 'MS',
   SIZE_TO_CONTENT: 'SIZE_TO_CONTENT',
 };
 
@@ -17,6 +19,7 @@ const Examples = [
   { id: Example.IOS1ACTION, text: 'iOS style with one action' },
   { id: Example.IOS2ACTIONS, text: 'iOS style with two actions' },
   { id: Example.ANDROID, text: 'Android style' },
+  { id: Example.MS, text: 'Outlook style' },
   {
     id: Example.SIZE_TO_CONTENT,
     text: 'List in size to content container',
@@ -30,10 +33,7 @@ const App = () => {
   const [swipeProgress, setSwipeProgress] = React.useState(0);
   const [swipeAction, setSwipeAction] = React.useState();
   const [triggeredItemAction, setTriggeredItemAction] = React.useState('None');
-
-  const [selectedExample, setSelectedExample] = React.useState(
-    Example.IOS1ACTION
-  );
+  const [selectedExample, setSelectedExample] = React.useState(Example.MS);
 
   const setStatus = (id, status) => {
     setPeople(
@@ -61,6 +61,8 @@ const App = () => {
         return <IosWithTwoActionsExample {...props} />;
       case Example.ANDROID:
         return <AndroidExample {...props} />;
+      case Example.MS:
+        return <MsExample {...props} />;
       case Example.SIZE_TO_CONTENT:
         return <SizeToContentExample />;
       default:

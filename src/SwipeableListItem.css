@@ -24,6 +24,21 @@
   transition: transform 0.5s ease-in-out;
 }
 
+@keyframes content-return-ms {
+  20% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.swipeable-list-item__content--return-ms {
+  animation-duration: 0.5s;
+  animation-name: content-return-ms;
+  animation-timing-function: linear;
+}
+
 .swipeable-list-item__content--remove {
   transition: transform 0.5s ease-in-out;
 }
@@ -34,10 +49,28 @@
   width: 0px;
   overflow-x: hidden;
   height: 100%;
+  transform: scale(1);
+  transform-origin: center left;
+  transition: transform 0.2s ease-out;
 }
 
 .swipeable-list-item__leading-actions--return {
   transition: width 0.5s ease-in-out;
+}
+
+@keyframes leading-actions-return-ms {
+  20% {
+    width: 100%;
+  }
+  100% {
+    width: 0;
+  }
+}
+
+.swipeable-list-item__leading-actions--return-ms {
+  animation-duration: 0.5s;
+  animation-name: leading-actions-return-ms;
+  animation-timing-function: linear;
 }
 
 .swipeable-list-item__leading-actions > * {
@@ -55,6 +88,9 @@
   justify-content: flex-end;
   overflow-x: hidden;
   height: 100%;
+  transform: scale(1);
+  transform-origin: center right;
+  transition: transform 0.2s ease-out;
 }
 
 .swipeable-list-item__trailing-actions--return {
@@ -63,4 +99,16 @@
 
 .swipeable-list-item__trailing-actions > * {
   overflow-x: hidden;
+}
+
+.swipeable-list-item__leading-actions--scaled {
+  transform: scale(1.2);
+  transform-origin: center left;
+  transition: transform 0.2s ease-in;
+}
+
+.swipeable-list-item__trailing-actions--scaled {
+  transform: scale(1.2);
+  transform-origin: center right;
+  transition: transform 0.2s ease-in;
 }

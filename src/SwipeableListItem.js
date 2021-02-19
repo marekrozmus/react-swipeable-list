@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import clsx from 'clsx';
 
 import { Type as ListType } from './SwipeableList';
 import './SwipeableListItem.css';
@@ -41,6 +42,8 @@ const initialState = {
   leadingFullSwipe: false,
   trailingFullSwipe: false,
   triggerAction: false,
+  scaleLeading: false,
+  scaleTrailing: false,
 };
 
 class SwipeableListItem extends PureComponent {
@@ -178,6 +181,8 @@ class SwipeableListItem extends PureComponent {
 
     let startOffsetX = 0;
 
+    console.log(startOffsetX, this.left);
+
     if (this.leadingActionsOpened) {
       startOffsetX = -this.leadingActionsWidth;
     }
@@ -261,18 +266,41 @@ class SwipeableListItem extends PureComponent {
   playReturnAnimation = ({ to = 0 } = {}) => {
     const { leadingActionsElement, listElement, trailingActionsElement } = this;
     const { listType } = this.props;
+    const { triggerAction } = this.state;
 
     const isIosType = listType === ListType.IOS;
+    const isMsType = listType === ListType.MS;
+    const playMsReturnAnimation = triggerAction && isMsType;
+
+    if (playMsReturnAnimation) {
+      const keepAnimationEnd = () => {
+        listElement.removeEventListener('animationend', keepAnimationEnd);
+        listElement.style.transform = `translateX(0)`;
+      };
+
+      listElement.addEventListener('animationend', keepAnimationEnd);
+    }
 
     if (listElement) {
-      listElement.className =
-        'swipeable-list-item__content swipeable-list-item__content--return';
-      listElement.style.transform = `translateX(${isIosType ? to : 0}px)`;
+      listElement.className = clsx(
+        'swipeable-list-item__content',
+        playMsReturnAnimation
+          ? 'swipeable-list-item__content--return-ms'
+          : 'swipeable-list-item__content--return'
+      );
+
+      if (!playMsReturnAnimation) {
+        listElement.style.transform = `translateX(${isIosType ? to : 0}px)`;
+      }
     }
 
     if (leadingActionsElement) {
-      leadingActionsElement.className =
-        'swipeable-list-item__leading-actions swipeable-list-item__leading-actions--return';
+      leadingActionsElement.className = clsx(
+        'swipeable-list-item__leading-actions',
+        playMsReturnAnimation
+          ? 'swipeable-list-item__leading-actions--return-ms'
+          : 'swipeable-list-item__leading-actions--return'
+      );
 
       if (this.leadingActionsOpened && isIosType) {
         leadingActionsElement.className += ' test-actions-opened';
@@ -288,6 +316,7 @@ class SwipeableListItem extends PureComponent {
     }
 
     if (trailingActionsElement) {
+      // TODO: Add ms style!!!
       trailingActionsElement.className =
         'swipeable-list-item__trailing-actions swipeable-list-item__trailing-actions--return';
 
@@ -574,15 +603,19 @@ class SwipeableListItem extends PureComponent {
             leadingFullSwipe: false,
             trailingFullSwipe: true,
             triggerAction: true,
+            scaleTrailing: true,
           });
         } else if (this.left > threshold) {
           this.setState({
             leadingFullSwipe: true,
             trailingFullSwipe: false,
             triggerAction: true,
+            scaleLeading: true,
           });
         } else {
           this.setState({
+            scaleLeading: false,
+            scaleTrailing: false,
             triggerAction: false,
           });
         }
@@ -627,16 +660,28 @@ class SwipeableListItem extends PureComponent {
 
   renderActions = (actions, type, binder) => {
     const { destructiveCallbackDelay, listType } = this.props;
-    const { leadingFullSwipe, trailingFullSwipe } = this.state;
+    const {
+      leadingFullSwipe,
+      trailingFullSwipe,
+      scaleLeading,
+      scaleTrailing,
+    } = this.state;
     const {
       onActionTriggered,
       setLeadingFullSwipeAction,
       setTrailingFullSwipeAction,
     } = this;
 
+    const scaled =
+      listType === ListType.MS &&
+      ((scaleLeading && type === 'leading') ||
+        (scaleTrailing && type === 'trailing'));
+
     return (
       <div
-        className={`swipeable-list-item__${type}-actions`}
+        className={clsx(`swipeable-list-item__${type}-actions`, {
+          [`swipeable-list-item__${type}-actions--scaled`]: scaled,
+        })}
         data-testid={`${type}-actions`}
         ref={binder}
       >
@@ -646,6 +691,8 @@ class SwipeableListItem extends PureComponent {
             listType,
             leadingFullSwipe,
             onActionTriggered,
+            scaleLeading,
+            scaleTrailing,
             setLeadingFullSwipeAction,
             setTrailingFullSwipeAction,
             trailingFullSwipe,

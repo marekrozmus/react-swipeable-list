@@ -8,6 +8,10 @@
   flex: 1;
 }
 
+.swipe-action__grayed > * {
+  background-color: gray !important;
+}
+
 .swipe-action__leading > * {
   justify-content: flex-start;
 }
