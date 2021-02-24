@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom/extend-expect';
 import React from 'react';
-import { render, cleanup } from '@testing-library/react';
+import { render } from '@testing-library/react';
 
 import {
   LeadingActions,
@@ -20,8 +20,6 @@ import {
 } from './helpers';
 
 const RealDate = Date.now;
-
-afterEach(cleanup);
 
 beforeEach(() => {
   jest.spyOn(window, 'requestAnimationFrame').mockImplementation(cb => cb());

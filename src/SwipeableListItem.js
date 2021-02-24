@@ -181,8 +181,6 @@ class SwipeableListItem extends PureComponent {
 
     let startOffsetX = 0;
 
-    console.log(startOffsetX, this.left);
-
     if (this.leadingActionsOpened) {
       startOffsetX = -this.leadingActionsWidth;
     }
@@ -263,8 +261,62 @@ class SwipeableListItem extends PureComponent {
     this.handleDragEnd();
   };
 
+  playReturnAnimationForLeadingActions = ({
+    to,
+    isIosType,
+    playMsReturnAnimation,
+  }) => {
+    if (this.leadingActionsElement) {
+      this.leadingActionsElement.className = clsx(
+        'swipeable-list-item__leading-actions',
+        playMsReturnAnimation
+          ? 'swipeable-list-item__leading-actions--return-ms'
+          : 'swipeable-list-item__leading-actions--return'
+      );
+
+      if (this.leadingActionsOpened && isIosType) {
+        this.leadingActionsElement.className += ' test-actions-opened';
+      }
+
+      this.leadingActionsElement.style.width = `${
+        to === 0 || !isIosType
+          ? 0
+          : this.leadingActionsOpened && isIosType
+          ? this.leadingActionsWidth
+          : 0
+      }px`;
+    }
+  };
+
+  playReturnAnimationForTrailingActions = ({
+    to,
+    isIosType,
+    playMsReturnAnimation,
+  }) => {
+    if (this.trailingActionsElement) {
+      this.trailingActionsElement.className = clsx(
+        'swipeable-list-item__trailing-actions',
+        playMsReturnAnimation
+          ? 'swipeable-list-item__leading-actions--return-ms'
+          : 'swipeable-list-item__trailing-actions--return'
+      );
+
+      if (this.trailingActionsOpened && isIosType) {
+        this.trailingActionsElement.className += ' test-actions-opened';
+      }
+
+      this.trailingActionsElement.style.width = `${
+        to === 0 || !isIosType
+          ? 0
+          : this.trailingActionsOpened && isIosType
+          ? this.trailingActionsWidth
+          : 0
+      }px`;
+    }
+  };
+
   playReturnAnimation = ({ to = 0 } = {}) => {
-    const { leadingActionsElement, listElement, trailingActionsElement } = this;
+    const { listElement } = this;
     const { listType } = this.props;
     const { triggerAction } = this.state;
 
@@ -294,43 +346,18 @@ class SwipeableListItem extends PureComponent {
       }
     }
 
-    if (leadingActionsElement) {
-      leadingActionsElement.className = clsx(
-        'swipeable-list-item__leading-actions',
-        playMsReturnAnimation
-          ? 'swipeable-list-item__leading-actions--return-ms'
-          : 'swipeable-list-item__leading-actions--return'
-      );
-
-      if (this.leadingActionsOpened && isIosType) {
-        leadingActionsElement.className += ' test-actions-opened';
-      }
-
-      leadingActionsElement.style.width = `${
-        to === 0 || !isIosType
-          ? 0
-          : this.leadingActionsOpened && isIosType
-          ? this.leadingActionsWidth
-          : 0
-      }px`;
-    }
-
-    if (trailingActionsElement) {
-      // TODO: Add ms style!!!
-      trailingActionsElement.className =
-        'swipeable-list-item__trailing-actions swipeable-list-item__trailing-actions--return';
-
-      if (this.trailingActionsOpened && isIosType) {
-        trailingActionsElement.className += ' test-actions-opened';
-      }
-
-      trailingActionsElement.style.width = `${
-        to === 0 || !isIosType
-          ? 0
-          : this.trailingActionsOpened && isIosType
-          ? this.trailingActionsWidth
-          : 0
-      }px`;
+    if (this.left < 0) {
+      this.playReturnAnimationForTrailingActions({
+        to,
+        isIosType,
+        playMsReturnAnimation,
+      });
+    } else {
+      this.playReturnAnimationForLeadingActions({
+        to,
+        isIosType,
+        playMsReturnAnimation,
+      });
     }
 
     if (to === 0) {
@@ -432,8 +459,8 @@ class SwipeableListItem extends PureComponent {
           to: this.left,
         });
       } else {
-        this.resetState();
         this.playReturnAnimation();
+        this.resetState();
       }
     }
   };

@@ -218,7 +218,7 @@ export const renderAndroidType = ({
   trailingActionCallback,
   threshold = DEFAULT_THRESHOLD,
   trailingDestructive = false,
-}) =>
+} = {}) =>
   render(
     <SwipeableListItem
       blockSwipe={blockSwipe}

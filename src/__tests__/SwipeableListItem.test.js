@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom/extend-expect';
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 
 import {
   LeadingActions,
@@ -329,6 +329,44 @@ describe('SwipeableListItem (type ANDROID) - behaviour ', () => {
 
     jest.runOnlyPendingTimers();
     jest.useRealTimers();
+  });
+
+  test('only one return animation should run', () => {
+    const leadingActionCallback = jest.fn();
+    const trailingActionCallback = jest.fn();
+
+    renderAndroidType({
+      leadingActionCallback,
+      trailingActionCallback,
+    });
+
+    const listItem = screen.getByTestId('content');
+    const leadingActions = screen.getByTestId('leading-actions');
+    const trailingActions = screen.getByTestId('trailing-actions');
+
+    swipeLeftMouse(listItem, toThreshold());
+    swipeLeftTouch(listItem, toThreshold());
+    swipeLeftMouse(listItem, beyondThreshold());
+    swipeLeftTouch(listItem, beyondThreshold());
+
+    expect(leadingActions).not.toHaveClass(
+      'swipeable-list-item__leading-actions--return'
+    );
+    expect(trailingActions).toHaveClass(
+      'swipeable-list-item__trailing-actions--return'
+    );
+
+    swipeRightMouse(listItem, toThreshold());
+    swipeRightTouch(listItem, toThreshold());
+    swipeRightMouse(listItem, beyondThreshold());
+    swipeRightTouch(listItem, beyondThreshold());
+
+    expect(leadingActions).toHaveClass(
+      'swipeable-list-item__leading-actions--return'
+    );
+    expect(trailingActions).not.toHaveClass(
+      'swipeable-list-item__trailing-actions--return'
+    );
   });
 });
 
