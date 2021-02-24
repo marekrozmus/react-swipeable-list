@@ -13,6 +13,8 @@ const ItemContent = styled.div`
   border-top-width: 6px;
   border-bottom-width: 6px;
   color: #eee;
+  user-select: none;
+  cursor: pointer;
 `;
 
 const ActionContent = styled.div`
@@ -24,6 +26,8 @@ const ActionContent = styled.div`
   font-weight: 500;
   box-sizing: border-box;
   color: #eee;
+  user-select: none;
+  cursor: pointer;
 `;
 
 const Avatar = styled.img`
@@ -31,6 +35,8 @@ const Avatar = styled.img`
   height: 44px;
   border-radius: 50%;
   margin-right: 8px;
+  user-drag: none;
+  user-select: none;
 `;
 
 const ItemRow = styled.div`
@@ -67,5 +73,5 @@ export {
   ItemContent,
   ItemInfoLine,
   ItemNameLine,
-  ItemRow
+  ItemRow,
 };

@@ -270,7 +270,7 @@ class SwipeableListItem extends PureComponent {
       this.leadingActionsElement.className = clsx(
         'swipeable-list-item__leading-actions',
         playMsReturnAnimation
-          ? 'swipeable-list-item__leading-actions--return-ms'
+          ? 'swipeable-list-item__actions--return-ms'
           : 'swipeable-list-item__leading-actions--return'
       );
 
@@ -278,13 +278,28 @@ class SwipeableListItem extends PureComponent {
         this.leadingActionsElement.className += ' test-actions-opened';
       }
 
-      this.leadingActionsElement.style.width = `${
-        to === 0 || !isIosType
-          ? 0
-          : this.leadingActionsOpened && isIosType
-          ? this.leadingActionsWidth
-          : 0
-      }px`;
+      if (playMsReturnAnimation) {
+        const keepAnimationEnd = () => {
+          this.leadingActionsElement.removeEventListener(
+            'animationend',
+            keepAnimationEnd
+          );
+          this.leadingActionsElement.style.width = 0;
+        };
+
+        this.leadingActionsElement.addEventListener(
+          'animationend',
+          keepAnimationEnd
+        );
+      } else {
+        this.leadingActionsElement.style.width = `${
+          to === 0 || !isIosType
+            ? 0
+            : this.leadingActionsOpened && isIosType
+            ? this.leadingActionsWidth
+            : 0
+        }px`;
+      }
     }
   };
 
@@ -297,7 +312,7 @@ class SwipeableListItem extends PureComponent {
       this.trailingActionsElement.className = clsx(
         'swipeable-list-item__trailing-actions',
         playMsReturnAnimation
-          ? 'swipeable-list-item__leading-actions--return-ms'
+          ? 'swipeable-list-item__actions--return-ms'
           : 'swipeable-list-item__trailing-actions--return'
       );
 
@@ -305,13 +320,28 @@ class SwipeableListItem extends PureComponent {
         this.trailingActionsElement.className += ' test-actions-opened';
       }
 
-      this.trailingActionsElement.style.width = `${
-        to === 0 || !isIosType
-          ? 0
-          : this.trailingActionsOpened && isIosType
-          ? this.trailingActionsWidth
-          : 0
-      }px`;
+      if (!playMsReturnAnimation) {
+        this.trailingActionsElement.style.width = `${
+          to === 0 || !isIosType
+            ? 0
+            : this.trailingActionsOpened && isIosType
+            ? this.trailingActionsWidth
+            : 0
+        }px`;
+      } else {
+        const keepAnimationEnd = () => {
+          this.trailingActionsElement.removeEventListener(
+            'animationend',
+            keepAnimationEnd
+          );
+          this.trailingActionsElement.style.width = 0;
+        };
+
+        this.trailingActionsElement.addEventListener(
+          'animationend',
+          keepAnimationEnd
+        );
+      }
     }
   };
 
@@ -337,7 +367,9 @@ class SwipeableListItem extends PureComponent {
       listElement.className = clsx(
         'swipeable-list-item__content',
         playMsReturnAnimation
-          ? 'swipeable-list-item__content--return-ms'
+          ? `swipeable-list-item__content--return-${
+              this.left < 0 ? 'trailing' : 'leading'
+            }-ms`
           : 'swipeable-list-item__content--return'
       );
 
