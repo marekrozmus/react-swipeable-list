@@ -1,5 +1,5 @@
 <h1 align="center">react-swipeable-list</h1>
-<h4 align="center">A react component to render list with swipeable items.</h4>
+<h4 align="center">A configurable react component to render list with swipeable items.</h4>
 <p align="center">
   <img src="docs/main.gif"></img>
 </p>
@@ -18,7 +18,7 @@
 
 ## React Swipeable List component
 
-A react component to render list with swipeable items. Items can have one or more actions on left (leading) and right (trailing) swipe and different behaviour depending on props.
+A react component to render list with swipeable items. Items can have one or more actions on left (leading) and right (trailing) swipe and different behaviour depending on props. [See examples](#type)
 
 ## Demo
 
@@ -115,6 +115,10 @@ Changes behavior of swipeable items.
 #### `IOS`
 
 <img src="docs/main.gif"></img>
+
+#### `MS`
+
+<img src="docs/ms.gif"></img>
 
 ### Tag
 
