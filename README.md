@@ -104,7 +104,7 @@ Additional styles for list tag.
 
 ### type
 
-Type: `ListType (ANDROID | IOS)` (optional, deafult: `ANDROID`)
+Type: `ListType (ANDROID | IOS | MS)` (optional, deafult: `ANDROID`)
 
 Changes behavior of swipeable items.
 
