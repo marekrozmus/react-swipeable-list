@@ -14,12 +14,14 @@ import {
   ActionContent,
   Avatar,
   ItemColumn,
+  ItemColumnCentered,
   ItemContent,
   ItemInfoLine,
   ItemNameLine,
   ItemRow,
 } from '../styledComponents';
 import { colors } from '../data.js';
+import { DeleteIcon, ThumbDownIcon, ThumbUpIcon } from '../../images/icons';
 
 import './WithOneAction.css';
 
@@ -27,6 +29,7 @@ const WithOneAction = ({
   people,
   setStatus,
   threshold,
+  setPeople,
   setThreshold,
   setSwipeProgress,
   setSwipeAction,
@@ -58,11 +61,22 @@ const WithOneAction = ({
     setStatus(id, 'rejected');
   };
 
+  const handleDelete = id => () => {
+    console.log('[Handle DELETE]', id);
+    setTriggeredItemAction(`[Handle DELETE] - ${id}`);
+    setPeople(people.filter(person => person.id !== id));
+  };
+
   const leadingActions = ({ id }) => (
     <LeadingActions>
       <SwipeAction onClick={handleAccept(id)}>
         <ActionContent style={{ backgroundColor: colors.accepted }}>
-          Accept
+          <ItemColumnCentered>
+            <span className="icon">
+              <ThumbUpIcon />
+            </span>
+            Accept
+          </ItemColumnCentered>
         </ActionContent>
       </SwipeAction>
     </LeadingActions>
@@ -70,11 +84,29 @@ const WithOneAction = ({
 
   const trailingActions = ({ id }) => (
     <TrailingActions>
-      <SwipeAction onClick={handleReject(id)}>
-        <ActionContent style={{ backgroundColor: colors.rejected }}>
-          Reject
-        </ActionContent>
-      </SwipeAction>
+      {id % 2 === 0 ? (
+        <SwipeAction onClick={handleReject(id)}>
+          <ActionContent style={{ backgroundColor: colors.rejected }}>
+            <ItemColumnCentered>
+              <span className="icon">
+                <ThumbDownIcon />
+              </span>
+              Reject
+            </ItemColumnCentered>
+          </ActionContent>
+        </SwipeAction>
+      ) : (
+        <SwipeAction destructive={true} onClick={handleDelete(id)}>
+          <ActionContent style={{ backgroundColor: colors.deleted }}>
+            <ItemColumnCentered>
+              <span className="icon">
+                <DeleteIcon />
+              </span>
+              Delete
+            </ItemColumnCentered>
+          </ActionContent>
+        </SwipeAction>
+      )}
     </TrailingActions>
   );
 
@@ -125,6 +157,7 @@ WithOneAction.propTypes = {
   people: PropTypes.array.isRequired,
   setStatus: PropTypes.func.isRequired,
   threshold: PropTypes.number.isRequired,
+  setPeople: PropTypes.func.isRequired,
   setThreshold: PropTypes.func.isRequired,
   setSwipeProgress: PropTypes.func.isRequired,
   setSwipeAction: PropTypes.func.isRequired,

@@ -33,7 +33,9 @@ const App = () => {
   const [swipeProgress, setSwipeProgress] = React.useState(0);
   const [swipeAction, setSwipeAction] = React.useState();
   const [triggeredItemAction, setTriggeredItemAction] = React.useState('None');
-  const [selectedExample, setSelectedExample] = React.useState(Example.MS);
+  const [selectedExample, setSelectedExample] = React.useState(
+    Example.IOS1ACTION
+  );
 
   const setStatus = (id, status) => {
     setPeople(
