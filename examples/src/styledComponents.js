@@ -14,7 +14,6 @@ const ItemContent = styled.div`
   border-bottom-width: 6px;
   color: #eee;
   user-select: none;
-  cursor: pointer;
 `;
 
 const ActionContent = styled.div`
@@ -27,7 +26,6 @@ const ActionContent = styled.div`
   box-sizing: border-box;
   color: #eee;
   user-select: none;
-  cursor: pointer;
 `;
 
 const Avatar = styled.img`
