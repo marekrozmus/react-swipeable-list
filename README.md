@@ -1,4 +1,7 @@
 <h1 align="center">react-swipeable-list</h1>
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 <h4 align="center">A configurable react component to render list with swipeable items.</h4>
 <p align="center">
   <img src="docs/main.gif"></img>
@@ -219,3 +222,23 @@ Callback function that should be call after swipe action is triggered.
 Type: `string` (optional, deafult: `span`)
 
 HTML tag that is used to create this component.
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://marek-rozmus.medium.com/"><img src="https://avatars.githubusercontent.com/u/26272040?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Marek Rozmus</b></sub></a><br /><a href="https://github.com/marekrozmus/react-swipeable-list/commits?author=marekrozmus" title="Code">💻</a> <a href="https://github.com/marekrozmus/react-swipeable-list/commits?author=marekrozmus" title="Documentation">📖</a> <a href="https://github.com/marekrozmus/react-swipeable-list/commits?author=marekrozmus" title="Tests">⚠️</a> <a href="#example-marekrozmus" title="Examples">💡</a> <a href="#ideas-marekrozmus" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-marekrozmus" title="Maintenance">🚧</a> <a href="#design-marekrozmus" title="Design">🎨</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
