@@ -628,11 +628,6 @@ class SwipeableListItem extends PureComponent {
         this.trailingActionsOpened =
           Math.abs(this.left) > this.trailingActionsWidth;
         this.leadingActionsOpened = false;
-        console.log({
-          trailingActionsOpened: this.trailingActionsOpened,
-          left: this.left,
-          width: this.trailingActionsWidth,
-        });
       }
     }
 
