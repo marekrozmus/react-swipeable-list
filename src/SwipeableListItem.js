@@ -460,6 +460,11 @@ class SwipeableListItem extends PureComponent {
   };
 
   handleDragEnd = () => {
+    if (this.requestedAnimationFrame) {
+      cancelAnimationFrame(this.requestedAnimationFrame);
+      this.requestedAnimationFrame = null;
+    }
+
     if (this.isSwiping()) {
       const { leadingFullSwipe, trailingFullSwipe, triggerAction } = this.state;
       const { onSwipeEnd } = this.props;
@@ -623,6 +628,11 @@ class SwipeableListItem extends PureComponent {
         this.trailingActionsOpened =
           Math.abs(this.left) > this.trailingActionsWidth;
         this.leadingActionsOpened = false;
+        console.log({
+          trailingActionsOpened: this.trailingActionsOpened,
+          left: this.left,
+          width: this.trailingActionsWidth,
+        });
       }
     }
 
