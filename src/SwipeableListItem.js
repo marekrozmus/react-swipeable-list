@@ -522,7 +522,6 @@ class SwipeableListItem extends PureComponent {
       switch (octant) {
         case 0:
           if (
-            this.leadingActionsElement !== null &&
             horizontalDistance > this.dragHorizontalDirectionThreshold
           ) {
             this.dragDirection = DragDirection.RIGHT;
@@ -537,7 +536,6 @@ class SwipeableListItem extends PureComponent {
           break;
         case 4:
           if (
-            this.trailingActionsElement !== null &&
             horizontalDistance > this.dragHorizontalDirectionThreshold
           ) {
             this.dragDirection = DragDirection.LEFT;
