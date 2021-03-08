@@ -1,7 +1,5 @@
 <h1 align="center">react-swipeable-list</h1>
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
+
 <h4 align="center">A configurable react component to render list with swipeable items.</h4>
 <p align="center">
   <img src="docs/main.gif"></img>
@@ -18,6 +16,9 @@
 [![Actions Status](https://github.com/marekrozmus/react-swipeable-list/workflows/Node.js%20CI/badge.svg)](https://github.com/marekrozmus/react-swipeable-list/actions)
 [![codecov](https://codecov.io/gh/marekrozmus/react-swipeable-list/branch/main/graph/badge.svg?token=8P4356I2J0)](https://codecov.io/gh/marekrozmus/react-swipeable-list)
 ![GitHub Release Date](https://img.shields.io/github/release-date/marekrozmus/react-swipeable-list)
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## React Swipeable List component
 
