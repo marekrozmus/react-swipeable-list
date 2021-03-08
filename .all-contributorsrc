@@ -1,0 +1,30 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "marekrozmus",
+      "name": "Marek Rozmus",
+      "avatar_url": "https://avatars.githubusercontent.com/u/26272040?v=4",
+      "profile": "https://marek-rozmus.medium.com/",
+      "contributions": [
+        "code",
+        "doc",
+        "test",
+        "example",
+        "ideas",
+        "maintenance",
+        "design"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "react-swipeable-list",
+  "projectOwner": "marekrozmus",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
