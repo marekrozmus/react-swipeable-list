@@ -17,7 +17,7 @@
 [![codecov](https://codecov.io/gh/marekrozmus/react-swipeable-list/branch/main/graph/badge.svg?token=8P4356I2J0)](https://codecov.io/gh/marekrozmus/react-swipeable-list)
 ![GitHub Release Date](https://img.shields.io/github/release-date/marekrozmus/react-swipeable-list)
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## React Swipeable List component
@@ -234,6 +234,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://marek-rozmus.medium.com/"><img src="https://avatars.githubusercontent.com/u/26272040?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Marek Rozmus</b></sub></a><br /><a href="https://github.com/marekrozmus/react-swipeable-list/commits?author=marekrozmus" title="Code">💻</a> <a href="https://github.com/marekrozmus/react-swipeable-list/commits?author=marekrozmus" title="Documentation">📖</a> <a href="https://github.com/marekrozmus/react-swipeable-list/commits?author=marekrozmus" title="Tests">⚠️</a> <a href="#example-marekrozmus" title="Examples">💡</a> <a href="#ideas-marekrozmus" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-marekrozmus" title="Maintenance">🚧</a> <a href="#design-marekrozmus" title="Design">🎨</a></td>
+    <td align="center"><a href="https://adamlaycock.ca"><img src="https://avatars.githubusercontent.com/u/894797?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Adam Laycock</b></sub></a><br /><a href="https://github.com/marekrozmus/react-swipeable-list/issues?q=author%3Aalaycock" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 

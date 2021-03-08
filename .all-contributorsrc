@@ -19,6 +19,15 @@
         "maintenance",
         "design"
       ]
+    },
+    {
+      "login": "alaycock",
+      "name": "Adam Laycock",
+      "avatar_url": "https://avatars.githubusercontent.com/u/894797?v=4",
+      "profile": "https://adamlaycock.ca",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
