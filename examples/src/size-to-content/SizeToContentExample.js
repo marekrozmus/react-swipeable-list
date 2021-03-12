@@ -44,7 +44,7 @@ const SizeToContent = () => {
   };
 
   const handleAccept = id => () => {
-    console.log('[Hanlde ACCEPT]', id);
+    console.log('[Handle ACCEPT]', id);
     setStatus(id, 'accepted');
   };
 
