@@ -44,7 +44,7 @@ const WithTwoActions = ({
   };
 
   const handleAccept = id => () => {
-    console.log('[Hanlde ACCEPT]', id);
+    console.log('[Handle ACCEPT]', id);
     setTriggeredItemAction(`[Handle ACCEPT] - ${id}`);
     setStatus(id, 'accepted');
   };

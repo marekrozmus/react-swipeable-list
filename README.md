@@ -16,13 +16,18 @@
 [![Actions Status](https://github.com/marekrozmus/react-swipeable-list/workflows/Node.js%20CI/badge.svg)](https://github.com/marekrozmus/react-swipeable-list/actions)
 [![codecov](https://codecov.io/gh/marekrozmus/react-swipeable-list/branch/main/graph/badge.svg?token=8P4356I2J0)](https://codecov.io/gh/marekrozmus/react-swipeable-list)
 ![GitHub Release Date](https://img.shields.io/github/release-date/marekrozmus/react-swipeable-list)
+
+<!-- prettier-ignore-start -->
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
+<!-- prettier-ignore-end -->
 
 ## React Swipeable List component
 
-A react component to render list with swipeable items. Items can have one or more actions on left (leading) and right (trailing) swipe and different behaviour depending on props. [See examples](#type)
+A react component to render list with swipeable items. Items can have one or more actions on left (leading) and right (trailing) swipe and different behavior depending on props. [See examples](#type)
+
+This repository contains new version of [sandstreamdev/react-swipeable-list/](https://github.com/sandstreamdev/react-swipeable-list). Whole component was reimplemented to support buttons in revealed content and different swipe behaviors. More information can be found in this issue: [Clarify relationship with @sandstreamdev/react-swipeable-list](https://github.com/marekrozmus/react-swipeable-list/issues/6)
 
 ## Demo
 
@@ -85,7 +90,7 @@ const trailingActions = () => (
 
 Type: `boolean` (optional, default: `false`)
 
-Changes behaviour of `IOS` list type.
+Changes behavior of `IOS` list type.
 When `true` and swipe is done beyond `threshold` and released the action is triggered.
 
 <img src="docs/ios_fullswipe_on.gif"></img>
@@ -96,19 +101,19 @@ When set to `false` actions are only opened and they need to be clicked to trigg
 
 ### destructiveCallbackDelay
 
-Type: `miliseconds` (optional, default: `1000`)
+Type: `milliseconds` (optional, default: `1000`)
 
-Time in miliseconds after which swipe action should be called for `destructive` swipe action (item deletion)
+Time in milliseconds after which swipe action should be called for `destructive` swipe action (item deletion)
 
 ### style
 
-Type: `object` (optional, deafult: `undefined`)
+Type: `object` (optional, default: `undefined`)
 
 Additional styles for list tag.
 
 ### type
 
-Type: `ListType (ANDROID | IOS | MS)` (optional, deafult: `ANDROID`)
+Type: `ListType (ANDROID | IOS | MS)` (optional, default: `ANDROID`)
 
 Changes behavior of swipeable items.
 
@@ -126,7 +131,7 @@ Changes behavior of swipeable items.
 
 ### Tag
 
-Type: `string` (optional, deafult: `div`)
+Type: `string` (optional, default: `div`)
 
 HTML tag that is used to create this component.
 
@@ -220,7 +225,7 @@ Callback function that should be call after swipe action is triggered.
 
 ### Tag
 
-Type: `string` (optional, deafult: `span`)
+Type: `string` (optional, default: `span`)
 
 HTML tag that is used to create this component.
 
