@@ -103,7 +103,9 @@ When set to `false` actions are only opened and they need to be clicked to trigg
 
 Type: `milliseconds` (optional, default: `1000`)
 
-Time in milliseconds after which swipe action should be called for `destructive` swipe action (item deletion)
+Time in milliseconds after which swipe action should be called for `destructive` swipe action (item deletion).
+
+It can be set for the whole list or for every item. See `destructiveCallbackDelay` for `SwipeableListItem`. Value from the `SwipeableListItem` takes precedence.
 
 ### style
 
@@ -167,6 +169,20 @@ Type: `boolean` (optional, default: `false`)
 
 If set to `true` all defined swipe actions are blocked.
 
+### destructiveCallbackDelay
+
+Type: `milliseconds` (optional, default: `1000`)
+
+Time in milliseconds after which swipe action should be called for `destructive` swipe action (item deletion).
+
+It can be set for the whole list or for every item. See `destructiveCallbackDelay` for `SwipeableList`. Value from the `SwipeableListItem` takes precedence.
+
+### leadingActions
+
+Type: `LeadingActions component`
+
+Container component that sets up correct props in `SwipeAction`. See examples for usage.
+
 ### onSwipeStart
 
 Type: `() => void`
@@ -208,6 +224,12 @@ Type: `number` (default: `0.5`)
 How far swipe needs to be done to trigger action. `0.5` means that item needs to be swiped to half of its width, `0.25` - one-quarter of width.
 
 It can be set for the whole list or for every item. See `threshold` for `SwipeableList`. Value from the `SwipeableListItem` takes precedence.
+
+### trailingActions
+
+Type: `TrailingActions component`
+
+Container component that sets up correct props in `SwipeAction`. See examples for usage.
 
 ## SwipeAction Props
 
