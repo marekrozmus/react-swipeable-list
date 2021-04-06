@@ -1,7 +1,7 @@
 {
   "name": "react-swipeable-list",
   "description": "Swipeable list component for React",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "author": {
     "name": "Marek Rozmus",
     "url": "https://github.com/marekrozmus/react-swipeable-list/graphs/contributors"
@@ -49,6 +49,7 @@
     "@testing-library/react": "11.0.2",
     "autoprefixer": "9.8.6",
     "clsx": "^1.1.1",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "7.8.1",
     "eslint-config-prettier": "6.11.0",
     "eslint-plugin-prettier": "3.1.4",
@@ -95,5 +96,10 @@
       "eslint --fix",
       "jest --bail --findRelatedTests"
     ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   }
 }

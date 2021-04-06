@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
 
 import './SwipeableList.css';
@@ -11,6 +12,7 @@ export const Type = {
 
 const SwipeableList = ({
   children,
+  className = '',
   fullSwipe = false,
   destructiveCallbackDelay = 1000,
   style,
@@ -20,7 +22,7 @@ const SwipeableList = ({
   swipeStartThreshold,
   threshold = 0.5,
 }) => (
-  <Tag className="swipeable-list" style={style}>
+  <Tag className={clsx('swipeable-list', className)} style={style}>
     {React.Children.map(children, child =>
       React.cloneElement(child, {
         destructiveCallbackDelay,
@@ -36,6 +38,7 @@ const SwipeableList = ({
 
 SwipeableList.propTypes = {
   children: PropTypes.node,
+  className: PropTypes.string,
   fullSwipe: PropTypes.bool,
   destructiveCallbackDelay: PropTypes.number,
   style: PropTypes.object,
