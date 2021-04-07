@@ -19,7 +19,7 @@
 
 <!-- prettier-ignore-start -->
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <!-- prettier-ignore-end -->
 
@@ -262,6 +262,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://marek-rozmus.medium.com/"><img src="https://avatars.githubusercontent.com/u/26272040?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Marek Rozmus</b></sub></a><br /><a href="https://github.com/marekrozmus/react-swipeable-list/commits?author=marekrozmus" title="Code">💻</a> <a href="https://github.com/marekrozmus/react-swipeable-list/commits?author=marekrozmus" title="Documentation">📖</a> <a href="https://github.com/marekrozmus/react-swipeable-list/commits?author=marekrozmus" title="Tests">⚠️</a> <a href="#example-marekrozmus" title="Examples">💡</a> <a href="#ideas-marekrozmus" title="Ideas, Planning, & Feedback">🤔</a> <a href="#maintenance-marekrozmus" title="Maintenance">🚧</a> <a href="#design-marekrozmus" title="Design">🎨</a></td>
     <td align="center"><a href="https://adamlaycock.ca"><img src="https://avatars.githubusercontent.com/u/894797?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Adam Laycock</b></sub></a><br /><a href="https://github.com/marekrozmus/react-swipeable-list/issues?q=author%3Aalaycock" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://www.rathes.me"><img src="https://avatars.githubusercontent.com/u/6367520?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Rathes Sachchithananthan</b></sub></a><br /><a href="#ideas-rathesDot" title="Ideas, Planning, & Feedback">🤔</a></td>
   </tr>
 </table>
 
