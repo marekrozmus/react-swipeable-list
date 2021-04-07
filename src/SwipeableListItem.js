@@ -769,10 +769,13 @@ class SwipeableListItem extends PureComponent {
   };
 
   render() {
-    const { children, leadingActions, trailingActions } = this.props;
+    const { children, className, leadingActions, trailingActions } = this.props;
 
     return (
-      <div className="swipeable-list-item" ref={this.bindWrapperElement}>
+      <div
+        className={clsx('swipeable-list-item', className)}
+        ref={this.bindWrapperElement}
+      >
         {leadingActions &&
           this.renderActions(
             leadingActions,
@@ -800,6 +803,7 @@ class SwipeableListItem extends PureComponent {
 SwipeableListItem.propTypes = {
   blockSwipe: PropTypes.bool,
   children: PropTypes.node,
+  className: PropTypes.string,
   destructiveCallbackDelay: PropTypes.number,
   fullSwipe: PropTypes.bool,
   leadingActions: PropTypes.node,

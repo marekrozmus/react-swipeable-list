@@ -9,6 +9,7 @@ import './SwipeAction.css';
 
 const SwipeAction = ({
   children,
+  className,
   destructive = false,
   main = false,
   leading,
@@ -51,20 +52,24 @@ const SwipeAction = ({
 
   return (
     <Tag
-      className={clsx('swipe-action', {
-        'swipe-action__leading': leading,
-        'swipe-action__trailing': trailing,
-        'swipe-action__leading--full-swipe-rest':
-          leading && leadingFullSwipe && !main && listType === ListType.IOS,
-        'swipe-action__leading--full-swipe-main':
-          leading && leadingFullSwipe && main && listType === ListType.IOS,
-        'swipe-action__trailing--full-swipe-rest':
-          trailing && trailingFullSwipe && !main && listType === ListType.IOS,
-        'swipe-action__trailing--full-swipe-main':
-          trailing && trailingFullSwipe && main && listType === ListType.IOS,
-        'swipe-action__grayed':
-          listType === ListType.MS && !(scaleLeading || scaleTrailing),
-      })}
+      className={clsx(
+        'swipe-action',
+        {
+          'swipe-action__leading': leading,
+          'swipe-action__trailing': trailing,
+          'swipe-action__leading--full-swipe-rest':
+            leading && leadingFullSwipe && !main && listType === ListType.IOS,
+          'swipe-action__leading--full-swipe-main':
+            leading && leadingFullSwipe && main && listType === ListType.IOS,
+          'swipe-action__trailing--full-swipe-rest':
+            trailing && trailingFullSwipe && !main && listType === ListType.IOS,
+          'swipe-action__trailing--full-swipe-main':
+            trailing && trailingFullSwipe && main && listType === ListType.IOS,
+          'swipe-action__grayed':
+            listType === ListType.MS && !(scaleLeading || scaleTrailing),
+        },
+        className
+      )}
       onClick={onHandleClick}
     >
       {children}
@@ -74,6 +79,7 @@ const SwipeAction = ({
 
 SwipeAction.propTypes = {
   children: PropTypes.node.isRequired,
+  className: PropTypes.string,
   destructive: PropTypes.bool,
   main: PropTypes.bool,
   leading: PropTypes.bool,
