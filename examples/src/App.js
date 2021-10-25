@@ -5,6 +5,7 @@ import IosWithTwoActionsExample from './ios/WithTwoActions';
 import AndroidExample from './android/WithOneAction';
 import MsExample from './ms/WithOneAction';
 import SizeToContentExample from './size-to-content/SizeToContentExample';
+import ProgrammaticallyExample from './programmatically/WithOneAction';
 import { people as data } from './data';
 
 const Example = {
@@ -13,6 +14,7 @@ const Example = {
   ANDROID: 'ANDROID',
   MS: 'MS',
   SIZE_TO_CONTENT: 'SIZE_TO_CONTENT',
+  PROGRAMMATICALLY: 'PROGRAMMATICALLY',
 };
 
 const Examples = [
@@ -23,6 +25,10 @@ const Examples = [
   {
     id: Example.SIZE_TO_CONTENT,
     text: 'List in size to content container',
+  },
+  {
+    id: Example.PROGRAMMATICALLY,
+    text: 'Programmatically swipe',
   },
 ];
 
@@ -67,6 +73,8 @@ const App = () => {
         return <MsExample {...props} />;
       case Example.SIZE_TO_CONTENT:
         return <SizeToContentExample />;
+      case Example.PROGRAMMATICALLY:
+        return <ProgrammaticallyExample {...props} />;
       default:
         return null;
     }

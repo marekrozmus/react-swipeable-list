@@ -1,0 +1,14 @@
+.basic-swipeable-list__container {
+  width: 100%;
+  margin: 16px 0;
+  outline-color: gray;
+  outline-style: solid;
+  outline-width: 1px 0;
+}
+
+.icon {
+  fill: white;
+  width: 32px;
+  height: 32px;
+  align-self: center;
+}
