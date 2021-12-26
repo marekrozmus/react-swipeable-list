@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom/extend-expect';
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import {
   LeadingActions,
@@ -40,7 +40,7 @@ afterEach(() => {
 
 describe('SwipeableList', () => {
   test('list rendering with items', () => {
-    const { container, getByText } = render(
+    const { container } = render(
       <SwipeableList>
         <SwipeableListItem>
           <span>Item content 1</span>
@@ -50,8 +50,8 @@ describe('SwipeableList', () => {
         </SwipeableListItem>
       </SwipeableList>
     );
-    expect(getByText('Item content 1')).toBeInTheDocument();
-    expect(getByText('Item content 2')).toBeInTheDocument();
+    expect(screen.getByText('Item content 1')).toBeInTheDocument();
+    expect(screen.getByText('Item content 2')).toBeInTheDocument();
     expect(container.firstChild).toHaveClass('swipeable-list');
   });
 
@@ -59,7 +59,7 @@ describe('SwipeableList', () => {
     const callbackLeading = jest.fn();
     const callbackTrailing = jest.fn();
 
-    const { queryAllByTestId } = render(
+    render(
       <SwipeableList type={ListType.ANDROID}>
         <SwipeableListItem
           leadingActions={
@@ -82,7 +82,7 @@ describe('SwipeableList', () => {
       </SwipeableList>
     );
 
-    const listItem = queryAllByTestId('content')[0];
+    const listItem = screen.queryAllByTestId('content')[0];
     makeMouseGesture(listItem, [
       { direction: Direction.North, distance: beyondThreshold() },
     ]);
@@ -241,7 +241,7 @@ describe('SwipeableList', () => {
     const callbackLeading = jest.fn();
     const callbackTrailing = jest.fn();
 
-    const { queryAllByTestId } = render(
+    render(
       <SwipeableList swipeStartThreshold={DELTA + 1} type={ListType.ANDROID}>
         <SwipeableListItem
           leadingActions={
@@ -264,7 +264,7 @@ describe('SwipeableList', () => {
       </SwipeableList>
     );
 
-    const listItem = queryAllByTestId('content')[0];
+    const listItem = screen.queryAllByTestId('content')[0];
     makeMouseGesture(listItem, [
       { direction: Direction.East, distance: DELTA },
     ]);
@@ -287,7 +287,7 @@ describe('SwipeableList', () => {
     const callbackLeading = jest.fn();
     const callbackTrailing = jest.fn();
 
-    const { queryAllByTestId } = render(
+    render(
       <SwipeableList scrollStartThreshold={DELTA + 1} type={ListType.ANDROID}>
         <SwipeableListItem
           leadingActions={
@@ -310,7 +310,7 @@ describe('SwipeableList', () => {
       </SwipeableList>
     );
 
-    const listItem = queryAllByTestId('content')[0];
+    const listItem = screen.queryAllByTestId('content')[0];
     makeMouseGesture(listItem, [
       { direction: Direction.North, distance: DELTA },
       { direction: Direction.East, distance: DELTA },

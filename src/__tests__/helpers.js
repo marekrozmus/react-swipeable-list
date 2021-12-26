@@ -203,7 +203,7 @@ export const beyondThreshold = ({
   threshold = DEFAULT_THRESHOLD,
 } = {}) => toThreshold({ threshold, distance }) + 1;
 
-export const toOpenActionsThresold = () => TEST_ACTIONS_WIDTH;
+export const toOpenActionsThreshold = () => TEST_ACTIONS_WIDTH;
 export const beyondOpenActionsThreshold = () => TEST_ACTIONS_WIDTH + 1;
 
 export const renderAndroidType = ({
@@ -217,7 +217,9 @@ export const renderAndroidType = ({
   swipeStartThreshold,
   trailingActionCallback,
   threshold = DEFAULT_THRESHOLD,
+  leadingDestructive = false,
   trailingDestructive = false,
+  onClick = undefined,
 } = {}) =>
   render(
     <SwipeableListItem
@@ -226,7 +228,12 @@ export const renderAndroidType = ({
       fullSwipe={fullSwipe}
       leadingActions={
         <LeadingActions>
-          <SwipeAction onClick={leadingActionCallback}>Test</SwipeAction>
+          <SwipeAction
+            destructive={leadingDestructive}
+            onClick={leadingActionCallback}
+          >
+            Test
+          </SwipeAction>
         </LeadingActions>
       }
       listType={ListType.ANDROID}
@@ -242,6 +249,7 @@ export const renderAndroidType = ({
           </SwipeAction>
         </TrailingActions>
       }
+      onClick={onClick}
       onSwipeEnd={onSwipeEndCallback}
       onSwipeProgress={onSwipeProgressCallback}
       onSwipeStart={onSwipeStartCallback}
@@ -254,6 +262,7 @@ export const renderIosOneActionType = ({
   blockSwipe = false,
   fullSwipe = true,
   leadingActionCallback = jest.fn(),
+  onClick = undefined,
   onSwipeStartCallback,
   onSwipeEndCallback,
   onSwipeProgressCallback,
@@ -278,6 +287,7 @@ export const renderIosOneActionType = ({
           <SwipeAction onClick={trailingActionCallback}>Test</SwipeAction>
         </TrailingActions>
       }
+      onClick={onClick}
       onSwipeEnd={onSwipeEndCallback}
       onSwipeProgress={onSwipeProgressCallback}
       onSwipeStart={onSwipeStartCallback}
@@ -290,6 +300,7 @@ export const renderIosTwoActionsType = ({
   blockSwipe = false,
   fullSwipe = true,
   leadingActionCallbacks = [jest.fn(), jest.fn()],
+  onClick = undefined,
   onSwipeStartCallback,
   onSwipeEndCallback,
   onSwipeProgressCallback,
@@ -316,6 +327,7 @@ export const renderIosTwoActionsType = ({
           <SwipeAction onClick={trailingActionCallbacks[1]}>Test 2</SwipeAction>
         </TrailingActions>
       }
+      onClick={onClick}
       onSwipeEnd={onSwipeEndCallback}
       onSwipeProgress={onSwipeProgressCallback}
       onSwipeStart={onSwipeStartCallback}

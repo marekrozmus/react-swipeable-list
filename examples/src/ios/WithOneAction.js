@@ -61,6 +61,10 @@ const WithOneAction = ({
     setPeople(people.filter(person => person.id !== id));
   };
 
+  const handleOnClick = id => () => {
+    console.log('[handle on click]', id);
+  };
+
   const leadingActions = ({ id }) => (
     <LeadingActions>
       <SwipeAction onClick={handleAccept(id)}>
@@ -102,6 +106,7 @@ const WithOneAction = ({
             onSwipeEnd={handleSwipeEnd}
             onSwipeProgress={setSwipeProgress}
             onSwipeStart={handleSwipeStart}
+            onClick={handleOnClick(id)}
           >
             <ItemContent>
               <ItemRow>

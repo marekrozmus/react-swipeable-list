@@ -8,14 +8,14 @@ const presets = [
           'not ie 11',
           'not op_mini all',
           'safari >= 11',
-          'not safari 5.1'
+          'not safari 5.1',
         ],
-        node: 'current'
+        node: 'current',
       },
-      modules: false
-    }
+      modules: false,
+    },
   ],
-  '@babel/preset-react'
+  '@babel/preset-react',
 ];
 
 const plugins = ['@babel/plugin-proposal-class-properties'];
@@ -29,6 +29,6 @@ module.exports = function (api) {
 
   return {
     presets,
-    plugins
+    plugins,
   };
 };

@@ -1,6 +1,7 @@
+import 'regenerator-runtime/runtime';
 import '@testing-library/jest-dom/extend-expect';
 import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 
 import {
   LeadingActions,
@@ -25,7 +26,7 @@ import {
   beyondThreshold,
   closeLeadingActions,
   closeTrailingActions,
-  toOpenActionsThresold,
+  toOpenActionsThreshold,
   beyondOpenActionsThreshold,
   renderIosTwoActionsType,
 } from './helpers';
@@ -36,19 +37,19 @@ afterEach(() => afterEachTest());
 
 describe('SwipeableListItem - content', () => {
   test('item rendering without swipe actions', () => {
-    const { getByText, queryByTestId } = render(
+    render(
       <SwipeableListItem>
         <span>Item content</span>
       </SwipeableListItem>
     );
 
-    expect(getByText('Item content')).toBeInTheDocument();
-    expect(queryByTestId('leading-actions')).not.toBeInTheDocument();
-    expect(queryByTestId('trailing-actions')).not.toBeInTheDocument();
+    expect(screen.getByText('Item content')).toBeInTheDocument();
+    expect(screen.queryByTestId('leading-actions')).not.toBeInTheDocument();
+    expect(screen.queryByTestId('trailing-actions')).not.toBeInTheDocument();
   });
 
   test('item rendering with leading swipe action', () => {
-    const { getByText, queryByTestId } = render(
+    render(
       <SwipeableListItem
         leadingActions={
           <LeadingActions>
@@ -60,14 +61,14 @@ describe('SwipeableListItem - content', () => {
       </SwipeableListItem>
     );
 
-    expect(getByText('Item content')).toBeInTheDocument();
-    expect(queryByTestId('leading-actions')).toBeInTheDocument();
-    expect(queryByTestId('trailing-actions')).not.toBeInTheDocument();
-    expect(getByText('Action content')).toBeInTheDocument();
+    expect(screen.getByText('Item content')).toBeInTheDocument();
+    expect(screen.getByTestId('leading-actions')).toBeInTheDocument();
+    expect(screen.queryByTestId('trailing-actions')).not.toBeInTheDocument();
+    expect(screen.getByText('Action content')).toBeInTheDocument();
   });
 
   test('item rendering with trailing swipe action', () => {
-    const { getByText, queryByTestId } = render(
+    render(
       <SwipeableListItem
         trailingActions={
           <TrailingActions>
@@ -79,14 +80,14 @@ describe('SwipeableListItem - content', () => {
       </SwipeableListItem>
     );
 
-    expect(getByText('Item content')).toBeInTheDocument();
-    expect(queryByTestId('leading-actions')).not.toBeInTheDocument();
-    expect(queryByTestId('trailing-actions')).toBeInTheDocument();
-    expect(getByText('Action content')).toBeInTheDocument();
+    expect(screen.getByText('Item content')).toBeInTheDocument();
+    expect(screen.queryByTestId('leading-actions')).not.toBeInTheDocument();
+    expect(screen.getByTestId('trailing-actions')).toBeInTheDocument();
+    expect(screen.getByText('Action content')).toBeInTheDocument();
   });
 
   test('item rendering with leading and trailing swipe action', () => {
-    const { getByText, queryByTestId } = render(
+    render(
       <SwipeableListItem
         leadingActions={
           <LeadingActions>
@@ -107,25 +108,25 @@ describe('SwipeableListItem - content', () => {
       </SwipeableListItem>
     );
 
-    expect(getByText('Item content')).toBeInTheDocument();
-    expect(queryByTestId('leading-actions')).toBeInTheDocument();
-    expect(queryByTestId('trailing-actions')).toBeInTheDocument();
-    expect(getByText('Leading action content')).toBeInTheDocument();
-    expect(getByText('Trailing action content')).toBeInTheDocument();
+    expect(screen.getByText('Item content')).toBeInTheDocument();
+    expect(screen.getByTestId('leading-actions')).toBeInTheDocument();
+    expect(screen.getByTestId('trailing-actions')).toBeInTheDocument();
+    expect(screen.getByText('Leading action content')).toBeInTheDocument();
+    expect(screen.getByText('Trailing action content')).toBeInTheDocument();
   });
 });
 
-describe('SwipeableListItem (type ANDROID) - behaviour ', () => {
+describe('SwipeableListItem (type ANDROID) - behavior ', () => {
   test('leading swipe action triggering', () => {
     const leadingActionCallback = jest.fn();
     const trailingActionCallback = jest.fn();
 
-    const { getByTestId } = renderAndroidType({
+    renderAndroidType({
       leadingActionCallback,
       trailingActionCallback,
     });
 
-    const listItem = getByTestId('content');
+    const listItem = screen.getByTestId('content');
 
     swipeRightMouse(listItem, toThreshold());
     swipeRightTouch(listItem, toThreshold());
@@ -143,12 +144,12 @@ describe('SwipeableListItem (type ANDROID) - behaviour ', () => {
     const leadingActionCallback = jest.fn();
     const trailingActionCallback = jest.fn();
 
-    const { getByTestId } = renderAndroidType({
+    renderAndroidType({
       leadingActionCallback,
       trailingActionCallback,
     });
 
-    const listItem = getByTestId('content');
+    const listItem = screen.getByTestId('content');
 
     swipeLeftMouse(listItem, toThreshold());
     swipeLeftTouch(listItem, toThreshold());
@@ -166,13 +167,13 @@ describe('SwipeableListItem (type ANDROID) - behaviour ', () => {
     const leadingActionCallback = jest.fn();
     const trailingActionCallback = jest.fn();
 
-    const { getByTestId } = renderAndroidType({
+    renderAndroidType({
       blockSwipe: true,
       leadingActionCallback,
       trailingActionCallback,
     });
 
-    const listItem = getByTestId('content');
+    const listItem = screen.getByTestId('content');
 
     swipeLeftMouse(listItem, beyondThreshold());
     swipeLeftTouch(listItem, beyondThreshold());
@@ -190,14 +191,14 @@ describe('SwipeableListItem (type ANDROID) - behaviour ', () => {
     const leadingActionCallback = jest.fn();
     const trailingActionCallback = jest.fn();
 
-    const { getByTestId } = renderAndroidType({
+    renderAndroidType({
       leadingActionCallback,
       trailingActionCallback,
       onSwipeStartCallback,
       onSwipeEndCallback,
     });
 
-    const listItem = getByTestId('content');
+    const listItem = screen.getByTestId('content');
 
     swipeLeftMouse(listItem, toThreshold());
     swipeLeftTouch(listItem, toThreshold());
@@ -219,7 +220,7 @@ describe('SwipeableListItem (type ANDROID) - behaviour ', () => {
     const leadingActionCallback = jest.fn();
     const trailingActionCallback = jest.fn();
 
-    const { getByTestId } = renderAndroidType({
+    renderAndroidType({
       blockSwipe: true,
       leadingActionCallback,
       trailingActionCallback,
@@ -227,7 +228,7 @@ describe('SwipeableListItem (type ANDROID) - behaviour ', () => {
       onSwipeEndCallback,
     });
 
-    const listItem = getByTestId('content');
+    const listItem = screen.getByTestId('content');
 
     swipeLeftMouse(listItem, beyondThreshold());
     swipeLeftTouch(listItem, beyondThreshold());
@@ -245,14 +246,14 @@ describe('SwipeableListItem (type ANDROID) - behaviour ', () => {
 
     const swipeStartThreshold = 50;
 
-    const { getByTestId } = renderAndroidType({
+    renderAndroidType({
       leadingActionCallback,
       trailingActionCallback,
       swipeStartThreshold,
       onSwipeStartCallback,
     });
 
-    const listItem = getByTestId('content');
+    const listItem = screen.getByTestId('content');
 
     swipeLeftMouse(listItem, swipeStartThreshold);
     swipeLeftTouch(listItem, swipeStartThreshold);
@@ -274,13 +275,13 @@ describe('SwipeableListItem (type ANDROID) - behaviour ', () => {
     const leadingActionCallback = jest.fn();
     const trailingActionCallback = jest.fn();
 
-    const { getByTestId } = renderAndroidType({
+    renderAndroidType({
       leadingActionCallback,
       trailingActionCallback,
       onSwipeProgressCallback,
     });
 
-    const listItem = getByTestId('content');
+    const listItem = screen.getByTestId('content');
 
     swipeLeftMouse(listItem, toThreshold());
     swipeLeftTouch(listItem, toThreshold());
@@ -295,19 +296,17 @@ describe('SwipeableListItem (type ANDROID) - behaviour ', () => {
   });
 
   test('triggering destructive full swipe action after specified time', () => {
-    jest.useFakeTimers();
-
     const leadingActionCallback = jest.fn();
     const trailingActionCallback = jest.fn();
 
-    const { getByTestId } = renderAndroidType({
+    renderAndroidType({
       leadingActionCallback,
       trailingActionCallback,
       trailingDestructive: true,
       destructiveCallbackDelay: 1000,
     });
 
-    const listItem = getByTestId('content');
+    const listItem = screen.getByTestId('content');
 
     swipeLeftMouse(listItem, toThreshold());
     swipeLeftTouch(listItem, toThreshold());
@@ -326,9 +325,6 @@ describe('SwipeableListItem (type ANDROID) - behaviour ', () => {
       expect(leadingActionCallback).toHaveBeenCalledTimes(0);
       expect(trailingActionCallback).toHaveBeenCalledTimes(2);
     }, 1000);
-
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
   });
 
   test('only one return animation should run', () => {
@@ -368,18 +364,35 @@ describe('SwipeableListItem (type ANDROID) - behaviour ', () => {
       'swipeable-list-item__trailing-actions--return'
     );
   });
+
+  it('should trigger onClick action if defined', () => {
+    const leadingActionCallback = jest.fn();
+    const trailingActionCallback = jest.fn();
+    const onClickCallback = jest.fn();
+
+    renderAndroidType({
+      leadingActionCallback,
+      trailingActionCallback,
+      onClick: onClickCallback,
+    });
+
+    const listItem = screen.getByTestId('content');
+    fireEvent.click(listItem);
+
+    expect(onClickCallback).toHaveBeenCalledTimes(1);
+  });
 });
 
-describe('SwipeableListItem (type IOS) - behaviour', () => {
+describe('SwipeableListItem (type IOS) - behavior', () => {
   test('leading actions opening with mouse', () => {
-    const { getByTestId } = renderIosOneActionType();
+    renderIosOneActionType();
 
-    const listItem = getByTestId('content');
-    const leadingActions = getByTestId('leading-actions');
-    const trailingActions = getByTestId('trailing-actions');
+    const listItem = screen.getByTestId('content');
+    const leadingActions = screen.getByTestId('leading-actions');
+    const trailingActions = screen.getByTestId('trailing-actions');
 
-    swipeRightMouse(listItem, toOpenActionsThresold());
-    swipeRightMouse(listItem, toOpenActionsThresold());
+    swipeRightMouse(listItem, toOpenActionsThreshold());
+    swipeRightMouse(listItem, toOpenActionsThreshold());
     expect(leadingActions).not.toHaveClass('test-actions-opened');
     expect(trailingActions).not.toHaveClass('test-actions-opened');
 
@@ -393,14 +406,15 @@ describe('SwipeableListItem (type IOS) - behaviour', () => {
   });
 
   test('leading actions opening with touch', () => {
-    const { getByTestId } = renderIosOneActionType();
+    renderIosOneActionType();
 
-    const listItem = getByTestId('content');
-    const leadingActions = getByTestId('leading-actions');
-    const trailingActions = getByTestId('trailing-actions');
+    const listItem = screen.getByTestId('content');
+    const leadingActions = screen.getByTestId('leading-actions');
+    const trailingActions = screen.getByTestId('trailing-actions');
 
-    swipeRightTouch(listItem, toOpenActionsThresold());
-    swipeRightTouch(listItem, toOpenActionsThresold());
+    swipeRightTouch(listItem, toOpenActionsThreshold());
+    swipeRightTouch(listItem, toOpenActionsThreshold());
+
     expect(leadingActions).not.toHaveClass('test-actions-opened');
     expect(trailingActions).not.toHaveClass('test-actions-opened');
 
@@ -414,14 +428,14 @@ describe('SwipeableListItem (type IOS) - behaviour', () => {
   });
 
   test('trailing actions opening with mouse', () => {
-    const { getByTestId } = renderIosOneActionType();
+    renderIosOneActionType();
 
-    const listItem = getByTestId('content');
-    const leadingActions = getByTestId('leading-actions');
-    const trailingActions = getByTestId('trailing-actions');
+    const listItem = screen.getByTestId('content');
+    const leadingActions = screen.getByTestId('leading-actions');
+    const trailingActions = screen.getByTestId('trailing-actions');
 
-    swipeLeftMouse(listItem, toOpenActionsThresold());
-    swipeLeftMouse(listItem, toOpenActionsThresold());
+    swipeLeftMouse(listItem, toOpenActionsThreshold());
+    swipeLeftMouse(listItem, toOpenActionsThreshold());
     expect(leadingActions).not.toHaveClass('test-actions-opened');
     expect(trailingActions).not.toHaveClass('test-actions-opened');
 
@@ -435,14 +449,15 @@ describe('SwipeableListItem (type IOS) - behaviour', () => {
   });
 
   test('trailing actions opening with touch', () => {
-    const { getByTestId } = renderIosOneActionType();
+    renderIosOneActionType();
 
-    const listItem = getByTestId('content');
-    const leadingActions = getByTestId('leading-actions');
-    const trailingActions = getByTestId('trailing-actions');
+    const listItem = screen.getByTestId('content');
+    const leadingActions = screen.getByTestId('leading-actions');
+    const trailingActions = screen.getByTestId('trailing-actions');
 
-    swipeLeftTouch(listItem, toOpenActionsThresold());
-    swipeLeftTouch(listItem, toOpenActionsThresold());
+    swipeLeftTouch(listItem, toOpenActionsThreshold());
+    swipeLeftTouch(listItem, toOpenActionsThreshold());
+
     expect(leadingActions).not.toHaveClass('test-actions-opened');
     expect(trailingActions).not.toHaveClass('test-actions-opened');
 
@@ -459,13 +474,13 @@ describe('SwipeableListItem (type IOS) - behaviour', () => {
     const leadingActionCallback = jest.fn();
     const trailingActionCallback = jest.fn();
 
-    const { getByTestId } = renderIosOneActionType({
+    renderIosOneActionType({
       leadingActionCallback,
       trailingActionCallback,
     });
 
-    const listItem = getByTestId('content');
-    const leadingActions = getByTestId('leading-actions');
+    const listItem = screen.getByTestId('content');
+    const leadingActions = screen.getByTestId('leading-actions');
 
     swipeRightMouse(listItem, toThreshold());
     closeLeadingActions(listItem, leadingActions);
@@ -484,13 +499,13 @@ describe('SwipeableListItem (type IOS) - behaviour', () => {
     const leadingActionCallback = jest.fn();
     const trailingActionCallback = jest.fn();
 
-    const { getByTestId } = renderIosOneActionType({
+    renderIosOneActionType({
       leadingActionCallback,
       trailingActionCallback,
     });
 
-    const listItem = getByTestId('content');
-    const trailingActions = getByTestId('trailing-actions');
+    const listItem = screen.getByTestId('content');
+    const trailingActions = screen.getByTestId('trailing-actions');
 
     swipeLeftMouse(listItem, toThreshold());
     closeTrailingActions(listItem, trailingActions);
@@ -509,15 +524,14 @@ describe('SwipeableListItem (type IOS) - behaviour', () => {
     const leadingActionCallback = jest.fn();
     const trailingActionCallback = jest.fn();
 
-    const { getByTestId } = renderIosOneActionType({
+    renderIosOneActionType({
       fullSwipe: false,
       leadingActionCallback,
       trailingActionCallback,
     });
 
-    const listItem = getByTestId('content');
-
-    const leadingActions = getByTestId('leading-actions');
+    const listItem = screen.getByTestId('content');
+    const leadingActions = screen.getByTestId('leading-actions');
 
     const {
       children: [swipeAction],
@@ -535,14 +549,13 @@ describe('SwipeableListItem (type IOS) - behaviour', () => {
   test('leading swipe action triggering with opening actions and click', () => {
     const leadingActionCallback = jest.fn();
 
-    const { getByTestId } = renderIosOneActionType({
+    renderIosOneActionType({
       fullSwipe: false,
       leadingActionCallback,
     });
 
-    const listItem = getByTestId('content');
-
-    const leadingActions = getByTestId('leading-actions');
+    const listItem = screen.getByTestId('content');
+    const leadingActions = screen.getByTestId('leading-actions');
 
     const {
       children: [swipeAction],
@@ -554,7 +567,7 @@ describe('SwipeableListItem (type IOS) - behaviour', () => {
 
     fireEvent.click(swipeAction);
 
-    // TODO: this should be working like below to simulate real client cliks
+    // TODO: this should be working like below to simulate real client clicks
     // fireEvent.mouseDown(leadingActions, { clientX: 20, clientY: 20 });
     // fireEvent.mouseUp(leadingActions, { clientX: 20, clientY: 20 });
 
@@ -565,14 +578,13 @@ describe('SwipeableListItem (type IOS) - behaviour', () => {
   test('trailing swipe action triggering with opening actions and click', () => {
     const trailingActionCallback = jest.fn();
 
-    const { getByTestId } = renderIosOneActionType({
+    renderIosOneActionType({
       fullSwipe: false,
       trailingActionCallback,
     });
 
-    const listItem = getByTestId('content');
-
-    const trailingActions = getByTestId('trailing-actions');
+    const listItem = screen.getByTestId('content');
+    const trailingActions = screen.getByTestId('trailing-actions');
 
     const {
       children: [swipeAction],
@@ -594,7 +606,7 @@ describe('SwipeableListItem (type IOS) - behaviour', () => {
     const trailingActionCallback1 = jest.fn();
     const trailingActionCallback2 = jest.fn();
 
-    const { getByTestId } = renderIosTwoActionsType({
+    renderIosTwoActionsType({
       leadingActionCallbacks: [leadingActionCallback1, leadingActionCallback2],
       trailingActionCallback: [
         trailingActionCallback1,
@@ -602,8 +614,8 @@ describe('SwipeableListItem (type IOS) - behaviour', () => {
       ],
     });
 
-    const listItem = getByTestId('content');
-    const leadingActions = getByTestId('leading-actions');
+    const listItem = screen.getByTestId('content');
+    const leadingActions = screen.getByTestId('leading-actions');
 
     swipeRightMouse(listItem, toThreshold());
     closeLeadingActions(listItem, leadingActions);
@@ -628,7 +640,7 @@ describe('SwipeableListItem (type IOS) - behaviour', () => {
     const trailingActionCallback1 = jest.fn();
     const trailingActionCallback2 = jest.fn();
 
-    const { getByTestId } = renderIosTwoActionsType({
+    renderIosTwoActionsType({
       leadingActionCallbacks: [leadingActionCallback1, leadingActionCallback2],
       trailingActionCallbacks: [
         trailingActionCallback1,
@@ -636,8 +648,8 @@ describe('SwipeableListItem (type IOS) - behaviour', () => {
       ],
     });
 
-    const listItem = getByTestId('content');
-    const trailingActions = getByTestId('trailing-actions');
+    const listItem = screen.getByTestId('content');
+    const trailingActions = screen.getByTestId('trailing-actions');
 
     swipeLeftMouse(listItem, toThreshold());
     closeTrailingActions(listItem, trailingActions);
@@ -654,5 +666,32 @@ describe('SwipeableListItem (type IOS) - behaviour', () => {
     expect(leadingActionCallback2).toHaveBeenCalledTimes(0);
     expect(trailingActionCallback1).toHaveBeenCalledTimes(0);
     expect(trailingActionCallback2).toHaveBeenCalledTimes(2);
+  });
+
+  it('should trigger onClick action if defined and no leading nor trailing actions are opened', async () => {
+    const onClickCallback = jest.fn();
+    renderIosOneActionType({ onClick: onClickCallback });
+
+    const listItem = screen.getByTestId('content');
+    const leadingActions = screen.getByTestId('leading-actions');
+    const trailingActions = screen.getByTestId('trailing-actions');
+
+    swipeLeftTouch(listItem, beyondThreshold());
+    await waitFor(() =>
+      expect(trailingActions).toHaveClass('test-actions-opened')
+    );
+    fireEvent.click(listItem);
+    expect(onClickCallback).toHaveBeenCalledTimes(0);
+
+    closeTrailingActions(listItem, trailingActions);
+    fireEvent.click(listItem);
+    expect(onClickCallback).toHaveBeenCalledTimes(1);
+
+    swipeRightMouse(listItem, beyondThreshold());
+    await waitFor(() =>
+      expect(leadingActions).toHaveClass('test-actions-opened')
+    );
+    fireEvent.click(listItem);
+    expect(onClickCallback).toHaveBeenCalledTimes(1);
   });
 });

@@ -8,18 +8,25 @@
   "extends": [
     "eslint:recommended",
     "plugin:prettier/recommended",
-    "plugin:react/recommended",
-    "plugin:testing-library/recommended",
-    "plugin:testing-library/react"
+    "plugin:react/recommended"
   ],
   "parser": "@babel/eslint-parser",
-  "plugins": ["react-hooks", "testing-library"],
+  "plugins": ["react-hooks", "testing-library", "jest-dom"],
   "settings": {
     "react": {
       "version": "16.8"
     }
   },
   "ignorePatterns": ["module.d.ts"],
+  "overrides": [
+    {
+      "files": [
+        "**/__tests__/**/*.[jt]s?(x)",
+        "**/?(*.)+(spec|test).[jt]s?(x)"
+      ],
+      "extends": ["plugin:testing-library/react", "plugin:jest-dom/recommended"]
+    }
+  ],
   "rules": {
     "no-undef": "error",
     "react-hooks/rules-of-hooks": "error",

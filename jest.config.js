@@ -16,9 +16,11 @@ module.exports = {
 
   // A map from regular expressions to module names that allow to stub out resources with a single module
   moduleNameMapper: {
-    '\\.css$': 'identity-obj-proxy'
+    '\\.css$': 'identity-obj-proxy',
   },
 
+  testEnvironment: 'jsdom',
+
   // The glob patterns Jest uses to detect test files
-  testMatch: ['**/__tests__/**/*.test.js']
+  testMatch: ['**/__tests__/**/*.test.js'],
 };

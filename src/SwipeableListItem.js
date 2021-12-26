@@ -724,12 +724,8 @@ class SwipeableListItem extends PureComponent {
 
   renderActions = (actions, type, binder) => {
     const { destructiveCallbackDelay, listType } = this.props;
-    const {
-      leadingFullSwipe,
-      trailingFullSwipe,
-      scaleLeading,
-      scaleTrailing,
-    } = this.state;
+    const { leadingFullSwipe, trailingFullSwipe, scaleLeading, scaleTrailing } =
+      this.state;
     const {
       onActionTriggered,
       setLeadingFullSwipeAction,
@@ -769,12 +765,18 @@ class SwipeableListItem extends PureComponent {
   };
 
   render() {
-    const { children, className, leadingActions, trailingActions } = this.props;
+    const { children, className, leadingActions, trailingActions, onClick } =
+      this.props;
 
     return (
       <div
         className={clsx('swipeable-list-item', className)}
         ref={this.bindWrapperElement}
+        onClick={
+          this.leadingActionsOpened || this.trailingActionsOpened
+            ? undefined
+            : onClick
+        }
       >
         {leadingActions &&
           this.renderActions(
@@ -808,6 +810,7 @@ SwipeableListItem.propTypes = {
   fullSwipe: PropTypes.bool,
   leadingActions: PropTypes.node,
   listType: PropTypes.oneOf(Object.values(ListType)),
+  onClick: PropTypes.func,
   onSwipeEnd: PropTypes.func,
   onSwipeProgress: PropTypes.func,
   onSwipeStart: PropTypes.func,

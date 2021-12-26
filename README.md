@@ -183,6 +183,12 @@ Type: `LeadingActions component`
 
 Container component that sets up correct props in `SwipeAction`. See examples for usage.
 
+### onClick
+
+Type: `function` (optional)
+
+Callback function that should be call after list item is clicked.
+
 ### onSwipeStart
 
 Type: `() => void`
