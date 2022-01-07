@@ -37,6 +37,15 @@
       "contributions": [
         "ideas"
       ]
+    },
+    {
+      "login": "segersniels",
+      "name": "Niels",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10974647?v=4",
+      "profile": "https://nielssegers.be",
+      "contributions": [
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
