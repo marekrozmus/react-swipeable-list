@@ -171,7 +171,7 @@ interface SwipeableListItemProps {
   /**
    * Fired every time swipe progress changes. The reported `progress` value is always an integer in range 0 to 100 inclusive.
    */
-  onSwipeProgress?: () => void;
+  onSwipeProgress?: (progress:number) => void;
   /**
    * Fired after swipe has started (after drag gesture passes the `swipeStartThreshold` distance in pixels).
    */
@@ -206,6 +206,7 @@ interface SwipeableListItemProps {
    * `TrailingActions` component. See `TrailingActions`.
    */
   trailingActions?: ReactNode;
+  className?: string;
 }
 
 export class SwipeableListItem extends PureComponent<SwipeableListItemProps> {}
