@@ -46,6 +46,15 @@
       "contributions": [
         "ideas"
       ]
+    },
+    {
+      "login": "harrisgca",
+      "name": "Glenn Harris",
+      "avatar_url": "https://avatars.githubusercontent.com/u/5953554?v=4",
+      "profile": "https://github.com/harrisgca",
+      "contributions": [
+        "maintenance"
+      ]
     }
   ],
   "contributorsPerLine": 7,
