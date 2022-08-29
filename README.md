@@ -19,7 +19,7 @@
 
 <!-- prettier-ignore-start -->
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 <!-- prettier-ignore-end -->
 
@@ -271,6 +271,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://www.rathes.me"><img src="https://avatars.githubusercontent.com/u/6367520?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Rathes Sachchithananthan</b></sub></a><br /><a href="#ideas-rathesDot" title="Ideas, Planning, & Feedback">🤔</a></td>
     <td align="center"><a href="https://nielssegers.be"><img src="https://avatars.githubusercontent.com/u/10974647?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Niels</b></sub></a><br /><a href="#ideas-segersniels" title="Ideas, Planning, & Feedback">🤔</a></td>
     <td align="center"><a href="https://github.com/harrisgca"><img src="https://avatars.githubusercontent.com/u/5953554?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Glenn Harris</b></sub></a><br /><a href="#maintenance-harrisgca" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="https://github.com/v-zdorovcev"><img src="https://avatars.githubusercontent.com/u/72477415?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Zdorovtsev Viktor</b></sub></a><br /><a href="#ideas-v-zdorovcev" title="Ideas, Planning, & Feedback">🤔</a></td>
   </tr>
 </table>
 
