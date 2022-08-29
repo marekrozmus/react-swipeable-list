@@ -38,13 +38,13 @@ const WithOneAction = ({
     setThreshold(0.3);
   }, [setThreshold]);
 
-  const handleSwipeStart = () => {
-    setSwipeAction('Swipe started');
+  const handleSwipeStart = (dragDirection) => {
+    setSwipeAction(`Swipe started to: ${dragDirection}`);
     setTriggeredItemAction('None');
   };
 
-  const handleSwipeEnd = () => {
-    setSwipeAction('Swipe ended');
+  const handleSwipeEnd = (dragDirection) => {
+    setSwipeAction(`Swipe ended to: ${dragDirection}`);
     setSwipeProgress();
   };
 
