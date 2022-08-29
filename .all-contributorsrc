@@ -55,6 +55,15 @@
       "contributions": [
         "maintenance"
       ]
+    },
+    {
+      "login": "v-zdorovcev",
+      "name": "Zdorovtsev Viktor",
+      "avatar_url": "https://avatars.githubusercontent.com/u/72477415?v=4",
+      "profile": "https://github.com/v-zdorovcev",
+      "contributions": [
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
