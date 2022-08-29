@@ -202,12 +202,27 @@ describe('SwipeableListItem (type ANDROID) - behavior ', () => {
 
     swipeLeftMouse(listItem, toThreshold());
     swipeLeftTouch(listItem, toThreshold());
+
+    expect(onSwipeStartCallback).toHaveBeenLastCalledWith("left");
+    expect(onSwipeEndCallback).toHaveBeenLastCalledWith("left");
+
     swipeRightMouse(listItem, toThreshold());
     swipeRightTouch(listItem, toThreshold());
+    
+    expect(onSwipeStartCallback).toHaveBeenLastCalledWith("right");
+    expect(onSwipeEndCallback).toHaveBeenLastCalledWith("right");
+
     swipeLeftMouse(listItem, beyondThreshold());
     swipeLeftTouch(listItem, beyondThreshold());
+    
+    expect(onSwipeStartCallback).toHaveBeenLastCalledWith("left");
+    expect(onSwipeEndCallback).toHaveBeenLastCalledWith("left");
+
     swipeRightMouse(listItem, beyondThreshold());
     swipeRightTouch(listItem, beyondThreshold());
+
+    expect(onSwipeStartCallback).toHaveBeenLastCalledWith("right");
+    expect(onSwipeEndCallback).toHaveBeenLastCalledWith("right");
 
     expect(onSwipeStartCallback).toHaveBeenCalledTimes(8);
     expect(onSwipeEndCallback).toHaveBeenCalledTimes(8);
@@ -285,12 +300,23 @@ describe('SwipeableListItem (type ANDROID) - behavior ', () => {
 
     swipeLeftMouse(listItem, toThreshold());
     swipeLeftTouch(listItem, toThreshold());
+
+    expect(onSwipeProgressCallback).toHaveBeenLastCalledWith(expect.anything(), "left");
+
     swipeRightMouse(listItem, toThreshold());
     swipeRightTouch(listItem, toThreshold());
+
+    expect(onSwipeProgressCallback).toHaveBeenLastCalledWith(expect.anything(), "right");
+    
     swipeLeftMouse(listItem, beyondThreshold());
     swipeLeftTouch(listItem, beyondThreshold());
+
+    expect(onSwipeProgressCallback).toHaveBeenLastCalledWith(expect.anything(), "left");
+    
     swipeRightMouse(listItem, beyondThreshold());
     swipeRightTouch(listItem, beyondThreshold());
+
+    expect(onSwipeProgressCallback).toHaveBeenLastCalledWith(expect.anything(), "right");
 
     expect(onSwipeProgressCallback).toHaveBeenCalledTimes(8);
   });

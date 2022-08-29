@@ -14,11 +14,11 @@ const ActionAnimation = {
 };
 
 const DragDirection = {
-  UP: 1,
-  DOWN: 2,
-  LEFT: 3,
-  RIGHT: 4,
-  UNKNOWN: 5,
+  UP: "up",
+  DOWN: "down",
+  LEFT: "left",
+  RIGHT: "right",
+  UNKNOWN: "unknown",
 };
 
 const FPS_INTERVAL = 1000 / 60;
@@ -470,7 +470,7 @@ class SwipeableListItem extends PureComponent {
       const { onSwipeEnd } = this.props;
 
       if (onSwipeEnd) {
-        onSwipeEnd();
+        onSwipeEnd(this.dragDirection);
       }
 
       if (triggerAction) {
@@ -562,7 +562,7 @@ class SwipeableListItem extends PureComponent {
       const { onSwipeStart } = this.props;
 
       if (onSwipeStart && this.isSwiping()) {
-        onSwipeStart();
+        onSwipeStart(this.dragDirection);
       }
     }
   };
@@ -702,7 +702,7 @@ class SwipeableListItem extends PureComponent {
         }
 
         if (this.previousSwipeDistancePercent !== swipeDistancePercent) {
-          this.props.onSwipeProgress(swipeDistancePercent);
+          this.props.onSwipeProgress(swipeDistancePercent, this.dragDirection);
           this.previousSwipeDistancePercent = swipeDistancePercent;
         }
       }

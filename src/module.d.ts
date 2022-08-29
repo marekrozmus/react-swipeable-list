@@ -167,15 +167,15 @@ interface SwipeableListItemProps {
   /**
    * Fired after swipe has ended.
    */
-  onSwipeEnd?: () => void;
+  onSwipeEnd?: (dragDirection: string) => void;
   /**
    * Fired every time swipe progress changes. The reported `progress` value is always an integer in range 0 to 100 inclusive.
    */
-  onSwipeProgress?: (progress:number) => void;
+  onSwipeProgress?: (progress:number, dragDirection: string) => void;
   /**
    * Fired after swipe has started (after drag gesture passes the `swipeStartThreshold` distance in pixels).
    */
-  onSwipeStart?: () => void;
+  onSwipeStart?: (dragDirection: string) => void;
   /**
    * default: `10`
    *

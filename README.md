@@ -191,21 +191,21 @@ Callback function that should be call after list item is clicked.
 
 ### onSwipeStart
 
-Type: `() => void`
+Type: `(dragDirection: string) => void`
 
-Fired after swipe has started (after drag gesture passes the `swipeStartThreshold` distance in pixels).
+Fired after swipe has started (after drag gesture passes the `swipeStartThreshold` distance in pixels). `dragDirection` can have value of `left` or `right`.
 
 ### onSwipeEnd
 
-Type: `() => void`
+Type: `(dragDirection: string) => void`
 
-Fired after swipe has ended.
+Fired after swipe has ended. `dragDirection` can have value of `left` or `right`.
 
 ### onSwipeProgress
 
-Type: `(progress: number) => void`
+Type: `(progress: number, dragDirection: string) => void`
 
-Fired every time swipe progress changes. The reported `progress` value is always an integer in range 0 to 100 inclusive.
+Fired every time swipe progress changes. The reported `progress` value is always an integer in range 0 to 100 inclusive. `dragDirection` can have value of `left` or `right`.
 
 ### scrollStartThreshold
 
