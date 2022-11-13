@@ -18,6 +18,7 @@ const SwipeAction = ({
   Tag = 'span',
 }) => {
   const {
+    actionDelay,
     destructiveCallbackDelay,
     leadingFullSwipe,
     listType,
@@ -30,13 +31,27 @@ const SwipeAction = ({
   } = React.useContext(ItemContext);
 
   const onHandleClick = React.useCallback(() => {
+    if (actionDelay) {
+      window.setTimeout(() => {
+        onActionTriggered(destructive);
+        onClick();
+      }, actionDelay);
+      return;
+    }
+
     onActionTriggered(destructive);
     if (destructive) {
       window.setTimeout(() => onClick(), destructiveCallbackDelay);
     } else {
       onClick();
     }
-  }, [destructive, destructiveCallbackDelay, onActionTriggered, onClick]);
+  }, [
+    actionDelay,
+    destructive,
+    destructiveCallbackDelay,
+    onActionTriggered,
+    onClick,
+  ]);
 
   React.useEffect(() => {
     if (leading && main) {
