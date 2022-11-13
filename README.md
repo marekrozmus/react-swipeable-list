@@ -86,6 +86,14 @@ const trailingActions = () => (
 
 ## SwipeableList Props
 
+### actionDelay
+
+Type: `milliseconds` (optional, default: `0`)
+
+Time in milliseconds after which swipe action and animation should be called after trigggering swipe action.
+
+It can be set for the whole list or for every item. See `actionDelay` for `SwipeableListItem`. Value from the `SwipeableListItem` takes precedence.
+
 ### fullSwipe
 
 Type: `boolean` (optional, default: `false`)
@@ -162,6 +170,14 @@ How far swipe needs to be done to trigger attached action. `0.5` means that item
 It can be set for the whole list or for every item. See `threshold` for `SwipeableListItem`. Value from the `SwipeableListItem` takes precedence.
 
 ## SwipeableListItem Props
+
+### actionDelay
+
+Type: `milliseconds` (optional, default: `0`)
+
+Time in milliseconds after which swipe action and animation should be called after trigggering swipe action.
+
+It can be set for the whole list or for every item. See `actionDelay` for `SwipeableList`. Value from the `SwipeableListItem` takes precedence.
 
 ### blockSwipe
 

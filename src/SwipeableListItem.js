@@ -723,7 +723,7 @@ class SwipeableListItem extends PureComponent {
   bindTrailingActionsElement = ref => (this.trailingActionsElement = ref);
 
   renderActions = (actions, type, binder) => {
-    const { destructiveCallbackDelay, listType } = this.props;
+    const { actionDelay, destructiveCallbackDelay, listType } = this.props;
     const { leadingFullSwipe, trailingFullSwipe, scaleLeading, scaleTrailing } =
       this.state;
     const {
@@ -747,6 +747,7 @@ class SwipeableListItem extends PureComponent {
       >
         <ItemContext.Provider
           value={{
+            actionDelay,
             destructiveCallbackDelay,
             listType,
             leadingFullSwipe,
@@ -803,6 +804,7 @@ class SwipeableListItem extends PureComponent {
 }
 
 SwipeableListItem.propTypes = {
+  actionDelay: PropTypes.number,
   blockSwipe: PropTypes.bool,
   children: PropTypes.node,
   className: PropTypes.string,

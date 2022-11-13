@@ -186,7 +186,9 @@ export const beforeEachTest = () => {
 };
 
 export const afterEachTest = () => {
-  window.requestAnimationFrame.mockRestore();
+  if (window.requestAnimationFrame.mockRestore) {
+    window.requestAnimationFrame.mockRestore();
+  }
 
   global.Date.now = RealDate;
 };
@@ -259,6 +261,7 @@ export const renderAndroidType = ({
   );
 
 export const renderIosOneActionType = ({
+  actionDelay = 0,
   blockSwipe = false,
   fullSwipe = true,
   leadingActionCallback = jest.fn(),
@@ -272,6 +275,7 @@ export const renderIosOneActionType = ({
 } = {}) =>
   render(
     <SwipeableListItem
+      actionDelay={actionDelay}
       blockSwipe={blockSwipe}
       fullSwipe={fullSwipe}
       leadingActions={
@@ -297,6 +301,7 @@ export const renderIosOneActionType = ({
   );
 
 export const renderIosTwoActionsType = ({
+  actionDelay = 0,
   blockSwipe = false,
   fullSwipe = true,
   leadingActionCallbacks = [jest.fn(), jest.fn()],
@@ -310,6 +315,7 @@ export const renderIosTwoActionsType = ({
 } = {}) =>
   render(
     <SwipeableListItem
+      actionDelay={actionDelay}
       blockSwipe={blockSwipe}
       fullSwipe={fullSwipe}
       leadingActions={

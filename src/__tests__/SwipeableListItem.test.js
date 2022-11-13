@@ -203,26 +203,26 @@ describe('SwipeableListItem (type ANDROID) - behavior ', () => {
     swipeLeftMouse(listItem, toThreshold());
     swipeLeftTouch(listItem, toThreshold());
 
-    expect(onSwipeStartCallback).toHaveBeenLastCalledWith("left");
-    expect(onSwipeEndCallback).toHaveBeenLastCalledWith("left");
+    expect(onSwipeStartCallback).toHaveBeenLastCalledWith('left');
+    expect(onSwipeEndCallback).toHaveBeenLastCalledWith('left');
 
     swipeRightMouse(listItem, toThreshold());
     swipeRightTouch(listItem, toThreshold());
-    
-    expect(onSwipeStartCallback).toHaveBeenLastCalledWith("right");
-    expect(onSwipeEndCallback).toHaveBeenLastCalledWith("right");
+
+    expect(onSwipeStartCallback).toHaveBeenLastCalledWith('right');
+    expect(onSwipeEndCallback).toHaveBeenLastCalledWith('right');
 
     swipeLeftMouse(listItem, beyondThreshold());
     swipeLeftTouch(listItem, beyondThreshold());
-    
-    expect(onSwipeStartCallback).toHaveBeenLastCalledWith("left");
-    expect(onSwipeEndCallback).toHaveBeenLastCalledWith("left");
+
+    expect(onSwipeStartCallback).toHaveBeenLastCalledWith('left');
+    expect(onSwipeEndCallback).toHaveBeenLastCalledWith('left');
 
     swipeRightMouse(listItem, beyondThreshold());
     swipeRightTouch(listItem, beyondThreshold());
 
-    expect(onSwipeStartCallback).toHaveBeenLastCalledWith("right");
-    expect(onSwipeEndCallback).toHaveBeenLastCalledWith("right");
+    expect(onSwipeStartCallback).toHaveBeenLastCalledWith('right');
+    expect(onSwipeEndCallback).toHaveBeenLastCalledWith('right');
 
     expect(onSwipeStartCallback).toHaveBeenCalledTimes(8);
     expect(onSwipeEndCallback).toHaveBeenCalledTimes(8);
@@ -301,22 +301,34 @@ describe('SwipeableListItem (type ANDROID) - behavior ', () => {
     swipeLeftMouse(listItem, toThreshold());
     swipeLeftTouch(listItem, toThreshold());
 
-    expect(onSwipeProgressCallback).toHaveBeenLastCalledWith(expect.anything(), "left");
+    expect(onSwipeProgressCallback).toHaveBeenLastCalledWith(
+      expect.anything(),
+      'left'
+    );
 
     swipeRightMouse(listItem, toThreshold());
     swipeRightTouch(listItem, toThreshold());
 
-    expect(onSwipeProgressCallback).toHaveBeenLastCalledWith(expect.anything(), "right");
-    
+    expect(onSwipeProgressCallback).toHaveBeenLastCalledWith(
+      expect.anything(),
+      'right'
+    );
+
     swipeLeftMouse(listItem, beyondThreshold());
     swipeLeftTouch(listItem, beyondThreshold());
 
-    expect(onSwipeProgressCallback).toHaveBeenLastCalledWith(expect.anything(), "left");
-    
+    expect(onSwipeProgressCallback).toHaveBeenLastCalledWith(
+      expect.anything(),
+      'left'
+    );
+
     swipeRightMouse(listItem, beyondThreshold());
     swipeRightTouch(listItem, beyondThreshold());
 
-    expect(onSwipeProgressCallback).toHaveBeenLastCalledWith(expect.anything(), "right");
+    expect(onSwipeProgressCallback).toHaveBeenLastCalledWith(
+      expect.anything(),
+      'right'
+    );
 
     expect(onSwipeProgressCallback).toHaveBeenCalledTimes(8);
   });
@@ -719,5 +731,34 @@ describe('SwipeableListItem (type IOS) - behavior', () => {
     );
     fireEvent.click(listItem);
     expect(onClickCallback).toHaveBeenCalledTimes(1);
+  });
+
+  test('triggering swipe action and return animation after specified time', () => {
+    const trailingActionCallback = jest.fn();
+
+    renderIosOneActionType({
+      actionDelay: 2000,
+      fullSwipe: false,
+      trailingActionCallback,
+    });
+
+    const listItem = screen.getByTestId('content');
+    const trailingActions = screen.getByTestId('trailing-actions');
+
+    const {
+      children: [swipeAction],
+    } = trailingActions;
+
+    swipeLeftMouse(listItem, beyondOpenActionsThreshold());
+
+    expect(trailingActions).toHaveClass('test-actions-opened');
+
+    fireEvent.click(swipeAction);
+
+    expect(trailingActionCallback).toHaveBeenCalledTimes(0);
+
+    setTimeout(() => {
+      expect(trailingActionCallback).toHaveBeenCalledTimes(1);
+    }, 2000);
   });
 });

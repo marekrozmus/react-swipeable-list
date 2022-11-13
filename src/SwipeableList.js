@@ -11,6 +11,7 @@ export const Type = {
 };
 
 const SwipeableList = ({
+  actionDelay = 0,
   children,
   className = '',
   fullSwipe = false,
@@ -25,6 +26,7 @@ const SwipeableList = ({
   <Tag className={clsx('swipeable-list', className)} style={style}>
     {React.Children.map(children, child =>
       React.cloneElement(child, {
+        actionDelay,
         destructiveCallbackDelay,
         fullSwipe,
         listType: type,
@@ -37,6 +39,7 @@ const SwipeableList = ({
 );
 
 SwipeableList.propTypes = {
+  actionDelay: PropTypes.number,
   children: PropTypes.node,
   className: PropTypes.string,
   fullSwipe: PropTypes.bool,
