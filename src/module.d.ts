@@ -85,6 +85,12 @@ interface SwipeableListProps {
    *
    * Changes behavior of swipeable items.
    */
+  className?: string;
+  /**
+   * default: `undefined`
+   *
+   * Applies className properties to swipeable list.
+   */
   type?: Type;
   /**
    * default: `div`
