@@ -64,6 +64,15 @@
       "contributions": [
         "ideas"
       ]
+    },
+    {
+      "login": "elmesaoudee",
+      "name": "Zakaria EL Mesaoudi",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18504843?v=4",
+      "profile": "https://github.com/elmesaoudee",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
@@ -71,5 +80,6 @@
   "projectOwner": "marekrozmus",
   "repoType": "github",
   "repoHost": "https://github.com",
-  "skipCi": true
+  "skipCi": true,
+  "commitConvention": "angular"
 }
