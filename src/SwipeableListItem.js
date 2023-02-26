@@ -14,11 +14,11 @@ const ActionAnimation = {
 };
 
 const DragDirection = {
-  UP: "up",
-  DOWN: "down",
-  LEFT: "left",
-  RIGHT: "right",
-  UNKNOWN: "unknown",
+  UP: 'up',
+  DOWN: 'down',
+  LEFT: 'left',
+  RIGHT: 'right',
+  UNKNOWN: 'unknown',
 };
 
 const FPS_INTERVAL = 1000 / 60;
@@ -111,7 +111,9 @@ class SwipeableListItem extends PureComponent {
   componentDidMount() {
     this.listElement.addEventListener('mousedown', this.handleDragStartMouse);
 
-    this.listElement.addEventListener('touchstart', this.handleDragStartTouch);
+    this.listElement.addEventListener('touchstart', this.handleDragStartTouch, {
+      passive: true,
+    });
     this.listElement.addEventListener('touchend', this.handleDragEndTouch);
     this.listElement.addEventListener('touchmove', this.handleTouchMove, {
       capture: true,
