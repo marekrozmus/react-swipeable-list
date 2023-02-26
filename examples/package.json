@@ -62,7 +62,7 @@
   "dependencies": {
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-swipeable-list": "1.4.0",
+    "react-swipeable-list": "^1.7.2",
     "react-transition-group": "4.4.1",
     "styled-components": "5.2.3",
     "uuid": "8.3.2"
