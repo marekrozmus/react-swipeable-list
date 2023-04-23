@@ -70,6 +70,8 @@ class SwipeableListItem extends PureComponent {
     this.leadingFullSwipeAction = null;
     this.trailingFullSwipeAction = null;
 
+    this.id = props.id;
+
     this.resetState();
   }
 
@@ -133,6 +135,10 @@ class SwipeableListItem extends PureComponent {
         el => el.offsetWidth
       );
     }
+
+    if (this.props.resetState) {
+      this.props.resetState(this.playReturnAnimation);
+    }
   }
 
   componentWillUnmount() {
@@ -176,6 +182,10 @@ class SwipeableListItem extends PureComponent {
   };
 
   handleDragStart = ({ clientX, clientY }) => {
+    if (this.props.clickedCallback) {
+      this.props.clickedCallback(this.props.id);
+    }
+
     if (!this.leadingActionsOpened && !this.trailingActionsOpened) {
       this.resetState();
       this.setState(initialState);
@@ -348,6 +358,10 @@ class SwipeableListItem extends PureComponent {
   };
 
   playReturnAnimation = ({ to = 0 } = {}) => {
+    if (this.left === 0) {
+      return;
+    }
+
     const { listElement } = this;
     const { listType } = this.props;
     const { triggerAction } = this.state;
@@ -822,6 +836,9 @@ SwipeableListItem.propTypes = {
   swipeStartThreshold: PropTypes.number,
   threshold: PropTypes.number,
   trailingActions: PropTypes.node,
+  clickedCallback: PropTypes.func,
+  id: PropTypes.string,
+  resetState: PropTypes.func,
 };
 
 export default SwipeableListItem;
