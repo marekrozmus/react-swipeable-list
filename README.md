@@ -13,6 +13,11 @@
 
 <hr />
 
+You like it? 
+[Buy me a coffee :)](https://www.buymeacoffee.com/froostrat) or a 🍺
+
+<hr />
+
 [![Actions Status](https://github.com/marekrozmus/react-swipeable-list/workflows/Node.js%20CI/badge.svg)](https://github.com/marekrozmus/react-swipeable-list/actions)
 [![codecov](https://codecov.io/gh/marekrozmus/react-swipeable-list/branch/main/graph/badge.svg?token=8P4356I2J0)](https://codecov.io/gh/marekrozmus/react-swipeable-list)
 ![GitHub Release Date](https://img.shields.io/github/release-date/marekrozmus/react-swipeable-list)
