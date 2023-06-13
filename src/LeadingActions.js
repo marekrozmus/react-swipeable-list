@@ -8,12 +8,15 @@ const LeadingActions = ({ children }) => {
   }
 
   if (Array.isArray(children)) {
-    return React.Children.map(children, (child, index) =>
-      React.cloneElement(child, {
+    return React.Children.map(children, (child, index) => {
+      if (!React.isValidElement(child)) {
+        return child;
+      }
+      return React.cloneElement(child, {
         leading: true,
         main: index === 0,
       })
-    );
+    });
   }
 
   return React.cloneElement(children, {
