@@ -1,7 +1,7 @@
 {
   "name": "react-swipeable-list",
   "description": "Swipeable list component for React",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "author": {
     "name": "Marek Rozmus",
     "url": "https://github.com/marekrozmus/react-swipeable-list/graphs/contributors"
