@@ -15,7 +15,7 @@ const LeadingActions = ({ children }) => {
       return React.cloneElement(child, {
         leading: true,
         main: index === 0,
-      })
+      });
     });
   }
 
