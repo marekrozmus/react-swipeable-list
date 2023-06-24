@@ -15,7 +15,7 @@ const TrailingActions = ({ children }) => {
       return React.cloneElement(child, {
         main: index === children.length - 1,
         trailing: true,
-      })
+      });
     });
   }
 
