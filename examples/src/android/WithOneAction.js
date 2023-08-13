@@ -106,6 +106,7 @@ const WithOneAction = ({
               onSwipeProgress={setSwipeProgress}
               onSwipeStart={handleSwipeStart}
               onClick={handleOnClick(id)}
+              maxSwipe={0.5}
             >
               <ItemContent>
                 <ItemRow>
