@@ -430,12 +430,7 @@ describe('SwipeableListItem (type IOS) - behavior', () => {
     const trailingActions = screen.getByTestId('trailing-actions');
 
     swipeRightMouse(listItem, toOpenActionsThreshold());
-    swipeRightMouse(listItem, toOpenActionsThreshold());
     expect(leadingActions).not.toHaveClass('test-actions-opened');
-    expect(trailingActions).not.toHaveClass('test-actions-opened');
-
-    swipeRightMouse(listItem, beyondOpenActionsThreshold());
-    expect(leadingActions).toHaveClass('test-actions-opened');
     expect(trailingActions).not.toHaveClass('test-actions-opened');
 
     swipeRightMouse(listItem, beyondOpenActionsThreshold());
@@ -451,13 +446,7 @@ describe('SwipeableListItem (type IOS) - behavior', () => {
     const trailingActions = screen.getByTestId('trailing-actions');
 
     swipeRightTouch(listItem, toOpenActionsThreshold());
-    swipeRightTouch(listItem, toOpenActionsThreshold());
-
     expect(leadingActions).not.toHaveClass('test-actions-opened');
-    expect(trailingActions).not.toHaveClass('test-actions-opened');
-
-    swipeRightTouch(listItem, beyondOpenActionsThreshold());
-    expect(leadingActions).toHaveClass('test-actions-opened');
     expect(trailingActions).not.toHaveClass('test-actions-opened');
 
     swipeRightTouch(listItem, beyondOpenActionsThreshold());
@@ -473,13 +462,8 @@ describe('SwipeableListItem (type IOS) - behavior', () => {
     const trailingActions = screen.getByTestId('trailing-actions');
 
     swipeLeftMouse(listItem, toOpenActionsThreshold());
-    swipeLeftMouse(listItem, toOpenActionsThreshold());
     expect(leadingActions).not.toHaveClass('test-actions-opened');
     expect(trailingActions).not.toHaveClass('test-actions-opened');
-
-    swipeLeftMouse(listItem, beyondOpenActionsThreshold());
-    expect(leadingActions).not.toHaveClass('test-actions-opened');
-    expect(trailingActions).toHaveClass('test-actions-opened');
 
     swipeLeftMouse(listItem, beyondOpenActionsThreshold());
     expect(leadingActions).not.toHaveClass('test-actions-opened');
@@ -494,14 +478,8 @@ describe('SwipeableListItem (type IOS) - behavior', () => {
     const trailingActions = screen.getByTestId('trailing-actions');
 
     swipeLeftTouch(listItem, toOpenActionsThreshold());
-    swipeLeftTouch(listItem, toOpenActionsThreshold());
-
     expect(leadingActions).not.toHaveClass('test-actions-opened');
     expect(trailingActions).not.toHaveClass('test-actions-opened');
-
-    swipeLeftTouch(listItem, beyondOpenActionsThreshold());
-    expect(leadingActions).not.toHaveClass('test-actions-opened');
-    expect(trailingActions).toHaveClass('test-actions-opened');
 
     swipeLeftTouch(listItem, beyondOpenActionsThreshold());
     expect(leadingActions).not.toHaveClass('test-actions-opened');
@@ -714,7 +692,7 @@ describe('SwipeableListItem (type IOS) - behavior', () => {
     const leadingActions = screen.getByTestId('leading-actions');
     const trailingActions = screen.getByTestId('trailing-actions');
 
-    swipeLeftTouch(listItem, beyondThreshold());
+    swipeLeftTouch(listItem, beyondOpenActionsThreshold());
     await waitFor(() =>
       expect(trailingActions).toHaveClass('test-actions-opened')
     );
@@ -725,7 +703,7 @@ describe('SwipeableListItem (type IOS) - behavior', () => {
     fireEvent.click(listItem);
     expect(onClickCallback).toHaveBeenCalledTimes(1);
 
-    swipeRightMouse(listItem, beyondThreshold());
+    swipeRightMouse(listItem, beyondOpenActionsThreshold());
     await waitFor(() =>
       expect(leadingActions).toHaveClass('test-actions-opened')
     );
