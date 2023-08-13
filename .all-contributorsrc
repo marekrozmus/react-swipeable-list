@@ -82,6 +82,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "lucaskab",
+      "name": "Lucas Furini",
+      "avatar_url": "https://avatars.githubusercontent.com/u/30937569?v=4",
+      "profile": "https://www.linkedin.com/in/lucas-furini-42b144158/",
+      "contributions": [
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
