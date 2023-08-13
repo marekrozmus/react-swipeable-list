@@ -306,7 +306,7 @@ class SwipeableListItem extends PureComponent {
           : 'swipeable-list-item__leading-actions--return'
       );
 
-      if (this.leadingActionsOpened && isIosType) {
+      if (this.leadingActionsOpened && isIosType && to !== 0) {
         this.leadingActionsElement.className += ' test-actions-opened';
       }
 
@@ -348,7 +348,7 @@ class SwipeableListItem extends PureComponent {
           : 'swipeable-list-item__trailing-actions--return'
       );
 
-      if (this.trailingActionsOpened && isIosType) {
+      if (this.trailingActionsOpened && isIosType && to !== 0) {
         this.trailingActionsElement.className += ' test-actions-opened';
       }
 
@@ -801,19 +801,37 @@ class SwipeableListItem extends PureComponent {
     );
   };
 
+  handleClick = event => {
+    if (this.props.onClick) {
+      if (
+        this.leadingActionsOpened ||
+        this.trailingActionsOpened ||
+        this.isSwiping()
+      ) {
+        event.preventDefault();
+        return;
+      }
+
+      const delta = Math.abs(event.clientX - this.dragStartPoint.x);
+
+      if (delta > 10) {
+        // If mouse moved more than threshold, ignore the click event
+        event.preventDefault();
+        return;
+      }
+
+      this.props.onClick();
+    }
+  };
+
   render() {
-    const { children, className, leadingActions, trailingActions, onClick } =
-      this.props;
+    const { children, className, leadingActions, trailingActions } = this.props;
 
     return (
       <div
         className={clsx('swipeable-list-item', className)}
         ref={this.bindWrapperElement}
-        onClick={
-          this.leadingActionsOpened || this.trailingActionsOpened
-            ? undefined
-            : onClick
-        }
+        onClick={this.handleClick}
       >
         {leadingActions &&
           this.renderActions(
