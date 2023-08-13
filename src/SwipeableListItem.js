@@ -139,6 +139,13 @@ class SwipeableListItem extends PureComponent {
     if (this.props.resetState) {
       this.props.resetState(this.playReturnAnimation);
     }
+
+    if (this.props.maxSwipe) {
+      this.maxSwipeThreshold =
+        this.props.maxSwipe * this.listElement.offsetWidth;
+    } else {
+      this.maxSwipeThreshold = this.listElement.offsetWidth;
+    }
   }
 
   componentWillUnmount() {
@@ -229,7 +236,13 @@ class SwipeableListItem extends PureComponent {
         event.stopPropagation();
         event.preventDefault();
 
-        this.left = clientX - this.dragStartPoint.x;
+        const newLeft = clientX - this.dragStartPoint.x;
+
+        if (newLeft > 0) {
+          this.left = Math.min(newLeft, this.maxSwipeThreshold);
+        } else {
+          this.left = Math.max(newLeft, -this.maxSwipeThreshold);
+        }
         this.scheduleUpdatePosition();
       }
     }
@@ -249,7 +262,14 @@ class SwipeableListItem extends PureComponent {
         event.stopPropagation();
         event.preventDefault();
 
-        this.left = clientX - this.dragStartPoint.x;
+        const newLeft = clientX - this.dragStartPoint.x;
+
+        if (newLeft > 0) {
+          this.left = Math.min(newLeft, this.maxSwipeThreshold);
+        } else {
+          this.left = Math.max(newLeft, -this.maxSwipeThreshold);
+        }
+
         this.scheduleUpdatePosition();
       }
     }
@@ -828,6 +848,7 @@ SwipeableListItem.propTypes = {
   fullSwipe: PropTypes.bool,
   leadingActions: PropTypes.node,
   listType: PropTypes.oneOf(Object.values(ListType)),
+  maxSwipe: PropTypes.number,
   onClick: PropTypes.func,
   onSwipeEnd: PropTypes.func,
   onSwipeProgress: PropTypes.func,

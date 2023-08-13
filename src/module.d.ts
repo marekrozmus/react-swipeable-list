@@ -173,6 +173,12 @@ interface SwipeableListItemProps {
    */
   listType?: Type;
   /**
+   * default: 1.0
+   * 
+   * Limit the swipe to percent of width, e.g.: 0.5 will make swipe possible only for 50% of elements's width
+   */
+  maxSwipe: number;
+  /**
    * Fired when item is clicked.
    */
   onClick?: () => void;

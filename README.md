@@ -204,6 +204,12 @@ Type: `LeadingActions component`
 
 Container component that sets up correct props in `SwipeAction`. See examples for usage.
 
+### maxSwipe
+
+Type: 'number' (optional, default: `1.0`)
+
+Limit the swipe to percent of width, e.g.: `0.5` will make swipe possible only for 50% of elements's width
+
 ### onClick
 
 Type: `function` (optional)
