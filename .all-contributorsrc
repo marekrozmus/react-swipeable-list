@@ -91,6 +91,15 @@
       "contributions": [
         "ideas"
       ]
+    },
+    {
+      "login": "canberkakartuna",
+      "name": "Canberk Akartuna",
+      "avatar_url": "https://avatars.githubusercontent.com/u/42892180?v=4",
+      "profile": "https://github.com/canberkakartuna",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
