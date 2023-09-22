@@ -5,6 +5,8 @@ import clsx from 'clsx';
 import { Type as ListType } from './SwipeableList';
 import './SwipeableListItem.css';
 
+let mouseDownTimeout;
+
 export const ItemContext = React.createContext();
 
 const ActionAnimation = {
@@ -824,6 +826,19 @@ class SwipeableListItem extends PureComponent {
     }
   };
 
+  onMouseDown = () => {
+    if (this.props.onLongClick) {
+      mouseDownTimeout = setTimeout(() => {
+        this.playReturnAnimation();
+        this.props.onLongClick();
+      }, this.props.longClickDelay || 1000);
+    }
+  };
+
+  onMouseUp = () => {
+    clearTimeout(mouseDownTimeout);
+  };
+
   render() {
     const { children, className, leadingActions, trailingActions } = this.props;
 
@@ -832,6 +847,8 @@ class SwipeableListItem extends PureComponent {
         className={clsx('swipeable-list-item', className)}
         ref={this.bindWrapperElement}
         onClick={this.handleClick}
+        onMouseDown={this.onMouseDown}
+        onMouseUp={this.onMouseUp}
       >
         {leadingActions &&
           this.renderActions(
@@ -878,6 +895,8 @@ SwipeableListItem.propTypes = {
   clickedCallback: PropTypes.func,
   id: PropTypes.string,
   resetState: PropTypes.func,
+  onLongClick: PropTypes.func,
+  longClickDelay: PropTypes.number,
 };
 
 export default SwipeableListItem;

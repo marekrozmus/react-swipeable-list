@@ -129,7 +129,7 @@ export const SwipeableList: FunctionComponent<SwipeableListProps>;
 interface SwipeableListItemProps {
   /**
    * default: 0
-   * 
+   *
    * Time in milliseconds after which swipe action and animation should be called after trigggering swipe action.
    */
   actionDelay?: number;
@@ -174,7 +174,7 @@ interface SwipeableListItemProps {
   listType?: Type;
   /**
    * default: 1.0
-   * 
+   *
    * Limit the swipe to percent of width, e.g.: 0.5 will make swipe possible only for 50% of elements's width
    */
   maxSwipe: number;
@@ -189,7 +189,7 @@ interface SwipeableListItemProps {
   /**
    * Fired every time swipe progress changes. The reported `progress` value is always an integer in range 0 to 100 inclusive.
    */
-  onSwipeProgress?: (progress:number, dragDirection: string) => void;
+  onSwipeProgress?: (progress: number, dragDirection: string) => void;
   /**
    * Fired after swipe has started (after drag gesture passes the `swipeStartThreshold` distance in pixels).
    */
@@ -225,6 +225,16 @@ interface SwipeableListItemProps {
    */
   trailingActions?: ReactNode;
   className?: string;
+  /**
+   * Fired when item long press and close swipe action and return item.
+   */
+  onLongClick?: () => void;
+  /**
+   * default: 1000
+   *
+   * Delay after which a long press will trigger
+   */
+  longClickDelay?: number;
 }
 
 export class SwipeableListItem extends PureComponent<SwipeableListItemProps> {}
