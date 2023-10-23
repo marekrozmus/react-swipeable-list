@@ -536,6 +536,36 @@ class SwipeableListItem extends PureComponent {
         this.resetState();
       }
     }
+
+    this.fixFinalWidth();
+  };
+
+  fixFinalWidth = () => {
+    const { leadingOffset = 0, trailingOffset = 0 } = this.props;
+
+    if (this.leadingActionsElement) {
+      const leadingActionsWidth = parseInt(
+        this.leadingActionsElement.style.width
+      );
+
+      if (leadingActionsWidth > 0) {
+        this.leadingActionsElement.style.width = `${
+          leadingActionsWidth + leadingOffset
+        }px`;
+      }
+    }
+
+    if (this.trailingActionsElement) {
+      const trailingActionsWidth = parseInt(
+        this.trailingActionsElement.style.width
+      );
+
+      if (trailingActionsWidth > 0) {
+        this.trailingActionsElement.style.width = `${
+          trailingActionsWidth + trailingOffset
+        }px`;
+      }
+    }
   };
 
   dragStartedWithinItem = () => {
@@ -689,6 +719,8 @@ class SwipeableListItem extends PureComponent {
         this.left > 0 ? 0 : -this.left
       }px`;
     }
+
+    this.fixFinalWidth();
 
     if (this.listElement) {
       if (fullSwipe) {
@@ -878,6 +910,8 @@ SwipeableListItem.propTypes = {
   clickedCallback: PropTypes.func,
   id: PropTypes.string,
   resetState: PropTypes.func,
+  leadingOffset: PropTypes.number,
+  trailingOffset: PropTypes.number,
 };
 
 export default SwipeableListItem;

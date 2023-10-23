@@ -129,7 +129,7 @@ export const SwipeableList: FunctionComponent<SwipeableListProps>;
 interface SwipeableListItemProps {
   /**
    * default: 0
-   * 
+   *
    * Time in milliseconds after which swipe action and animation should be called after trigggering swipe action.
    */
   actionDelay?: number;
@@ -174,7 +174,7 @@ interface SwipeableListItemProps {
   listType?: Type;
   /**
    * default: 1.0
-   * 
+   *
    * Limit the swipe to percent of width, e.g.: 0.5 will make swipe possible only for 50% of elements's width
    */
   maxSwipe: number;
@@ -225,6 +225,20 @@ interface SwipeableListItemProps {
    */
   trailingActions?: ReactNode;
   className?: string;
+  /**
+   * default: `undefined`
+   *
+   * Add an offset (in px) to the leading action width.
+   * This can be useful when the parent has border radius higher than 0.
+   */
+  leadingOffset?: number;
+    /**
+   * default: `undefined`
+   *
+   * Add an offset (in px) to the trailing action width.
+   * This can be useful when the parent has border radius higher than 0
+   */
+  trailingOffset?:number;
 }
 
 export class SwipeableListItem extends PureComponent<SwipeableListItemProps> {}
