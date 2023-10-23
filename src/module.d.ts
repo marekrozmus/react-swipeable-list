@@ -88,7 +88,6 @@ interface SwipeableListProps {
   className?: string;
   /**
    * default: `undefined`
-   * 
    * Applies className properties to swipeable list.
    */
   type?: Type;
