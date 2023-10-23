@@ -18,8 +18,6 @@
   box-sizing: border-box;
   height: 100%;
   display: flex;
-  position: relative;
-  z-index: 1;
 }
 
 .swipeable-list-item__content--return {

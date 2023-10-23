@@ -189,7 +189,7 @@ interface SwipeableListItemProps {
   /**
    * Fired every time swipe progress changes. The reported `progress` value is always an integer in range 0 to 100 inclusive.
    */
-  onSwipeProgress?: (progress:number, dragDirection: string) => void;
+  onSwipeProgress?: (progress: number, dragDirection: string) => void;
   /**
    * Fired after swipe has started (after drag gesture passes the `swipeStartThreshold` distance in pixels).
    */
@@ -225,20 +225,6 @@ interface SwipeableListItemProps {
    */
   trailingActions?: ReactNode;
   className?: string;
-  /**
-   * default: `undefined`
-   *
-   * Add an offset (in px) to the leading action width.
-   * This can be useful when the parent has border radius higher than 0.
-   */
-  leadingOffset?: number;
-    /**
-   * default: `undefined`
-   *
-   * Add an offset (in px) to the trailing action width.
-   * This can be useful when the parent has border radius higher than 0
-   */
-  trailingOffset?:number;
 }
 
 export class SwipeableListItem extends PureComponent<SwipeableListItemProps> {}
