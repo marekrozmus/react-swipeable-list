@@ -88,7 +88,7 @@ interface SwipeableListProps {
   className?: string;
   /**
    * default: `undefined`
-   *
+   * 
    * Applies className properties to swipeable list.
    */
   type?: Type;
@@ -129,7 +129,7 @@ export const SwipeableList: FunctionComponent<SwipeableListProps>;
 interface SwipeableListItemProps {
   /**
    * default: 0
-   *
+   * 
    * Time in milliseconds after which swipe action and animation should be called after trigggering swipe action.
    */
   actionDelay?: number;
