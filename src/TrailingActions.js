@@ -8,12 +8,21 @@ const TrailingActions = ({ children }) => {
   }
 
   if (Array.isArray(children)) {
+
+    let lastValidChildIndex = 0;
+
+    React.Children.forEach(children, (child, index) => {
+        if (React.isValidElement(child)) {
+            lastValidChildIndex = index;
+        }
+    });
+
     return React.Children.map(children, (child, index) => {
       if (!React.isValidElement(child)) {
         return child;
       }
       return React.cloneElement(child, {
-        main: index === children.length - 1,
+        main: index === lastValidChildIndex,
         trailing: true,
       });
     });
