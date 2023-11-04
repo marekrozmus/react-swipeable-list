@@ -190,7 +190,7 @@ class SwipeableListItem extends PureComponent {
 
   handleDragStart = ({ clientX, clientY }) => {
     if (this.props.clickedCallback) {
-      this.props.clickedCallback(this.props.id);
+      this.props.clickedCallback(this.id);
     }
 
     if (!this.leadingActionsOpened && !this.trailingActionsOpened) {
@@ -830,6 +830,7 @@ class SwipeableListItem extends PureComponent {
     return (
       <div
         className={clsx('swipeable-list-item', className)}
+        id={this.id}
         ref={this.bindWrapperElement}
         onClick={this.handleClick}
       >
