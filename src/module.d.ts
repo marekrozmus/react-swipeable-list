@@ -122,6 +122,12 @@ interface SwipeableListProps {
    * It can be set for the whole list or for every item. See `threshold` for `SwipeableListItem`. Value from the `SwipeableListItem` takes precedence.
    */
   threshold?: number;
+  /**
+   * default: `false`
+   * 
+   * Disables mouse events for swiping.
+   */
+  optOutMouseEvents?: boolean;
 }
 
 export const SwipeableList: FunctionComponent<SwipeableListProps>;
@@ -225,6 +231,12 @@ interface SwipeableListItemProps {
    */
   trailingActions?: ReactNode;
   className?: string;
+    /**
+   * default: `false`
+   * 
+   * Disables mouse events for swiping.
+   */
+    optOutMouseEvents?: boolean;
 }
 
 export class SwipeableListItem extends PureComponent<SwipeableListItemProps> {}

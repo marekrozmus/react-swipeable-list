@@ -111,7 +111,9 @@ class SwipeableListItem extends PureComponent {
   }
 
   componentDidMount() {
-    this.listElement.addEventListener('mousedown', this.handleDragStartMouse);
+    if (!this.props.optOutMouseEvents) {
+      this.listElement.addEventListener('mousedown', this.handleDragStartMouse);
+    }
 
     this.listElement.addEventListener('touchstart', this.handleDragStartTouch, {
       passive: true,
@@ -155,10 +157,12 @@ class SwipeableListItem extends PureComponent {
       this.requestedAnimationFrame = null;
     }
 
-    this.listElement.removeEventListener(
-      'mousedown',
-      this.handleDragStartMouse
-    );
+    if (!this.props.optOutMouseEvents) {
+      this.listElement.removeEventListener(
+        'mousedown',
+        this.handleDragStartMouse
+      );
+    }
 
     this.listElement.removeEventListener(
       'touchstart',
@@ -872,6 +876,7 @@ SwipeableListItem.propTypes = {
   onSwipeEnd: PropTypes.func,
   onSwipeProgress: PropTypes.func,
   onSwipeStart: PropTypes.func,
+  optOutMouseEvents: PropTypes.bool,
   scrollStartThreshold: PropTypes.number,
   swipeStartThreshold: PropTypes.number,
   threshold: PropTypes.number,
